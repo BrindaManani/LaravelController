@@ -7,6 +7,7 @@
         @csrf
         <legend class="text-center m-3"> Add User data</legend>
         <div class="form-group row m-3">
+            <input type="hidden" name="id" value="{{  count(session('users') ?? []) + 1 }}">
             <label for="name" class="col-sm-2 col-form-label">Name</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="name" id="name" placeholder="Brinda" required>
@@ -86,7 +87,7 @@
         <div class="form-group row m-3">
             <label for="email" class="col-sm-2 col-form-label">Date of birth</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" name="profile[dob]" id="profile[dob]" placeholder="email@example.com">
+                <input type="date" class="form-control" name="profile[dob]" id="profile[dob]">
             </div>
         </div>
         <div class="form-group row m-3">

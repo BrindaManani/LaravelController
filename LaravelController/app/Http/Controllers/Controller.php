@@ -12,7 +12,7 @@ abstract class Controller
                 'name' => 'Amit Sharma',
                 'email' => 'amit.sharma@example.com',
                 'phone' => '+919876543210',
-                'role' => 'Admin',
+                'role' => 'admin',
                 'status' => 'active',
                 'profile' => [
                     'avatar' => null,
@@ -20,7 +20,7 @@ abstract class Controller
                     'dob' => '1992-05-14',
                 ],
                 'address' => [
-                    'city' => 'Ahmedabad',
+                    'city' => 'ahmedabad',
                     'state' => 'Gujarat',
                     'country' => 'India',
                     'pincode' => null,
@@ -34,7 +34,7 @@ abstract class Controller
                 'name' => 'Neha Patel',
                 'email' => 'neha.patel@example.com',
                 'phone' => null,
-                'role' => 'User',
+                'role' => 'user',
                 'status' => 'inactive',
                 'profile' => [
                     'avatar' => 'neha.jpg',
@@ -51,12 +51,12 @@ abstract class Controller
                 'name' => 'Rahul Verma',
                 'email' => 'rahul.verma@example.com',
                 'phone' => '+918765432109',
-                'role' => 'Manager',
+                'role' => 'manager',
                 'status' => 'active',
                 'profile' => null,
                 'address' => [
-                    'city' => 'Mumbai',
-                    'state' => 'Maharashtra',
+                    'city' => 'rajkot',
+                    'state' => 'Gujarat',
                     'country' => 'India',
                     'pincode' => '400001',
                 ],
@@ -69,7 +69,7 @@ abstract class Controller
                 'name' => 'Sarah Johnson',
                 'email' => 'sarah.johnson@example.com',
                 'phone' => '+14155552671',
-                'role' => 'User',
+                'role' => 'user',
                 'status' => 'blocked',
                 'profile' => [
                     'avatar' => null,
@@ -91,7 +91,7 @@ abstract class Controller
                 'name' => 'Daniel Lee',
                 'email' => 'daniel.lee@example.com',
                 'phone' => '+821012345678',
-                'role' => 'Support',
+                'role' => 'support',
                 'status' => 'active',
                 'profile' => [
                     'avatar' => 'daniel.png',
@@ -99,9 +99,9 @@ abstract class Controller
                     'dob' => '1990-11-21',
                 ],
                 'address' => [
-                    'city' => 'Seoul',
-                    'state' => null,
-                    'country' => 'South Korea',
+                    'city' => 'surat',
+                    'state' => 'Gujarat',
+                    'country' => null,
                     'pincode' => null,
                 ],
                 'permissions' => ['tickets.view', 'tickets.reply'],
@@ -109,7 +109,7 @@ abstract class Controller
                 'deleted_at' => null,
             ],
         ];
-        session(['users' =>  $users]);
+        session()->put('users' ,  $users);
         return $users;
     }
 }
