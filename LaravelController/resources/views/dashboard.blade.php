@@ -26,8 +26,10 @@
             <td>{{ $user['role'] ?: "null"  }}</td>
             <td>
                 {{ $user['status'] ?: "null"  }}</td>
-            <td><a href="{{ route('detail', $user['id']) }}">View details >
-            <a href="{{ route('editUser', $user['id']) }}">Edit ></td>
+            <td><a href="{{ route('detail', $user['id']) }}"><button class="btn btn-primary">View details ></button>
+            <a href="{{ route('addUser', $user['id']) }}"><button class="btn btn-primary">Edit ></button>
+                <a href="{{ route('userdelete', $user['id']) }}"><button class="btn btn-danger">Delete ></button></td>
+            </td>
         </tr>
         @endforeach
     </tbody>

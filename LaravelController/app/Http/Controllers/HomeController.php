@@ -16,12 +16,11 @@ class HomeController extends Controller
 
         // $users = $this->getUsers();
         $users = session('users');
-        // dd(session('users'));
+        // dd($users);
         return view("dashboard", compact('users'));
     }
 
     public function detail($id){
-
         $users = session('users');
         $user = collect($users)->firstWhere('id', $id);
         // $filter = array_filter($user);
