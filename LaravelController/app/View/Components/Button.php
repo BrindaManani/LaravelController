@@ -17,7 +17,7 @@ class Button extends Component
     {
         //
         $this->type = $type;
-        $this->class = $class ?: 'bg-blue-500 text-white hover:bg-blue-600';
+        $this->class = $class ?: 'shadow bg-linear-to-r from-cyan-500 to-blue-500 text-white font-bold py-2 px-4 rounded' ;
     }
 
     /**

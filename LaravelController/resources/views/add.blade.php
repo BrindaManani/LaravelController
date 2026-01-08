@@ -3,6 +3,15 @@
 @section('page_title', 'Home')
 
 @section('content')
+{{-- @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif --}}
     <form method="post" action="{{  route('createUser') }}" class="border">
         @csrf
         <legend class="text-center m-3"> Add User data</legend>
@@ -88,6 +97,10 @@
             <label for="email" class="col-sm-2 col-form-label">Date of birth</label>
             <div class="col-sm-10">
                 <input type="date" class="form-control" name="profile[dob]" id="profile[dob]">
+                @error('profile.dob')
+                <span>"{{ $message }}"</span>
+                    
+                @enderror
             </div>
         </div>
         <div class="form-group row m-3">

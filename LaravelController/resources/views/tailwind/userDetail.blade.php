@@ -14,7 +14,7 @@
     <div class="flex flex-wrap -mx-3 my-6 ml-5">
         @if($user != null)
         <div class="w-full px-3 mb-6 ">
-            <h5 class="text-xl font-bold mb-2">{{ $user['name'] }}
+            <h5 class="text-xl font-bold mb-2">{{ $user['first_name'] }} {{ $user['last_name'] }}
                 <span class="text-xs font-semibold px-2.5 py-0.5 rounded ml-3
                     {{ (isset($user['status']) && $user['status'] == 'active') ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800' }}">
                     {{ $user['status'] ?? 'Inactive' }}

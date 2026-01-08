@@ -14,8 +14,12 @@ class HomeController extends Controller
     }
     public function index(){
         // dd(session('users'));
+        if(session('users')){
+            $users = session('users');
+        }
+        else{
         $users = $this->getUsers();
-        // $users = session('users');
+        }
         // dd($users);
         return view("dashboard", compact('users'));
     }

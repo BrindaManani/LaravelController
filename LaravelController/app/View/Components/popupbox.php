@@ -3,20 +3,17 @@
 namespace App\View\Components;
 
 use Closure;
-use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
 
-class Alert extends Component
+class popupbox extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $class;
-    public function __construct($class = '')
+    public function __construct()
     {
         //
-        // $this->type = $type;
-        $this->class = $class ?: 'text-center bg-blue-200 text-xl text-blue-700';
     }
 
     /**
@@ -24,6 +21,6 @@ class Alert extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.alert');
+        return view('components.popupbox');
     }
 }

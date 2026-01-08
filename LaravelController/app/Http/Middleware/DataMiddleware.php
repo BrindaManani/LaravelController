@@ -15,10 +15,12 @@ class DataMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!session()->has('usersList') || empty(session('usersList'))) {
         $users = [
             [
                 'id' => 1,
-                'name' => 'Amit Sharma',
+                'first_name' => 'Amit',
+                'last_name' => 'Sharma',
                 'email' => 'amit.sharma@example.com',
                 'phone' => '+919876543210',
                 'role' => 'admin',
@@ -40,7 +42,8 @@ class DataMiddleware
             ],
             [
                 'id' => 2,
-                'name' => 'Neha Patel',
+                'first_name' => 'Neha',
+                'last_name' => 'Patel',
                 'email' => 'neha.patel@example.com',
                 'phone' => null,
                 'role' => 'user',
@@ -57,7 +60,8 @@ class DataMiddleware
             ],
             [
                 'id' => 3,
-                'name' => 'Rahul Verma',
+                'first_name' => 'Rahul',
+                'last_name' => 'Verma',
                 'email' => 'rahul.verma@example.com',
                 'phone' => '+918765432109',
                 'role' => 'manager',
@@ -75,7 +79,8 @@ class DataMiddleware
             ],
             [
                 'id' => 4,
-                'name' => 'Sarah Johnson',
+                'first_name' => 'Sarah',
+                'last_name' => 'Johnson',
                 'email' => 'sarah.johnson@example.com',
                 'phone' => '+14155552671',
                 'role' => 'user',
@@ -97,7 +102,8 @@ class DataMiddleware
             ],
             [
                 'id' => 5,
-                'name' => 'Daniel Lee',
+                'first_name' => 'Daniel',
+                'last_name' => 'Lee',
                 'email' => 'daniel.lee@example.com',
                 'phone' => '+821012345678',
                 'role' => 'support',
@@ -119,6 +125,7 @@ class DataMiddleware
             ],
         ];
         session()->put('users' ,  $users);
+    }
         // dd(session('users'));
         return $next($request);
     }
