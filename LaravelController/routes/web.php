@@ -7,18 +7,20 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Tailwind\HomeController as TailwindHomeController;
 use App\Http\Controllers\Tailwind\UserController as TailwindUserontroller;
 
+use App\Http\Middleware\DataMiddleware;
+
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
 
 Route::get('/add/{id?}', [UserController::class, 'addUser'])->name('addUser');
 Route::post('/createUser', [UserController::class, 'createUser'])->name('createUser');
 Route::get('/userdelete/{id}', [UserController::class, 'userdelete'])->name('userdelete');
-// Route::get('/delete', function () {
-//     session()->forget('users');
-// });
+Route::get('/delete', function () {
+    session()->forget('users');
+});
 
 Route::prefix('tailwind')->name('tailwind.')->group(function () {
-    Route::get('/', [TailwindHomeController::class, 'index'])->name('index');
+    Route::get('/', [TailwindHomeController::class, 'index'])->middleware(['data'])->name('index');
     Route::get('/user-list', [TailwindHomeController::class, 'userList'])->name('userList');
     Route::get('/user-detail/{id}', [TailwindHomeController::class, 'userDetail'])->name('userDetail');
 

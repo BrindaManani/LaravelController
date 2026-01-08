@@ -3,6 +3,7 @@
 @section('page_title', 'Home')
 @section('content')
 
+
 <form method="POST" action="{{ route('tailwind.userCreate') }}" class="max-w-2xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
     @csrf
     <legend class="text-center text-2xl font-semibold mb-6 text-gray-800">Add User Data</legend>
@@ -15,8 +16,8 @@
         </div>
         <div class="w-3/4">
             <input type="text" name="name" id="name" value="{{ $user['name'] ?? '' }}" placeholder="Brinda"
-                required
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                @error('name') <div class="text-red-500">{{ $message }}</div> @enderror
         </div>
     </div>
 
@@ -25,9 +26,10 @@
             <label for="email" class="block text-gray-700 font-bold text-right mb-1 pr-4">Email</label>
         </div>
         <div class="w-3/4">
-            <input type="email" name="email" id="email" value="{{ $user['email'] ?? '' }}"
-                placeholder="example@gmail.com" required
+            <input type="text" name="email" id="email" value="{{ $user['email'] ?? '' }}"
+                placeholder="example@gmail.com"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                @error('email') <div class="text-red-500">{{ $message }}</div> @enderror
         </div>
     </div>
 
@@ -38,8 +40,9 @@
         </div>
         <div class="w-3/4">
             <input type="text" name="phone" id="phone" value="{{ $user['phone'] ?? '' }}"
-                placeholder="987654321" required
+                placeholder="987654321"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                @error('phone') <div class="text-red-500">{{ $message }}</div> @enderror
         </div>
     </div>
 
@@ -49,7 +52,7 @@
         </div>
         <div class="w-3/4 flex flex-wrap gap-4">
             @foreach (['user', 'admin', 'manager', 'support'] as $role)
-                <label class="inline-flex items-center cursor-pointer">
+                <label class="inline-flex items-center">
                     <input type="radio" name="radioBtn" value="{{ $role }}"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
                         {{ (isset($user['role']) && $user['role'] == $role) || (!isset($user['role']) && $role == 'user') ? 'checked' : '' }}>
@@ -64,13 +67,13 @@
             <span class="block text-gray-700 font-bold text-right mb-1 pr-4">Status</span>
         </div>
         <div class="w-3/4 flex gap-4">
-            <label class="inline-flex items-center cursor-pointer">
+            <label class="inline-flex items-center">
                 <input type="radio" name="statusBtn" value="active"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
                     {{ (isset($user['status']) && $user['status'] == 'active') || !isset($user['status']) ? 'checked' : '' }}>
                 <span class="ml-2 text-sm font-medium text-gray-700">Active</span>
             </label>
-            <label class="inline-flex items-center cursor-pointer">
+            <label class="inline-flex items-center">
                 <input type="radio" name="statusBtn" value="inactive"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
                     {{ isset($user['status']) && $user['status'] == 'inactive' ? 'checked' : '' }}>
@@ -78,6 +81,7 @@
             </label>
         </div>
     </div>
+    
 
 
     <div class="flex items-center mb-4">
@@ -85,13 +89,13 @@
             <label class="block text-gray-700 font-bold text-right mb-1 pr-4">Gender</label>
         </div>
         <div class="w-3/4 flex gap-4">
-            <label class="inline-flex items-center cursor-pointer">
+            <label class="inline-flex items-center">
                 <input type="radio" name="profile[gender]" value="male"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
                     {{ (isset($user['profile']['gender']) && $user['profile']['gender'] == 'male') || !isset($user['profile']['gender']) ? 'checked' : '' }}>
                 <span class="ml-2 text-sm font-medium text-gray-700">Male</span>
             </label>
-            <label class="inline-flex items-center cursor-pointer">
+            <label class="inline-flex items-center">
                 <input type="radio" name="profile[gender]" value="female"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
                     {{ isset($user['profile']['gender']) && $user['profile']['gender'] == 'female' ? 'checked' : '' }}>
@@ -183,8 +187,6 @@
             <span class="ml-2 text-sm font-medium text-gray-700 ">Write</span>
         </div>
     </div>
-
-
     <div class="flex items-center justify-center">
         <div class="w-1/4"></div>
         <div class="w-3/4">
@@ -194,5 +196,13 @@
             </button>
         </div>
     </div>
+
+    <!-- <div class="flex items-center justify-center">
+        <div class="w-1/4"></div>
+        <div class="w-3/4">
+            <x-button type="submit" class="bg-green-500 hover:bg-green-600">Submit</x-button>
+
+        </div>
+    </div> -->
 </form>
 @endsection

@@ -13,9 +13,9 @@ class HomeController extends Controller
         return $users;
     }
     public function index(){
-
-        // $users = $this->getUsers();
-        $users = session('users');
+        // dd(session('users'));
+        $users = $this->getUsers();
+        // $users = session('users');
         // dd($users);
         return view("dashboard", compact('users'));
     }

@@ -1,11 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Middleware;
 
-abstract class Controller
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class DataMiddleware
 {
-    //
-    public function getUsers(){
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
         $users = [
             [
                 'id' => 1,
@@ -110,6 +119,7 @@ abstract class Controller
             ],
         ];
         session()->put('users' ,  $users);
-        return $users;
+        // dd(session('users'));
+        return $next($request);
     }
 }

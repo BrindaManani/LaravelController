@@ -2,7 +2,20 @@
 @extends('tailwind.include.header')
 @section('page_title', 'Home')
 @section('content')
- <table class="mx-auto mt-12 border border-gray-200 rounded-lg shadow-xl">
+@if (session('success'))
+    <div  id="success-message" class="text-center bg-emerald-200 text-xl text-emerald-700">
+        {{ session('success') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const msg = document.getElementById('success-message');
+            if (msg) {
+                msg.remove();
+            }
+        }, 2000);
+    </script>
+@endif
+ <table class="mx-auto mt-12 mb-6 border border-gray-200 rounded-lg shadow-xl">
     <thead>
         <tr>
             <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase ">Id</th>
@@ -31,12 +44,21 @@
                     <a href="{{ route('tailwind.userAdd', $user['id']) }}" class="text-sm/6 font-semibold text-white">
                         <button type="button" class="rounded-md bg-linear-to-r from-cyan-500 to-blue-500 px-3 py-2 text-sm font-semibold text-white">Edit</button>
                     </a>
-                    <a href="{{ route('tailwind.userDelete', $user['id']) }}" class="text-sm/6 font-semibold text-white">
-                        <button type="button" class="rounded-md bg-linear-to-bl from-red-500 to-orange-200 px-3 py-2 text-sm font-semibold text-white">Delete</button>
+                    <a href="{{ route('tailwind.userDelete', $user['id']) }}"
+                        onclick="return confirm('Are you sure you want to delete this data?');"
+                        class="text-sm/6 font-semibold text-white">
+                            <button type="button"
+                                class="rounded-md bg-linear-to-bl from-red-500 to-orange-200 px-3 py-2 text-sm font-semibold text-white">
+                                Delete
+                            </button>
                     </a>
+
                 </td>
             </tr>
         @endforeach
     </tbody>
 </table>
+<div class="flex justify-center">
+    {{ $users->links('pagination::tailwind') }}
+</div>
 @endsection

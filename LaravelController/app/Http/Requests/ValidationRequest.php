@@ -11,7 +11,7 @@ class ValidationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,10 +22,20 @@ class ValidationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
+            'name' => 'required|regex:/^[a-zA-Z\s]/',
             'email' => 'required|email',
-            'phone' => 'required|integer|max:10',
-            'dob' => 'date',
+            'phone' => 'required|numeric|digits:10',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Please enter name.',
+            'name.string'    => 'Name must be a valid string.',
+            'email.required' => 'Please enter email.',
+            'email.email'    => 'Please enter a valid email address.',
+            'phone.required' => 'Please enter phone number.',
+            'phone.digits'   => 'Phone number must be exactly 10 digits.',
         ];
     }
 }
