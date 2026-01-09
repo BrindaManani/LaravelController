@@ -1,5 +1,5 @@
-@extends('tailwind.layout.app')
-@extends('tailwind.include.header')
+@extends('user-management-system.layout.app')
+@extends('user-management-system.include.header')
 @section('page_title', 'Home')
 @section('content')
 

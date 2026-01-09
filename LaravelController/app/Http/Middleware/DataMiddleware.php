@@ -124,9 +124,8 @@ class DataMiddleware
                 'deleted_at' => null,
             ],
         ];
-        session()->put('users' ,  $users);
+        session()->put('usersList' ,  $users);
     }
-        // dd(session('users'));
         return $next($request);
     }
 }

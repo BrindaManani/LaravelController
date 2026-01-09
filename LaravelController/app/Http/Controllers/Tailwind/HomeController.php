@@ -3,64 +3,51 @@
 namespace App\Http\Controllers\Tailwind;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class HomeController extends Controller
 {
-    //
-    // public function getUsers(){
-
-    //     if (session()->has('users')) {
-    //         return session('users');
-    //     }
-    //     $defaultUsers = parent::defaultUsers();
-    //     session(['users' => $defaultUsers]);
-    //     return $defaultUsers;
-    // }
-    public function index(){
-
-        $users = session('users');
-        // dd($users);
+    public function index()
+    {
+        $users = session('usersList');
         $count = count($users);
         $activeUsersCount = count(array_filter($users, function ($user) {
             return $user['status'] === 'active';
         }));
         $inactiveUsersCount = count(array_filter($users, function ($user) {
-             return $user['status'] === 'inactive';
+            return $user['status'] === 'inactive';
         }));
         $blockUsersCount = count(array_filter($users, function ($user) {
-             return $user['status'] === 'blocked';
+            return $user['status'] === 'blocked';
         }));
-        return view("tailwind.dashboard", compact('count', 'activeUsersCount', 'inactiveUsersCount','blockUsersCount'));
+
+        return view('user-management-system.dashboard', compact('count', 'activeUsersCount', 'inactiveUsersCount', 'blockUsersCount'));
     }
 
-    public function userList(){
-        
-        // $users = session('users');
-        $users = collect(session('users'));
+    public function userList()
+    {
+        $users = collect(session('usersList'));
         $perPage = 5;
         $page = request()->get('page', 1);
-        // dd($page);
         $paginatedUsers = new LengthAwarePaginator(
-            $users->forPage($page, $perPage), 
-            $users->count(),                  
-            $perPage,                        
-            $page,                           
+            $users->forPage($page, $perPage),
+            $users->count(),
+            $perPage,
+            $page,
             [
-                'path' => request()->url(),   
-                'query' => request()->query() 
+                'path' => request()->url(),
+                'query' => request()->query(),
             ]
         );
-        // dd($paginatedUsers);
-        return view("tailwind.userList", ['users' => $paginatedUsers]);
+
+        return view('user-management-system.userList', ['users' => $paginatedUsers]);
     }
 
-    public function userDetail($id){
-        $users = session('users');
+    public function userDetail($id)
+    {
+        $users = session('usersList');
         $user = collect($users)->firstWhere('id', $id);
-        // dd($user);
-        return view("tailwind.userDetail", compact('user'));
+        return view('user-management-system.userDetail', compact('user'));
 
     }
 }

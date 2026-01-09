@@ -1,10 +1,10 @@
-@extends('tailwind.layout.app')
-@extends('tailwind.include.header')
+@extends('user-management-system.layout.app')
+@extends('user-management-system.include.header')
 @section('page_title', 'Home')
 @section('content')
 
 
-    <form method="POST" action="{{ route('tailwind.userCreate') }}" enctype="multipart/form-data"
+    <form method="POST" action="{{ route('user-management-system.userCreate') }}" enctype="multipart/form-data"
         class="max-w-3xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
         @csrf
         <legend class="text-center text-2xl font-semibold mb-6 text-gray-800">Add User Data</legend>
@@ -149,8 +149,8 @@
             <div class="flex-1">
                 <label for="phone" class="block text-gray-700 font-bold mb-1">Address<span class="text-red-500">
                         *</span></label>
-                <textarea type="text" name="address[address]" id="address[address]" value="{{ $user['address'] ?? '' }}" placeholder="Kalavad road..."
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"></textarea>
+                <textarea type="text" name="address[address]" id="address[address]" placeholder="Kalavad road..."
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">{{ $user['address']['address'] ?? "" }}</textarea>
                 @error('address.address')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror

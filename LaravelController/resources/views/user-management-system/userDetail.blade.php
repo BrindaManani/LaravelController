@@ -1,5 +1,5 @@
-@extends('tailwind.layout.app')
-@extends('tailwind.include.header')
+@extends('user-management-system.layout.app')
+@extends('user-management-system.include.header')
 @section('page_title', 'Home')
 @section('content')
 
@@ -43,6 +43,7 @@
         @if(isset($user['address']) && !empty(array_filter($user['address'])))
         <div class="w-full px-3 mb-6">
             <h5 class="text-xl font-bold mb-2">Address</h5>
+            <p class="text-gray-700">{{ $user['address']['address'] ?? ""}}</p>
             <p class="text-gray-700">{{ $user['address']['city'] }}</p>
             <p class="text-gray-700">{{ $user['address']['state'] }}</p>
             <p class="text-gray-700">{{ $user['address']['country'] }}</p>

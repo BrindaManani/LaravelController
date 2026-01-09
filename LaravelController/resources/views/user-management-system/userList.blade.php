@@ -1,5 +1,5 @@
-@extends('tailwind.layout.app')
-@extends('tailwind.include.header')
+@extends('user-management-system.layout.app')
+@extends('user-management-system.include.header')
 @section('page_title', 'Home')
 @section('content')
     @if (session('success') || session('alert'))
@@ -41,14 +41,14 @@
                     <td class="px-6 py-4 text-gray-800">{{ $user['status'] ?: 'null' }}</td>
 
                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                        <a href="{{ route('tailwind.userDetail', $user['id']) }}"
+                        <a href="{{ route('user-management-system.userDetail', $user['id']) }}"
                             class="text-sm/6 font-semibold text-white">
                             <x-button type="submit"><i class="fa-solid fa-eye"></i> View deatil</x-button>
                         </a>
-                        <a href="{{ route('tailwind.userAdd', $user['id']) }}" class="text-sm/6 font-semibold text-white">
+                        <a href="{{ route('user-management-system.userAdd', $user['id']) }}" class="text-sm/6 font-semibold text-white">
                             <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit</x-button>
                         </a>
-                        {{-- <a href="{{ route('tailwind.userDelete', $user['id']) }}"
+                        {{-- <a href="{{ route('user-management-system.userDelete', $user['id']) }}"
                         onclick="return confirm('Are you sure you want to delete this data ?')" >
                         <x-button type="submit" class="rounded-md bg-linear-to-bl from-red-500 to-orange-200 px-3 py-2 text-sm font-semibold text-white">Delete</x-button>
                     </a> --}}
@@ -76,7 +76,7 @@
                                                     <button type="button" class="shadow bg-linear-to-r from-cyan-500 to-blue-500 text-white font-bold py-2 px-4 rounded"
                                                         onclick="document.getElementById('deleteModal-{{ $user['id'] }}').classList.add('hidden')">Cancel </button>
 
-                                                    <a href="{{ route('tailwind.userDelete', ['id' => $user['id']]) }}">
+                                                    <a href="{{ route('user-management-system.userDelete', ['id' => $user['id']]) }}">
                                                         <button type="button" class="rounded-md bg-linear-to-bl from-red-500 to-orange-200 px-3 py-2 text-sm font-semibold text-white">delete</button> </a>
                                                 </div>
                                             </div>

@@ -19,7 +19,7 @@ Route::get('/delete', function () {
     session()->forget('users');
 });
 
-Route::prefix('tailwind')->name('tailwind.')->group(function () {
+Route::prefix('user-management-system')->name('user-management-system.')->group(function () {
     Route::get('/', [TailwindHomeController::class, 'index'])->middleware(['data'])->name('index');
     Route::get('/user-list', [TailwindHomeController::class, 'userList'])->name('userList');
     Route::get('/user-detail/{id}', [TailwindHomeController::class, 'userDetail'])->name('userDetail');
