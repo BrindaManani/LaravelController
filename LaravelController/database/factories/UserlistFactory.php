@@ -21,7 +21,7 @@ class UserlistFactory extends Factory
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
             'password' => Hash::make('password'),
-            'confirm_password' => Hash::make('password'),
+            'phone' => fake()->unique()->phoneNumber(),
             'role' => fake()->randomElement(['admin', 'user', 'manager', 'support']),
             'status' => fake()->randomElement(['active', 'inactive']),
             'gender' => fake()->randomElement(['Male', 'Female']),

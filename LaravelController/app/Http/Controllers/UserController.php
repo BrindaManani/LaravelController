@@ -54,7 +54,7 @@ class UserController extends Controller
         return redirect()->route('index');
     }
 
-    public function userdelete($id)
+    public function userDelete($id)
     {
         $users = session('users', []);
         $index = collect($users)->search(function ($item) use ($id) {

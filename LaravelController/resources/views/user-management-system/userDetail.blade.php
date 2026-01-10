@@ -28,41 +28,30 @@
         </div>
         @endif
 
-        @if(isset($user['profile']) && !empty(array_filter($user['profile'])))
         <div class="w-full px-3">
             <h5 class="text-xl font-bold mb-2">Profile</h5>
-            <p class="text-gray-700">Gender: {{ $user['profile']['gender'] }}</p>
-            @if(!empty($user['profile']['dob']))
-            <p class="text-gray-700">Date of birth: {{ $user['profile']['dob'] }}</p>
-            @endif
+            <p class="text-gray-700">Gender: {{ $user['gender'] ?? null }}</p>
+            <p class="text-gray-700">Date of birth: {{ $user['dob'] ?? null}}</p>
         </div>
-        @endif
     </div>
 
     <div class="flex flex-wrap -mx-3 mb-6 ml-5">
-        @if(isset($user['address']) && !empty(array_filter($user['address'])))
         <div class="w-full px-3 mb-6">
-            <h5 class="text-xl font-bold mb-2">Address</h5>
-            <p class="text-gray-700">{{ $user['address']['address'] ?? ""}}</p>
-            <p class="text-gray-700">{{ $user['address']['city'] }}</p>
-            <p class="text-gray-700">{{ $user['address']['state'] }}</p>
-            <p class="text-gray-700">{{ $user['address']['country'] }}</p>
-            <p class="text-gray-700">Pincode: {{ $user['address']['pincode'] ?? "null" }}</p>
+            <h5 class="text-xl font-bold mb-2">Address detail</h5>
+            <p class="text-gray-700">Address:{{  $user['address'] }}</p>
+            <p class="text-gray-700">City: {{ $user['city'] ?? null}}</p>
+            <p class="text-gray-700">State: {{ $user['state'] }}</p>
+            <p class="text-gray-700">Country: {{ $user['country'] }}</p>
+            <p class="text-gray-700">Pincode: {{ $user['pincode'] ?? null}}</p>
         </div>
-        @endif
 
-        @if(isset($user['permissions']) && !empty(array_filter($user['permissions'])))
         <div class="w-full px-3">
             <h5 class="text-xl font-bold mb-2">Permissions</h5>
             <div class="flex flex-wrap gap-2">
-                <ul>
-                @foreach($user['permissions'] as $permission)
-                        <li>{{ $permission }}</li>
-                @endforeach
+                <p>{{ $user['permissions'] }}</p>
                 </ul>
             </div>
         </div>
-        @endif
     </div>
 </div>
 </div>

@@ -12,9 +12,11 @@
     @yield('js_content')
 
 <body>
+    @if(!Route::is('register'))
     <div class="header sticky top-0 z-20">
         @yield('header')
     </div>
+    @endif
     <div>
         @yield('content')
     </div>

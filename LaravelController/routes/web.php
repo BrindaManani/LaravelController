@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Tailwind\HomeController as TailwindHomeController;
 use App\Http\Controllers\Tailwind\UserController as TailwindUserontroller;
+use App\Http\Controllers\Tailwind\AuthController as TailwindAuthontroller;
 
 use App\Http\Middleware\DataMiddleware;
 
@@ -20,11 +21,17 @@ Route::get('/delete', function () {
 });
 
 Route::prefix('user-management-system')->name('user-management-system.')->group(function () {
-    Route::get('/', [TailwindHomeController::class, 'index'])->middleware(['data'])->name('index');
+    Route::get('/register-form', [TailwindAuthontroller::class, 'registerForm'])->name('registerForm');
+    Route::post('/register', [TailwindAuthontroller::class, 'register'])->name('register');
+
+    Route::get('/login-form', [TailwindAuthontroller::class, 'loginForm'])->name('loginForm');
+    Route::post('/login', [TailwindAuthontroller::class, 'login'])->name('login');
+
+    Route::get('/', [TailwindHomeController::class, 'index'])->name('index');
     Route::get('/user-list', [TailwindHomeController::class, 'userList'])->name('userList');
     Route::get('/user-detail/{id}', [TailwindHomeController::class, 'userDetail'])->name('userDetail');
 
-    Route::get('/add-user/{id?}', [TailwindUserontroller::class, 'addUser'])->name('userAdd');
-    Route::post('/create-user', [TailwindUserontroller::class, 'createUser'])->name('userCreate');
-    Route::get('/user-delete/{id}', [TailwindUserontroller::class, 'userdelete'])->name('userDelete');
+    Route::get('/add-user/{id?}', [TailwindUserontroller::class, 'addUser'])->name('addUser');
+    Route::post('/create-user/{id?}', [TailwindUserontroller::class, 'createUser'])->name('createUser');
+    Route::get('/user-delete/{id}', [TailwindUserontroller::class, 'userDelete'])->name('userDelete');
 });

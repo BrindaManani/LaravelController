@@ -4,18 +4,17 @@
 @section('content')
 
 
-    <form method="POST" action="{{ route('user-management-system.userCreate') }}" enctype="multipart/form-data"
+    <form method="POST" action="{{ route('user-management-system.createUser', [$user['id'] ?? '']) }}" enctype="multipart/form-data"
         class="max-w-3xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
         @csrf
         <legend class="text-center text-2xl font-semibold mb-6 text-gray-800">Add User Data</legend>
 
-        <input type="hidden" name="id" value="{{ $user['id'] ?? count(session('users') ?? []) + 1 }}">
 
         <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
                 <label for="name" class="block text-gray-700 font-bold mb-1">First Name<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="first_name" id="first_name" value="{{ $user['first_name'] ?? '' }}" placeholder="Brinda"
+                <input type="text" name="first_name" id="first_name" value="{{  $user['first_name'] ?? ''}}" placeholder="Brinda"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('first_name')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -117,15 +116,15 @@
                 </div>
                 <div class="w-3/4 grid grid-cols-2 gap-x-4 gap-y-2">
                     <label class="inline-flex items-center">
-                    <input type="radio" name="profile[gender]" value="male"
+                    <input type="radio" name="gender" value="male"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-                        {{ (isset($user['profile']['gender']) && $user['profile']['gender'] == 'male') || !isset($user['profile']['gender']) ? 'checked' : '' }}>
+                        {{ (isset($user['gender']) && $user['gender'] == 'male') || !isset($user['gender']) ? 'checked' : '' }}>
                     <span class="ml-2 text-sm font-medium text-gray-700">Male</span>
                 </label>
                 <label class="inline-flex items-center">
-                    <input type="radio" name="profile[gender]" value="female"
+                    <input type="radio" name="gender" value="female"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-                        {{ isset($user['profile']['gender']) && $user['profile']['gender'] == 'female' ? 'checked' : '' }}>
+                        {{ isset($user['gender']) && $user['gender'] == 'female' ? 'checked' : '' }}>
                     <span class="ml-2 text-sm font-medium text-gray-700">Female</span>
                 </label>
                 </div>
@@ -133,13 +132,13 @@
 
             <div class="w-1/2 items-start">
                 <div class="">
-                    <label for="profile[dob]" class="block text-gray-700 font-bold mb-1 pr-4">Date of
+                    <label for="dob" class="block text-gray-700 font-bold mb-1 pr-4">Date of
                     birth<span class="text-red-500"> *</span></label>
                 </div>
                 <div class=" items-center gap-3">
-                    <input type="date" name="profile[dob]" id="profile[dob]" value="{{ $user['profile']['dob'] ?? '' }}"
+                    <input type="date" name="dob" id="dob" value="{{ $user['dob'] ?? '' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
-                @error('profile.dob')
+                @error('dob')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror
                 </div>
@@ -149,9 +148,9 @@
             <div class="flex-1">
                 <label for="phone" class="block text-gray-700 font-bold mb-1">Address<span class="text-red-500">
                         *</span></label>
-                <textarea type="text" name="address[address]" id="address[address]" placeholder="Kalavad road..."
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">{{ $user['address']['address'] ?? "" }}</textarea>
-                @error('address.address')
+                <textarea type="text" name="address" id="address" placeholder="Kalavad road..."
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">{{ $user['address'] ?? "" }}</textarea>
+                @error('address')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror
             </div>
@@ -159,20 +158,20 @@
         <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
                 <label for="inputState" class="block text-gray-700 font-bold mb-1 pr-4">City</label>
-                <select id="inputState" name="address[city]"
+                <select id="inputState" name="city"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                     <option value="">Select city</option>
                     @foreach (['rajkot' => 'Rajkot', 'ahmedabad' => 'Ahmedabad', 'surat' => 'Surat', 'vadodara' => 'Vadodara'] as $val => $label)
                         <option value="{{ $val }}"
-                            {{ isset($user['address']['city']) && $user['address']['city'] == $val ? 'selected' : '' }}>
+                            {{ isset($user['city']) && $user['city'] == $val ? 'selected' : '' }}>
                             {{ $label }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="flex-1">
                 <label for="address[state]" class="block text-gray-700 font-bold mb-1 pr-4">State</label>
-                <input type="text" name="address[state]" id="address[state]"
-                    value="{{ $user['address']['state'] ?? 'Gujarat' }}"
+                <input type="text" name="state" id="address[state]"
+                    value="{{ $user['state'] ?? 'Gujarat' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             </div>
         </div>
@@ -180,56 +179,18 @@
         <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
                 <label for="address[country]" class="block text-gray-700 font-bold mb-1 pr-4">Country</label>
-                <input type="text" name="address[country]" id="address[country]"
-                    value="{{ $user['address']['country'] ?? 'India' }}"
+                <input type="text" name="country" id="country"
+                    value="{{ $user['country'] ?? 'India' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             </div>
 
             <div class="flex-1">
                 <label for="address[pincode]" class="block text-gray-700 font-bold mb-1 pr-4">Pincode</label>
-                <input type="text" name="address[pincode]" id="address[pincode]"
-                    value="{{ $user['address']['pincode'] ?? '' }}" placeholder="360001"
+                <input type="text" name="pincode" id="pincode"
+                    value="{{ $user['pincode'] ?? '' }}" placeholder="360001"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             </div>
         </div>
-
-        <div class="flex flex-row gap-4 items-start mb-6">
-            <div class="flex-1">
-                <span class="block text-gray-700 font-bold mb-4 pr-4">Permissions</span>
-                <div class="w-3/4 flex flex-wrap gap-4">
-                    <input type="checkbox" name="permission[view]" value="view"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                        {{ isset($user['permissions']['view']) && $user['permissions']['view'] == 'view' ? 'checked' : '' }}>
-                    <span class="ml-2 text-sm font-medium text-gray-700 ">View</span>
-                    <input type="checkbox" name="permission[Read]" value="Read"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                        {{ isset($user['permissions']['Read']) && $user['permissions']['Read'] == 'Read' ? 'checked' : '' }}>
-                    <span class="ml-2 text-sm font-medium text-gray-700 ">Read</span>
-                    <input type="checkbox" name="permission[Write]" value="Write"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                        {{ isset($user['permissions']['Write']) && $user['permissions']['Write'] == 'Write' ? 'checked' : '' }}>
-                    <span class="ml-2 text-sm font-medium text-gray-700 ">Write</span>
-                </div>
-            </div>
-            <div class="flex-1">
-                <label for="profile[avatar]" class="block text-gray-700 font-bold mb-1 pr-4">Profile</label>
-                <input type="file" name="profile[avatar]" id="profile[avatar]"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
-                    @error('profile.avatar')
-                        <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
-                    @enderror
-            </div>
-        </div>
-        {{-- <div class="flex items-center justify-center">
-        <div class="w-1/4"></div>
-        <div class="w-3/4">
-            <button type="submit"
-                class="shadow bg-linear-to-r from-cyan-500 to-blue-500 text-white font-bold py-2 px-4 rounded">
-                {{ isset($user) ? 'Update User' : 'Add User' }}
-            </button>
-        </div>
-    </div> --}}
-
         <div class="flex justify-center">
                 <x-button type="submit">Submit</x-button>
         </div>

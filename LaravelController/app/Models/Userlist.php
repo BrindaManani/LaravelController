@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Userlist extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'id',
         'first_name',
         'last_name',
         'email',
         'password',
-        'confirm_password',
+        'phone',
         'role',
         'status',
         'gender',
         'dob',
         'pincode',
-        'permissions',
         'avatar',
     ];
 

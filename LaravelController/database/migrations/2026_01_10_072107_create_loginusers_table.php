@@ -11,10 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        if(!Schema::hasTable('loginusers')){
+        Schema::create('loginusers', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
+            $table->string('password');
             $table->timestamps();
         });
+    }
     }
 
     /**
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('loginusers');
     }
 };

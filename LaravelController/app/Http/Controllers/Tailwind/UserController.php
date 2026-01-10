@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Tailwind;
 
 use App\Http\Controllers\Controller;
+use App\Models\Userlist;
 use App\Rules\dateRule;
-use App\Rules\uniqueEmail;
+use Hash;
 use Illuminate\Http\Request;
 
 // use App\Http\Requests\ValidationRequest;
@@ -14,8 +15,8 @@ class UserController extends Controller
     public function addUser($id = null)
     {
         if ($id != null) {
-            $users = session('usersList');
-            $user = collect($users)->firstWhere('id', $id);
+
+            $user = userlist::where('id', $id)->first();
 
             return view('user-management-system.add', compact('user'));
         }
@@ -23,71 +24,54 @@ class UserController extends Controller
         return view('user-management-system.add');
     }
 
-    public function createUser(Request $request)
+    public function createUser(Request $request, $id = null)
     {
-        $users = session()->get('usersList', []);
+        // dd($id);
         $request->validate([
             'first_name' => 'required|regex:/^[a-zA-Z\s]/',
             'last_name' => 'required|regex:/^[a-zA-Z\s]/',
-            'email' => ['required','email'],
+            'email' => 'required|email|unique:userlists,email,'.$id,
             'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/',
-            'confirm_password' => 'required|same:password',
+            // 'confirm_password' => 'required|same:password',
             'phone' => 'required|numeric|regex:/^[0-9+]/',
-            'address.address' => 'required',
-            'profile.dob' => ['date', new dateRule],
-            'profile.avatar' => 'image|mimes:jpg,jpeg,png,webp',
+            'address' => 'required',
+            'dob' => ['date', new dateRule],
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp',
         ]);
-        $newUser = [
-            'id' => $request->id,
+        $data = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => $request->password,
-            'confirm_password' => $request->confirm_password,
-            'phone' => $request->phone ?? null,
-            'role' => $request->radioBtn ?? null,
-            'status' => $request->statusBtn ?? null,
-            'profile' => [
-                'avatar' => $request->avatar ?? null,
-                'gender' => $request->profile['gender'] ?? null,
-                'dob' => $request->profile['dob'] ?? null,
-            ],
-            'address' => [
-                'address' => $request->address['address'],
-                'city' => $request->address['city'] ?? null,
-                'state' => $request->address['state'] ?? null,
-                'country' => $request->address['country'] ?? null,
-                'pincode' => $request->address['pincode'] ?? null,
-            ],
-            'permissions' => [
-                'view' => $request->permission['view'] ?? null,
-                'read' => $request->permission['read'] ?? null,
-                'write' => $request->permission['write'] ?? null,
-            ],
+            'phone' => $request->phone,
+            'role' => $request->radioBtn,
+            'status' => $request->statusBtn,
+            'avatar' => $request->avatar ?? null,
+            'gender' => $request->gender,
+            'dob' => $request->dob,
+            'address' => $request->address,
+            'city' => $request->city ?? null,
+            'state' => $request->state ?? null,
+            'country' => $request->country ?? null,
+            'pincode' => $request->pincode ?? null,
         ];
-        $index = collect($users)->search(function ($item) use ($request) {
-            return $item['id'] == $request->id;
-        });
-        if ($index !== false) {
-            $users[$index] = $newUser;
-        } else {
-            $users[] = $newUser;
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
         }
-        session()->put('usersList', $users);
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        }
+        Userlist::updateOrCreate(
+            ['id' => $id], // Unique identifier to find the record
+            $data          // Values to update or create
+        );
 
         return redirect()->route('user-management-system.userList')->with('success', 'User saved successfully!');
     }
 
-    public function userdelete($id)
+    public function userdelete(Userlist $id)
     {
-        $users = session('usersList', []);
-        $index = collect($users)->search(function ($item) use ($id) {
-            return $item['id'] == (int) $id;
-        });
-        if ($index !== false) {
-            unset($users[$index]);
-            session(['usersList' => array_values($users)]);
-        }
+        $id->delete();
 
         return redirect()->route('user-management-system.userList')->with('alert', 'User deleted successfully!');
     }

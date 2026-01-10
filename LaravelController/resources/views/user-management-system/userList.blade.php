@@ -45,7 +45,7 @@
                             class="text-sm/6 font-semibold text-white">
                             <x-button type="submit"><i class="fa-solid fa-eye"></i> View deatil</x-button>
                         </a>
-                        <a href="{{ route('user-management-system.userAdd', $user['id']) }}" class="text-sm/6 font-semibold text-white">
+                        <a href="{{ route('user-management-system.addUser', $user['id']) }}" class="text-sm/6 font-semibold text-white">
                             <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit</x-button>
                         </a>
                         {{-- <a href="{{ route('user-management-system.userDelete', $user['id']) }}"
