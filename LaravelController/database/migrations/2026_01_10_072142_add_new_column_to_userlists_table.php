@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('userlists') && (!Schema::hasColumn('userlists', 'password', 'phone', 'role', 'status', 'gender', 'dob', 'address'))) {
-            Schema::table('userlists', function (Blueprint $table) {
+        if (Schema::hasTable('userdetails') && (!Schema::hasColumn('userdetails', 'password', 'phone', 'role', 'status', 'gender', 'dob', 'address'))) {
+            Schema::table('userdetails', function (Blueprint $table) {
                 $table->string('password');
                 $table->string('phone');
                 $table->string('role');
@@ -29,8 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable('userlists') && (!Schema::hasColumn('userlists', 'password', 'phone', 'role', 'status', 'gender', 'dob', 'address'))) {
-            Schema::table('userlists', function (Blueprint $table) {
+        if (Schema::hasTable('userdetails') && (!Schema::hasColumn('userdetails', 'password', 'phone', 'role', 'status', 'gender', 'dob', 'address'))) {
+            Schema::table('userdetails', function (Blueprint $table) {
                 $table->dropColumn('password');
                 $table->dropColumn('phone');
                 $table->dropColumn('role');

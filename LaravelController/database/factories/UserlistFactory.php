@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Hash;
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Userlist>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Userdetail>
  */
-class UserlistFactory extends Factory
+class UserdetailFactory extends Factory
 {
     /**
      * Define the model's default state.

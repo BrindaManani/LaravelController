@@ -4,8 +4,8 @@
 @section('content')
 
 
-    <form method="POST" action="{{ route('user-management-system.createUser', [$user['id'] ?? '']) }}" enctype="multipart/form-data"
-        class="max-w-3xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
+    <form method="POST" action="{{ route('user-management-system.createUser', [$user['id'] ?? '']) }}"
+        enctype="multipart/form-data" class="max-w-3xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
         @csrf
         <legend class="text-center text-2xl font-semibold mb-6 text-gray-800">Add User Data</legend>
 
@@ -14,7 +14,8 @@
             <div class="flex-1">
                 <label for="name" class="block text-gray-700 font-bold mb-1">First Name<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="first_name" id="first_name" value="{{  $user['first_name'] ?? ''}}" placeholder="Brinda"
+                <input type="text" name="first_name" id="first_name" value="{{ $user['first_name'] ?? '' }}"
+                    placeholder="Brinda"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('first_name')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -23,7 +24,8 @@
             <div class="flex-1">
                 <label for="name" class="block text-gray-700 font-bold mb-1">Last Name<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="last_name" id="last_name" value="{{ $user['last_name'] ?? '' }}" placeholder="Brinda"
+                <input type="text" name="last_name" id="last_name" value="{{ $user['last_name'] ?? '' }}"
+                    placeholder="Manani"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('last_name')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -57,7 +59,9 @@
         <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
                 <label for="phone" class="block text-gray-700 font-bold mb-1">Password<span class="text-red-500">
-                        *</span> <p class="text-sm">(Uppercase, Lowercase & Number required)</p></label>
+                        *</span>
+                    <p class="text-sm">(Uppercase, Lowercase & Number required)</p>
+                </label>
                 <input type="password" name="password" id="password" value="{{ $user['password'] ?? '' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('password')
@@ -66,15 +70,31 @@
             </div>
             <div class="flex-1">
                 <label for="phone" class="block text-gray-700 font-bold mb-1">Confirm Password<span class="text-red-500">
-                        *</span><p class="text-sm">(Must be same as password)</p></label>
-                <input type="password" name="confirm_password" id="confirm_password" value="{{ $user['confirm_password'] ?? '' }}"
+                        *</span>
+                    <p class="text-sm">(Must be same as password)</p>
+                </label>
+                <input type="password" name="confirm_password" id="confirm_password" value="{{ $user['password'] ?? '' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('confirm_password')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror
             </div>
         </div>
-
+        <div class="flex gap-10 mb-6">
+            <div class="flex-1">
+                <label for="department" class="block text-gray-700 font-bold mb-1 pr-4">Department<span class="text-red-500">
+                        *</span></label>
+                <select id="department" name="department"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                    <option value="">Select Department</option>
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}"
+                            {{ isset($department->department) && $department->department !== null ? 'selected' : '' }}>
+                            {{ $department->department }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         <div class="flex flex-row gap-10 mb-6">
             <div class="w-1/2 items-start">
                 <div class="w-1/4">
@@ -116,40 +136,40 @@
                 </div>
                 <div class="w-3/4 grid grid-cols-2 gap-x-4 gap-y-2">
                     <label class="inline-flex items-center">
-                    <input type="radio" name="gender" value="male"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-                        {{ (isset($user['gender']) && $user['gender'] == 'male') || !isset($user['gender']) ? 'checked' : '' }}>
-                    <span class="ml-2 text-sm font-medium text-gray-700">Male</span>
-                </label>
-                <label class="inline-flex items-center">
-                    <input type="radio" name="gender" value="female"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-                        {{ isset($user['gender']) && $user['gender'] == 'female' ? 'checked' : '' }}>
-                    <span class="ml-2 text-sm font-medium text-gray-700">Female</span>
-                </label>
+                        <input type="radio" name="gender" value="male"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+                            {{ (isset($user['gender']) && $user['gender'] == 'male') || !isset($user['gender']) ? 'checked' : '' }}>
+                        <span class="ml-2 text-sm font-medium text-gray-700">Male</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="gender" value="female"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+                            {{ isset($user['gender']) && $user['gender'] == 'female' ? 'checked' : '' }}>
+                        <span class="ml-2 text-sm font-medium text-gray-700">Female</span>
+                    </label>
                 </div>
             </div>
 
             <div class="w-1/2 items-start">
                 <div class="">
                     <label for="dob" class="block text-gray-700 font-bold mb-1 pr-4">Date of
-                    birth<span class="text-red-500"> *</span></label>
+                        birth<span class="text-red-500"> *</span></label>
                 </div>
                 <div class=" items-center gap-3">
                     <input type="date" name="dob" id="dob" value="{{ $user['dob'] ?? '' }}"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
-                @error('dob')
-                    <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
-                @enderror
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                    @error('dob')
+                        <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </div>
         <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
-                <label for="phone" class="block text-gray-700 font-bold mb-1">Address<span class="text-red-500">
+                <label for="address" class="block text-gray-700 font-bold mb-1">Address<span class="text-red-500">
                         *</span></label>
                 <textarea type="text" name="address" id="address" placeholder="Kalavad road..."
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">{{ $user['address'] ?? "" }}</textarea>
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">{{ $user['address'] ?? '' }}</textarea>
                 @error('address')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror
@@ -169,30 +189,54 @@
                 </select>
             </div>
             <div class="flex-1">
-                <label for="address[state]" class="block text-gray-700 font-bold mb-1 pr-4">State</label>
-                <input type="text" name="state" id="address[state]"
-                    value="{{ $user['state'] ?? 'Gujarat' }}"
+                <label for="state" class="block text-gray-700 font-bold mb-1 pr-4">State</label>
+                <input type="text" name="state" id="address[state]" value="{{ $user['state'] ?? 'Gujarat' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             </div>
         </div>
 
         <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
-                <label for="address[country]" class="block text-gray-700 font-bold mb-1 pr-4">Country</label>
-                <input type="text" name="country" id="country"
-                    value="{{ $user['country'] ?? 'India' }}"
+                <label for="country" class="block text-gray-700 font-bold mb-1 pr-4">Country</label>
+                <input type="text" name="country" id="country" value="{{ $user['country'] ?? 'India' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             </div>
 
             <div class="flex-1">
-                <label for="address[pincode]" class="block text-gray-700 font-bold mb-1 pr-4">Pincode</label>
-                <input type="text" name="pincode" id="pincode"
-                    value="{{ $user['pincode'] ?? '' }}" placeholder="360001"
+                <label for="pincode" class="block text-gray-700 font-bold mb-1 pr-4">Pincode</label>
+                <input type="text" name="pincode" id="pincode" value="{{ $user['pincode'] ?? '' }}"
+                    placeholder="360001"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             </div>
         </div>
+        <div class="flex flex-row gap-4 items-start mb-6">
+            <div class="flex-1">
+                <span class="block text-gray-700 font-bold mb-4 pr-4">Permissions<span class="text-red-500">
+                        *</span></span>
+                <div class="w-3/4 flex flex-wrap gap-4">
+                    <input type="checkbox" name="permission[view]" value="view"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" @checked(isset($user) && $user->permissions->contains('permission', 'view'))>
+                    <span class="ml-2 text-sm font-medium text-gray-700 ">View</span>
+                    <input type="checkbox" name="permission[Read]" value="Read"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" @checked(isset($user) && $user->permissions->contains('permission', 'Read'))>
+                    <span class="ml-2 text-sm font-medium text-gray-700 ">Read</span>
+                    <input type="checkbox" name="permission[Write]" value="Write"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" @checked(isset($user) && $user->permissions->contains('permission', 'Write'))>
+                    <span class="ml-2 text-sm font-medium text-gray-700 ">Write</span>
+                </div>
+            </div>
+            <div class="flex-1">
+                <label for="avatar" class="block text-gray-700 font-bold mb-1 pr-4">Profile</label>
+                <input type="file" name="avatar" id="profile[avatar]"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                @error('profile.avatar')
+                    <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+
         <div class="flex justify-center">
-                <x-button type="submit">Submit</x-button>
+            <x-button type="submit">{{ isset($user) ? 'Update User' : 'Add User' }}</x-button>
         </div>
     </form>
 @endsection

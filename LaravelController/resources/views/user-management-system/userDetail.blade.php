@@ -6,7 +6,7 @@
 <div class="flex justify-center mx-auto p-4 mt-8">
     <div class="max-w-2xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
         <div class="flex justify-center mb-6 h-14">
-            <img src="{{ $user['profile']['avatar'] ?? asset('assets/img/profile.png') }}" 
+            <img src="{{ asset('/storage/' . $user['avatar']) ?? asset('assets/img/profile.png') }}" 
                 alt="Profile Picture"
                 class="w-12 h-12 rounded-full border-2 border-gray-300 object-cover">
         </div>
@@ -24,6 +24,7 @@
             <p class="text-gray-700">Id: {{ $user['id'] }}</p>
             <p class="text-gray-700">Email: {{ $user['email'] }}</p>
             <p class="text-gray-700">Phone: {{ $user['phone'] }}</p>
+            <p class="text-gray-700">Department: {{ $user->user_department?->department?->department ?? 'No Department' }}</p>
             <p class="text-gray-700">Role: <span class="capitalize">{{ $user['role'] }}</span></p>
         </div>
         @endif
@@ -48,7 +49,10 @@
         <div class="w-full px-3">
             <h5 class="text-xl font-bold mb-2">Permissions</h5>
             <div class="flex flex-wrap gap-2">
-                <p>{{ $user['permissions'] }}</p>
+                <ul>
+                @foreach($user->permissions as $permission)
+                    <li class="">{{ $permission->permission }}</li>
+                @endforeach
                 </ul>
             </div>
         </div>

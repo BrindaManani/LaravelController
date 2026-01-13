@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('userdetails')){
-            Schema::create('userdetails', function (Blueprint $table) {
+        if (! Schema::hasTable('permissions')) {
+            Schema::create('permissions', function (Blueprint $table) {
                 $table->id();
-                $table->string('first_name');
-                $table->string('last_name');
-                $table->string('email');
-                $table->string('phone');
+                $table->foreignId('userdetail_id')->constrained()->onDelete('cascade');
+                $table->string('permission');
                 $table->timestamps();
             });
         }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('userdetails');
+        Schema::dropIfExists('permissions');
     }
 };

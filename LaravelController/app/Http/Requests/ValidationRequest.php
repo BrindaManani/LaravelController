@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\dateRule;
 
 class ValidationRequest extends FormRequest
 {
@@ -21,15 +22,18 @@ class ValidationRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('user') ?? $this->id; 
         return [
             'first_name' => 'required|regex:/^[a-zA-Z\s]/',
             'last_name' => 'required|regex:/^[a-zA-Z\s]/',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:userdetails,email,'.$id,
             'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/',
             'confirm_password' => 'required|same:password',
-            'phone' => 'required|numeric|regex:/^[0-9+]/',
-            'profile.dob' => 'required|date',
-            'profile.avatar' => 'image|mimes:jpg,jpeg,png,webp',
+            'phone' => 'required|numeric|regex:/^[0-9+]{10,13}$/',
+            'address' => 'required',
+            'dob' => ['date', new dateRule],
+            'permission' => 'required',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp',
         ];
     }
     public function messages()
@@ -41,9 +45,9 @@ class ValidationRequest extends FormRequest
             'email.email'    => 'Please enter a valid email address.',
             'phone.required' => 'Please enter phone number.',
             'phone.digits'   => 'Phone number must be exactly 10 digits.',
-            'profile.dob.required' => 'date required',
-            'profile.dob.date' => 'Please enter valid date',
-            'address.pincode.required' =>"valid pin."
+            'dob.date' => 'Please enter valid date',
+            'address.required' =>"Please enter address.",
+            'permission.required' =>"Please checked permission.",
         ];
     }
 }

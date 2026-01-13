@@ -3,41 +3,31 @@
 namespace App\Http\Controllers\Tailwind;
 
 use App\Http\Controllers\Controller;
-use App\Models\Userlist;
-use App\Rules\dateRule;
+use App\Http\Requests\ValidationRequest;
+use App\Models\Department;
+use App\Models\Permission;
+use App\Models\UserDepartment;
+use App\Models\Userdetail;
 use Hash;
-use Illuminate\Http\Request;
-
-// use App\Http\Requests\ValidationRequest;
 
 class UserController extends Controller
 {
     public function addUser($id = null)
     {
+        $departments = Department::get();
         if ($id != null) {
 
-            $user = userlist::where('id', $id)->first();
+            $user = Userdetail::where('id', $id)->with('user_department')->first();
 
-            return view('user-management-system.add', compact('user'));
+            return view('user-management-system.add', compact('user', 'departments'));
         }
 
-        return view('user-management-system.add');
+        return view('user-management-system.add', compact('departments'));
     }
 
-    public function createUser(Request $request, $id = null)
+    public function createUser(ValidationRequest $request, $id = null)
     {
-        // dd($id);
-        $request->validate([
-            'first_name' => 'required|regex:/^[a-zA-Z\s]/',
-            'last_name' => 'required|regex:/^[a-zA-Z\s]/',
-            'email' => 'required|email|unique:userlists,email,'.$id,
-            'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/',
-            // 'confirm_password' => 'required|same:password',
-            'phone' => 'required|numeric|regex:/^[0-9+]/',
-            'address' => 'required',
-            'dob' => ['date', new dateRule],
-            'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp',
-        ]);
+        $validateData = $request->validated();
         $data = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -45,7 +35,7 @@ class UserController extends Controller
             'password' => $request->password,
             'phone' => $request->phone,
             'role' => $request->radioBtn,
-            'status' => $request->statusBtn,
+            'status' => $request->statusBtn ?? 'active',
             'avatar' => $request->avatar ?? null,
             'gender' => $request->gender,
             'dob' => $request->dob,
@@ -53,23 +43,39 @@ class UserController extends Controller
             'city' => $request->city ?? null,
             'state' => $request->state ?? null,
             'country' => $request->country ?? null,
+            'permissions' => $request->permission ?? 'view',
             'pincode' => $request->pincode ?? null,
         ];
+
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
         if ($request->hasFile('avatar')) {
             $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
         }
-        Userlist::updateOrCreate(
-            ['id' => $id], // Unique identifier to find the record
-            $data          // Values to update or create
+        $user = Userdetail::updateOrCreate(
+            ['id' => $id],
+            $data
         );
+
+        $user_dept = UserDepartment::updateOrCreate(
+            ['userdetail_id' => $user->id],
+            ['department_id' => $request->department],
+        );
+
+        Permission::where('userdetail_id', $user->id)->delete();
+        $permissions = (array) $request->permission;
+        foreach ($data['permissions'] as $permission) {
+            Permission::create([
+                'userdetail_id' => $user->id,
+                'permission' => $permission,
+            ]);
+        }
 
         return redirect()->route('user-management-system.userList')->with('success', 'User saved successfully!');
     }
 
-    public function userdelete(Userlist $id)
+    public function userdelete(Userdetail $id)
     {
         $id->delete();
 

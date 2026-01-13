@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(Schema::hasTable('orders')){
-        Schema::rename('orders', 'carts', function (Blueprint $table) {
-            //
+        Schema::create('departments', function (Blueprint $table) {
+            $table->id();
+            $table->string('department');
+            $table->timestamps();
         });
-    }
     }
 
     /**
@@ -23,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('carts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('departments');
     }
 };
