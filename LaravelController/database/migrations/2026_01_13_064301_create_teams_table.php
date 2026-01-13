@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('carts') && Schema::hasColumn('product_id')) {
-            Schema::table('carts', function (Blueprint $table) {
-                //
-                $table->dropColumn('product_id');
-            });
-        }
+        if (! Schema::hasTable('teams')) {
+        Schema::create('teams', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+    }
     }
 
     /**
@@ -24,9 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-            Schema::table('carts', function (Blueprint $table) {
-                //
-            });
-
+        Schema::dropIfExists('team_controllers');
     }
 };

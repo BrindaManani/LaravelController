@@ -89,7 +89,7 @@
                     <option value="">Select Department</option>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}"
-                            {{ isset($department->department) && $department->department !== null ? 'selected' : '' }}>
+                            {{ $department->id == ($user->user_department->department->id ?? '') ? 'selected' : ''}}>
                             {{ $department->department }}</option>
                     @endforeach
                 </select>
@@ -213,16 +213,12 @@
             <div class="flex-1">
                 <span class="block text-gray-700 font-bold mb-4 pr-4">Permissions<span class="text-red-500">
                         *</span></span>
-                <div class="w-3/4 flex flex-wrap gap-4">
-                    <input type="checkbox" name="permission[view]" value="view"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" @checked(isset($user) && $user->permissions->contains('permission', 'view'))>
-                    <span class="ml-2 text-sm font-medium text-gray-700 ">View</span>
-                    <input type="checkbox" name="permission[Read]" value="Read"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" @checked(isset($user) && $user->permissions->contains('permission', 'Read'))>
-                    <span class="ml-2 text-sm font-medium text-gray-700 ">Read</span>
-                    <input type="checkbox" name="permission[Write]" value="Write"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" @checked(isset($user) && $user->permissions->contains('permission', 'Write'))>
-                    <span class="ml-2 text-sm font-medium text-gray-700 ">Write</span>
+                <div class="w-3/4 flex flex-wrap gap-1">
+                    @foreach($permissions as $permission)
+                    <input type="checkbox" name="permissions[]" value="{{ $permission->id == ($user->user_department->department->id ?? '') ? 'selected' : '' }}"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" >
+                    <span class="ml-2 text-sm font-medium text-gray-700 ">{{ $permission->permission}}</span>
+                    @endforeach
                 </div>
             </div>
             <div class="flex-1">

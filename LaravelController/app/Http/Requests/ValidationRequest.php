@@ -32,7 +32,6 @@ class ValidationRequest extends FormRequest
             'phone' => 'required|numeric|regex:/^[0-9+]{10,13}$/',
             'address' => 'required',
             'dob' => ['date', new dateRule],
-            'permission' => 'required',
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp',
         ];
     }

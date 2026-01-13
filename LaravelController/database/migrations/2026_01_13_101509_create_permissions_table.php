@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(Schema::hasTable('carts') && hasColumn('paid_amount')){
-        Schema::table('carts', function (Blueprint $table) {
-            //
-            $table->dropColumn('paid_amount');
-        });
-    }
+        if (! Schema::hasTable('permissions')) {
+            Schema::create('permissions', function (Blueprint $table) {
+                $table->id();
+                $table->string('permission');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -24,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-            Schema::table('carts', function (Blueprint $table) {
-                //
-            });
+        Schema::dropIfExists('permissions');
     }
 };

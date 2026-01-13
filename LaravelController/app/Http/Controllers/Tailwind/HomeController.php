@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Tailwind;
 
 use App\Http\Controllers\Controller;
 use App\Models\Userdetail;
+use App\Models\UserDepartment;
 
 class HomeController extends Controller
 {
@@ -19,13 +20,13 @@ class HomeController extends Controller
 
     public function userList()
     {
-        $paginatedUsers = Userdetail::with('user_department')->paginate(8);
-        return view('user-management-system.userList', ['users' => $paginatedUsers]);
+        $paginatedUsers = Userdetail::with('user_department.department')->paginate(8);
+        return view('user-management-system.userList', ['users' => $paginatedUsers, 'dept']);
     }
 
     public function userDetail($id)
     {
-        $user = Userdetail::where('id', $id)->with('permissions', 'user_department')->first();
+        $user = Userdetail::where('id', $id)->with( 'user_department')->first();
         return view('user-management-system.userDetail', compact('user'));
     }
 }

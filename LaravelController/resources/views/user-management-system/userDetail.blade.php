@@ -45,7 +45,7 @@
             <p class="text-gray-700">Country: {{ $user['country'] }}</p>
             <p class="text-gray-700">Pincode: {{ $user['pincode'] ?? null}}</p>
         </div>
-
+        @if($user->permission !== null)
         <div class="w-full px-3">
             <h5 class="text-xl font-bold mb-2">Permissions</h5>
             <div class="flex flex-wrap gap-2">
@@ -56,6 +56,7 @@
                 </ul>
             </div>
         </div>
+        @endif
     </div>
 </div>
 </div>

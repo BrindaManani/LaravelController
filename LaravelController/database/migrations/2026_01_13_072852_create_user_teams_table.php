@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (! Schema::hasTable('permissions')) {
-            Schema::create('permissions', function (Blueprint $table) {
+        if (! Schema::hasTable('user_teams')) {
+            Schema::create('user_teams', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('userdetail_id')->constrained()->onDelete('cascade');
-                $table->string('permission');
+                $table->foreignId('team_id')->constrained()->onDelete('cascade');
                 $table->timestamps();
             });
         }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('user_teams');
     }
 };

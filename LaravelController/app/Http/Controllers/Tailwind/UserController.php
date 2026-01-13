@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidationRequest;
 use App\Models\Department;
 use App\Models\Permission;
+use App\Models\UserPermission;
 use App\Models\UserDepartment;
 use App\Models\Userdetail;
 use Hash;
@@ -15,11 +16,12 @@ class UserController extends Controller
     public function addUser($id = null)
     {
         $departments = Department::get();
+        $permissions = Permission::get();
         if ($id != null) {
 
             $user = Userdetail::where('id', $id)->with('user_department')->first();
-
-            return view('user-management-system.add', compact('user', 'departments'));
+            // dd($user->user_department->department->id);
+            return view('user-management-system.add', compact('user', 'departments', 'permissions'));
         }
 
         return view('user-management-system.add', compact('departments'));
@@ -43,10 +45,8 @@ class UserController extends Controller
             'city' => $request->city ?? null,
             'state' => $request->state ?? null,
             'country' => $request->country ?? null,
-            'permissions' => $request->permission ?? 'view',
             'pincode' => $request->pincode ?? null,
         ];
-
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
@@ -63,12 +63,12 @@ class UserController extends Controller
             ['department_id' => $request->department],
         );
 
-        Permission::where('userdetail_id', $user->id)->delete();
+        UserPermission::where('userdetail_id', $user->id)->delete();
         $permissions = (array) $request->permission;
-        foreach ($data['permissions'] as $permission) {
-            Permission::create([
+        foreach ($request->permissions as $permission) {
+            UserPermission::create([
                 'userdetail_id' => $user->id,
-                'permission' => $permission,
+                'permission_id' => $permission,
             ]);
         }
 

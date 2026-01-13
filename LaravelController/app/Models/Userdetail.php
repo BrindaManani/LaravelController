@@ -4,8 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Permission;
+use App\Models\UserPermission;
 use App\Models\UserDepartment;
+use App\Models\UserTeam;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 class Userdetail extends Model
 {
     use HasFactory;
@@ -50,10 +54,11 @@ class Userdetail extends Model
         return 'id';
     }
 
-    public function permissions(){
-        return $this->hasMany(Permission::class, 'userdetail_id', 'id');
+    public function user_permissions(){
+        return $this->belongsToMany(UserPermission::class, 'userdetail_id', 'id');
     }
-    public function user_department(){
+    public function user_department():HasOne{
         return $this->hasOne(UserDepartment::class, 'userdetail_id', 'id');
     }
+
 }

@@ -18,70 +18,40 @@
             }, 2000);
         </script>
     @endif
-    {{-- <div class="relative mx-auto mt-12 mb-6 max-w-fit">
-        <div class="absolute -top-10 right-0">
-            <a href="{{ route('user-management-system.addUser') }}">
-                <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Add</x-button>
-            </a>
-        </div> --}}
-    <table id="user-list-table" class="mx-auto mt-12 mb-6 border border-gray-200 rounded-lg shadow-xl overflow-hidden">
-
-        <caption class="px-6 py-4 border-b border-gray-200">
-            <div class="flex justify-between items-center">
-                <div class="text-left">
-                    <h2 class="text-xl font-bold text-gray-800">User Management System</h2>
-                </div>
-
-                <a href="{{ route('user-management-system.addUser') }}" class="whitespace-nowrap">
-                    <x-button>
-                        <i class="fa-solid fa-plus mr-2"></i> Add User
-                    </x-button>
-                </a>
-            </div>
-        </caption>
-
+    <table id="team-list-table" class="mx-auto mt-12 mb-6 border border-gray-200 rounded-lg shadow-xl">
         <thead>
             <tr>
                 <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase ">Id</th>
-                <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Name</th>
-                <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Department</th>
-                <th scope="col"class="px-6 py-3 font-medium text-gray-500 uppercase">Role</th>
-                <th scope="col"class="px-6 py-3 font-medium text-gray-500 uppercase">Status</th>
+                <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Team Name</th>
                 <th scope="col"class="px-6 py-3 font-medium text-gray-500 uppercase">Action</th>
             </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200">
-            @foreach ($users as $user)
+        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+            @foreach ($teams as $team)
                 <tr>
-                    <td class="px-6 py-4 font-medium text-gray-800">{{ $user['id'] ?: 'null' }}</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">{{ $user['first_name'] }} {{ $user['last_name'] }}
-                    </td>
-                    <td class="px-6 py-4 text-gray-800">
-                        {{ $user->user_department?->department?->department ?? 'No Department' }}</td>
-                    <td class="px-6 py-4 text-gray-800">{{ $user['role'] ?: 'null' }}</td>
-                    <td class="px-6 py-4 text-gray-800">{{ $user['status'] ?: 'null' }}</td>
-
+                    <td class="px-6 py-4 font-medium text-gray-800">{{ $team['id'] ?: 'null' }}</td>
+                    <td class="px-6 py-4 font-medium text-gray-800">{{ $team['name'] }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                        <a href="{{ route('user-management-system.userDetail', $user['id']) }}"
+                        <a href="{{ route('user-management-system.userDetail', $team['id']) }}"
                             class="text-sm/6 font-semibold text-white">
                             <x-button type="submit"><i class="fa-solid fa-eye"></i> View deatil</x-button>
                         </a>
-                        <a href="{{ route('user-management-system.addUser', $user['id']) }}"
+                        <a href="{{ route('user-management-system.team.addMember', $team['id']) }}"
                             class="text-sm/6 font-semibold text-white">
-                            <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit</x-button>
+                            <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Add Member</x-button>
                         </a>
                         <button type="submit" id="popup-model"
                             class="rounded-md bg-linear-to-bl from-red-500 to-orange-200 px-3 py-2 text-sm font-semibold text-white"
-                            onclick="document.getElementById('deleteModal-{{ $user['id'] }}').classList.remove('hidden')"><i
+                            onclick="document.getElementById('deleteModal-{{ $team['id'] }}').classList.remove('hidden')"><i
                                 class="fa-solid fa-xmark"></i> Delete
                         </button>
 
-                        <div id="deleteModal-{{ $user['id'] }}"
+                        <div id="deleteModal-{{ $team['id'] }}"
                             class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50">
 
                             <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 text-left">
                                 <h3 class="text-lg font-semibold text-gray-900">
-                                    Delete user
+                                    Delete team
                                 </h3>
 
                                 <p class="mt-2 text-sm text-gray-600">
@@ -91,10 +61,10 @@
                                 <div class="mt-6 flex justify-end gap-3">
                                     <button type="button"
                                         class="shadow bg-linear-to-r from-cyan-500 to-blue-500 text-white font-bold py-2 px-4 rounded"
-                                        onclick="document.getElementById('deleteModal-{{ $user['id'] }}').classList.add('hidden')">Cancel
+                                        onclick="document.getElementById('deleteModal-{{ $team['id'] }}').classList.add('hidden')">Cancel
                                     </button>
 
-                                    <a href="{{ route('user-management-system.userDelete', ['id' => $user['id']]) }}">
+                                    <a href="{{ route('user-management-system.team.teamDelete', ['id' => $team['id']]) }}">
                                         <button type="button"
                                             class="rounded-md bg-linear-to-bl from-red-500 to-orange-200 px-3 py-2 text-sm font-semibold text-white">delete</button>
                                     </a>
@@ -106,9 +76,8 @@
             @endforeach
         </tbody>
     </table>
-
     <div class="flex justify-center">
-        {{ $users->links('pagination::tailwind') }}
+        {{ $teams->links('pagination::tailwind') }}
     </div>
 @endsection
 @section('js_content')
@@ -116,7 +85,7 @@
         window.addEventListener('load', (event) => {
             function popupBox() {
                 console.log("dc");
-                document.getElementById("user-list-table").innerHTML = "<x-popupbox />";
+                document.getElementById("team-list-table").innerHTML = "<x-popupbox />";
             }
         })
     </script>

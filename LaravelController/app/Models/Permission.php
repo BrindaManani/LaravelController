@@ -8,7 +8,9 @@ class Permission extends Model
 {
     //
     protected $fillable = [
-        'userdetail_id',
         'permission',
     ];
+    // public function user_permissions(){
+    //     return $this->belongsToMany(UserPermission::class, 'permission_id', 'id');
+    // }
 }
