@@ -12,7 +12,7 @@
 
         <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
-                <label for="inputState" class="block text-gray-700 font-bold mb-1 pr-4">City</label>
+                <label for="inputState" class="block text-gray-700 font-bold mb-1 pr-4">Member</label>
                 <select id="inputState" name="city"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                     <option value="">Select city</option>

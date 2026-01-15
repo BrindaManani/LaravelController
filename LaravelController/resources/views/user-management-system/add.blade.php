@@ -93,6 +93,19 @@
                             {{ $department->department }}</option>
                     @endforeach
                 </select>
+                @error('department')
+                        <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                    @enderror
+            </div>
+            <div class="flex-1">
+                <label for="user_code" class="block text-gray-700 font-bold mb-1">User Code<span class="text-red-500">
+                        *</span></label>
+                <input type="text" name="user_code" id="user_code" value="{{ $user->user_code?->code ?? ''}}"
+                    placeholder="ADM-001"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                @error('user_code')
+                    <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="flex flex-row gap-10 mb-6">
@@ -214,11 +227,15 @@
                 <span class="block text-gray-700 font-bold mb-4 pr-4">Permissions<span class="text-red-500">
                         *</span></span>
                 <div class="w-3/4 flex flex-wrap gap-1">
+                    @dd($permissions)
                     @foreach($permissions as $permission)
-                    <input type="checkbox" name="permissions[]" value="{{ $permission->id == ($user->user_department->department->id ?? '') ? 'selected' : '' }}"
+                    <input type="checkbox" name="permissions[]" value="{{ ($permission->id == $user->user_permissions?->permission_id) ? 'checked' : ''}}"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" >
                     <span class="ml-2 text-sm font-medium text-gray-700 ">{{ $permission->permission}}</span>
                     @endforeach
+                    @error('permissions')
+                        <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="flex-1">

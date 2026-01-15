@@ -20,13 +20,13 @@ class HomeController extends Controller
 
     public function userList()
     {
-        $paginatedUsers = Userdetail::with('user_department.department')->paginate(8);
+        $paginatedUsers = Userdetail::with('user_department.department','user_code')->paginate(8);
         return view('user-management-system.userList', ['users' => $paginatedUsers, 'dept']);
     }
 
     public function userDetail($id)
     {
-        $user = Userdetail::where('id', $id)->with( 'user_department')->first();
+        $user = Userdetail::where('id', $id)->with( 'user_department', 'user_code')->first();
         return view('user-management-system.userDetail', compact('user'));
     }
 }

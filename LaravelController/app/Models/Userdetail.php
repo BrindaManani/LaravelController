@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\UserPermission;
 use App\Models\UserDepartment;
 use App\Models\UserTeam;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Userdetail extends Model
 {
@@ -28,6 +30,7 @@ class Userdetail extends Model
     If the field is missing: Laravel's $attributes property will automatically fill it.
    */
 
+  
     protected $fillable = [
         'id',
         'first_name',
@@ -54,11 +57,22 @@ class Userdetail extends Model
         return 'id';
     }
 
-    public function user_permissions(){
-        return $this->belongsToMany(UserPermission::class, 'userdetail_id', 'id');
-    }
-    public function user_department():HasOne{
-        return $this->hasOne(UserDepartment::class, 'userdetail_id', 'id');
+    public function user_code(): HasOne {
+        return $this->hasOne(UserCode::class);
     }
 
+    public function user_permission_userdetail(){
+        // dd( $this->belongsToMany(UserPermission::class));
+        return $this->belongsToMany(UserPermission::class, 'userdetail_id', 'id');
+    }
+    public function user_department():BelongsTo{
+        return $this->belongsTo(UserDepartment::class, 'userdetail_id', 'id');
+    }
+    public function user_team() : belongsTo{
+        return $this->belongsTo(UserTeam::class, 'userdetail_id', 'id');
+    }
+
+    public function image(): MorphOne{
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

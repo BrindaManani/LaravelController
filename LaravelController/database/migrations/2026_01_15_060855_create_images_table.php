@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (! Schema::hasTable('teams')) {
-        Schema::create('teams', function (Blueprint $table) {
+        if (!Schema::hasTable('images')) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('url');
+            $table->integer('imageable_id');
+            $table->string('imageable_type');
             $table->timestamps();
         });
-    }
+        }
     }
 
     /**
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('team_controllers');
+        Schema::dropIfExists('images');
     }
 };

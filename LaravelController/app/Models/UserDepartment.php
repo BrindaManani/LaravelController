@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserDepartment extends Model
 {
@@ -11,7 +12,7 @@ class UserDepartment extends Model
         'department_id',
     ];
 
-    public function department(){
-        return $this->belongsTo(Department::class);
+    public function department():HasMany{
+        return $this->hasMany(Department::class);
     }
 }

@@ -6,7 +6,7 @@
 <div class="flex justify-center mx-auto p-4 mt-8">
     <div class="max-w-2xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
         <div class="flex justify-center mb-6 h-14">
-            <img src="{{ asset('/storage/' . $user['avatar']) ?? asset('assets/img/profile.png') }}" 
+            <img src="{{ $user->image ? asset('storage/' . $user->image->url) : asset('assets/img/profile.png') }}" 
                 alt="Profile Picture"
                 class="w-12 h-12 rounded-full border-2 border-gray-300 object-cover">
         </div>
@@ -21,7 +21,7 @@
                 </span>
 
             </h5>
-            <p class="text-gray-700">Id: {{ $user['id'] }}</p>
+            <p class="text-gray-700">User Code: {{ $user->user_code?->code ?? 'Not given'}}</p>
             <p class="text-gray-700">Email: {{ $user['email'] }}</p>
             <p class="text-gray-700">Phone: {{ $user['phone'] }}</p>
             <p class="text-gray-700">Department: {{ $user->user_department?->department?->department ?? 'No Department' }}</p>

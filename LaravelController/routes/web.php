@@ -10,6 +10,7 @@ use App\Http\Controllers\Tailwind\AuthController as TailwindAuthontroller;
 use App\Http\Controllers\Tailwind\PermissionController as TailwindPermissionController;
 use App\Http\Controllers\Tailwind\DepartmentController as TailwindDepartmentController;
 use App\Http\Controllers\Tailwind\TeamController as TailwindTeamController;
+use App\Http\Controllers\Tailwind\PostController as TailwindPostController;
 
 use App\Http\Middleware\DataMiddleware;
 
@@ -59,5 +60,12 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
 
         Route::get('/add-team-member', [TailwindTeamController::class, 'addMember'])->name('addMember');
         Route::post('/create-team-member', [TailwindTeamController::class, 'createTeamMember'])->name('createTeamMember');
+    });
+
+    Route::prefix('post')->name('post.')->group(function(){
+        Route::get('/post-list', [TailwindPostController::class, 'postList'])->name('postList');
+        Route::get('/add-post/{id?}', [TailwindPostController::class, 'addPost'])->name('addPost');
+        Route::post('/create-post/{id?}', [TailwindPostController::class, 'createPost'])->name('createPost');
+        Route::get('/delete-post/{id}', [TailwindPostController::class, 'deletePost'])->name('deletePost');
     });
 });

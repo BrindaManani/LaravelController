@@ -38,7 +38,7 @@ class TeamController extends Controller
 
     public function addMember()
     {
-        $user = UserDetail
+        $user = UserDetail::with('')
         return view('user-management-system.team.addMember');
     }
 }
