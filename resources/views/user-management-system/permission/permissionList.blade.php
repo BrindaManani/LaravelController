@@ -1,5 +1,5 @@
 @extends('user-management-system.layout.app')
-@extends('user-management-system.include.header')
+{{-- @extends('user-management-system.include.header') --}}
 @section('page_title', 'Home')
 @section('content')
     @if (session('success') || session('alert'))
@@ -25,62 +25,73 @@
                     <h2 class="text-xl font-bold text-gray-800">Permission</h2>
                 </div>
 
-                <a href="{{ route('user-management-system.permission.addPermission') }}" class="whitespace-nowrap">
-                    <x-button>
-                        <i class="fa-solid fa-plus mr-2"></i> Add Permission
-                    </x-button>
-                </a>
+                @if (session('can_write'))
+                    <a href="{{ route('user-management-system.permission.addPermission') }}" class="whitespace-nowrap">
+                        <x-button>
+                            <i class="fa-solid fa-plus mr-2"></i> Add Permission
+                        </x-button>
+                    </a>
+                @endif
             </div>
         </caption>
         <thead>
             <tr>
                 <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase ">Id</th>
-                <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Permission Name</th>
-                <th scope="col"class="px-6 py-3 font-medium text-gray-500 uppercase">Action</th>
+                <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Permissions</th>
+
+                @if (session('can_write'))
+                    <th scope="col"class="px-6 py-3 font-medium text-gray-500 uppercase">Action</th>
+                @endif
             </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+        <tbody class="divide-y divide-gray-200">
             @foreach ($permissions as $permission)
                 <tr>
                     <td class="px-6 py-4 font-medium text-gray-800">{{ $permission['id'] ?: 'null' }}</td>
                     <td class="px-6 py-4 font-medium text-gray-800">{{ $permission['permission'] }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                        <a href="{{ route('user-management-system.permission.addPermission', $permission['id']) }}"
-                            class="text-sm/6 font-semibold text-white">
-                            <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit</x-button>
-                        </a>
-                        <button type="submit" id="popup-model"
-                            class="rounded-md bg-linear-to-bl from-red-500 to-orange-200 px-3 py-2 text-sm font-semibold text-white"
-                            onclick="document.getElementById('deleteModal-{{ $permission['id'] }}').classList.remove('hidden')"><i
-                                class="fa-solid fa-xmark"></i> Delete
-                        </button>
 
-                        <div id="deleteModal-{{ $permission['id'] }}"
-                            class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50">
+                    @if (session('can_write'))
+                        <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                            <a href="{{ route('user-management-system.permission.addPermission', $permission['id']) }}"
+                                class="text-sm/6 font-semibold text-white">
+                                <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit</x-button>
+                            </a>
+                            @if (session('can_delete'))
+                                <button type="submit" id="popup-model"
+                                    class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white"
+                                    onclick="document.getElementById('deleteModal-{{ $permission['id'] }}').classList.remove('hidden')"><i
+                                        class="fa-solid fa-xmark"></i> Delete
+                                </button>
 
-                            <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 text-left">
-                                <h3 class="text-lg font-semibold text-gray-900">
-                                    Delete permission
-                                </h3>
+                                <div id="deleteModal-{{ $permission['id'] }}"
+                                    class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50">
 
-                                <p class="mt-2 text-sm text-gray-600">
-                                    Are you sure you want to delete this data?
-                                </p>
+                                    <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 text-left">
+                                        <h3 class="text-lg font-semibold text-gray-900">
+                                            Delete permission
+                                        </h3>
 
-                                <div class="mt-6 flex justify-end gap-3">
-                                    <button type="button"
-                                        class="shadow bg-linear-to-r from-cyan-500 to-blue-500 text-white font-bold py-2 px-4 rounded"
-                                        onclick="document.getElementById('deleteModal-{{ $permission['id'] }}').classList.add('hidden')">Cancel
-                                    </button>
+                                        <p class="mt-2 text-sm text-gray-600">
+                                            Are you sure you want to delete this data?
+                                        </p>
 
-                                    <a href="{{ route('user-management-system.permission.deletePermission', ['id' => $permission['id']]) }}">
-                                        <button type="button"
-                                            class="rounded-md bg-linear-to-bl from-red-500 to-orange-200 px-3 py-2 text-sm font-semibold text-white">delete</button>
-                                    </a>
+                                        <div class="mt-6 flex justify-end gap-3">
+                                            <button type="button"
+                                                class="shadow  bg-cyan-500 text-white font-bold py-2 px-4 rounded"
+                                                onclick="document.getElementById('deleteModal-{{ $permission['id'] }}').classList.add('hidden')">Cancel
+                                            </button>
+
+                                            <a
+                                                href="{{ route('user-management-system.permission.deletePermission', ['id' => $permission['id']]) }}">
+                                                <button type="button"
+                                                    class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white">delete</button>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </td>
+                            @endif
+                        </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>

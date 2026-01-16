@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tailwind;
 use App\Http\Controllers\Controller;
 use App\Models\Userdetail;
 use App\Models\UserDepartment;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
@@ -18,9 +19,17 @@ class HomeController extends Controller
         return view('user-management-system.dashboard', compact('count', 'activeUsersCount', 'inactiveUsersCount', 'blockUsersCount'));
     }
 
-    public function userList()
+    public function userList(Request $request)
     {
-        $paginatedUsers = Userdetail::with('user_department.department','user_code')->paginate(8);
+        $paginatedUsers = Userdetail::with('user_department.department','user_code')->when($request->has('search'), function ($query) use ($request) {
+            $search = $request->get('search');
+            if (!empty($search)) {
+                $query->where(function($query) use ($search) {
+                    $query->where('first_name', 'like', '%' . $search . '%')->orWhere('last_name', 'like', '%' . $search . '%');
+                });
+            }
+        })->paginate(8);
+        // dd($paginatedUsers->user_department);
         return view('user-management-system.userList', ['users' => $paginatedUsers, 'dept']);
     }
 

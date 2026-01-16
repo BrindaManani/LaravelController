@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -11,8 +13,19 @@ use App\Http\Controllers\Tailwind\PermissionController as TailwindPermissionCont
 use App\Http\Controllers\Tailwind\DepartmentController as TailwindDepartmentController;
 use App\Http\Controllers\Tailwind\TeamController as TailwindTeamController;
 use App\Http\Controllers\Tailwind\PostController as TailwindPostController;
-
 use App\Http\Middleware\DataMiddleware;
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
@@ -63,6 +76,8 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         Route::post('/create-team', [TailwindTeamController::class, 'createTeam'])->name('createTeam');
         Route::get('/team-delete/{id}', [TailwindTeamController::class, 'teamDelete'])->name('teamDelete');
 
+        Route::get('/add-team-member', [TailwindTeamController::class, 'addMember'])->name('addMember');
+        Route::post('/create-team-member', [TailwindTeamController::class, 'createTeamMember'])->name('createTeamMember');
         Route::get('/team-member-list/{id}', [TailwindTeamController::class, 'memberList'])->name('memberList');
         Route::get('/add-team-member/{id}', [TailwindTeamController::class, 'addMember'])->name('addMember');
         Route::post('/create-team-member/{id}', [TailwindTeamController::class, 'createMember'])->name('createMember');
@@ -76,3 +91,6 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         Route::get('/delete-post/{id}', [TailwindPostController::class, 'deletePost'])->name('deletePost');
     });
 });
+
+
+require __DIR__.'/auth.php';

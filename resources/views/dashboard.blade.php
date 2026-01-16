@@ -1,38 +1,70 @@
-@extends('layout.app')
-@extends('include.header')
-@section('page_title','Home')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<div class="mt-5">
-    <table class="table table-border table-hover">
-        <thead class="thead-dark">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($users as $user)
-        <tr>
-            <td>{{ $user['id'] ?: "null"  }}</td>
-            <td>{{ $user['name'] ?: "null"  }}</td>
-            <td>{{ $user['email'] ?: "null"  }}</td>
-            <td>{{ $user['phone'] ?: "null" }}</td>
-            <td>{{ $user['role'] ?: "null"  }}</td>
-            <td>
-                {{ $user['status'] ?: "null"  }}</td>
-            <td><a href="{{ route('detail', $user['id']) }}"><button class="btn btn-primary">View details ></button>
-            <a href="{{ route('addUser', $user['id']) }}"><button class="btn btn-primary">Edit ></button>
-                <a href="{{ route('userdelete', $user['id']) }}"><button class="btn btn-danger">Delete ></button></td>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-    </table>
+    <div class="max-w-[85rem] px-8 py-14 mt-30 mx-auto">
+
+  <div class="grid grid-cols-4 gap-6">
+
+    <div class="group flex flex-col h-full border border-gray-200 rounded-lg shadow-xl">
+      <div class="h-50 flex flex-col justify-center items-center  bg-cyan-500 rounded-t-xl">
+        <h2 class="text-6xl text-green-500 text-bold">{{ 10 }}</h2>
+      </div>
+      <div class="p-4 md:p-6">
+        <h3 class="text-xl font-semibold">
+          Total Engagement
+        </h3>
+        <p class="mt-3 text-gray-500">
+          The above count shows total users.
+        </p>
+      </div>
+    </div>
+
+    <div class="group flex flex-col h-full border border-gray-200 rounded-lg shadow-xl">
+      <div class="h-50 flex flex-col justify-center items-center bg-linear-to-r from-green-300 to-teal-500 rounded-t-xl">
+        <h2 class="text-6xl text-white text-bold">{{ 6 }}</h2>
+      </div>
+      <div class="p-4 md:p-6">
+        <h3 class="text-xl font-semibold">
+          Total Active users
+        </h3>
+        <p class="mt-3 text-gray-500">
+          The above count shows total active users.
+        </p>
+      </div>
+    </div>
+
+    <div class="group flex flex-col h-full border border-gray-200 rounded-lg shadow-xl">
+      <div class="h-50 flex flex-col justify-center items-center bg-linear-to-r from-orange-300 to-red-500 rounded-t-xl">
+        <h2 class="text-6xl text-white text-bold">{{ 4 }}</h2>
+      </div>
+      <div class="p-4 md:p-6">
+        <h3 class="text-xl font-semibold">
+          Total Inactive users
+        </h3>
+        <p class="mt-3 text-gray-500">
+          The above count shows total inactive users.
+        </p>
+      </div>
+    </div>
+
+    <div class="group flex flex-col h-full border border-gray-200 rounded-lg shadow-xl">
+      <div class="h-50 flex flex-col justify-center items-center bg-linear-to-r from-gray-400 to-stone-500 rounded-t-xl">
+        <h2 class="text-6xl text-white text-bold">{{ 0 }}</h2>
+      </div>
+      <div class="p-4 md:p-6">
+        <h3 class="text-xl font-semibold">
+          Total Blocked users
+        </h3>
+        <p class="mt-3 text-gray-500">
+          The above count shows total blocked users.
+        </p>
+      </div>
+    </div>
+
+  </div>
 </div>
-@endsection
+</x-app-layout>

@@ -1,7 +1,7 @@
 
 @section('header')
 
-    <header class="bg-linear-to-r from-cyan-500 to-blue-500 shadow-xl rounded-b-xl">
+    <header class=" bg-cyan-500 shadow-xl rounded-b-xl">
         <nav class="flex max-w-auto items-center justify-between p-8 ">
             
                 <a href="#">

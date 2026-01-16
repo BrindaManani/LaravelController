@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
+use App\Models\User;
+
 class Userdetail extends Model
 {
     use HasFactory;
@@ -58,12 +60,15 @@ class Userdetail extends Model
         return 'id';
     }
 
+    public function user(): HasOne {
+        return $this->hasOne(User::class, 'email', 'email');
+    }
+
     public function user_code(): HasOne {
         return $this->hasOne(UserCode::class);
     }
 
     public function user_permissions(){
-        // dd( $this->belongsToMany(UserPermission::class));
         return $this->belongsToMany(UserPermission::class, 'userdetail_id', 'id');
     }
     public function user_department():BelongsTo{

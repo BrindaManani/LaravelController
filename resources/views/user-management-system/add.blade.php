@@ -1,5 +1,5 @@
 @extends('user-management-system.layout.app')
-@extends('user-management-system.include.header')
+{{-- @extends('user-management-system.include.header') --}}
 @section('page_title', 'Home')
 @section('content')
 
@@ -134,7 +134,7 @@
                         <input type="checkbox" name="statusBtn" id="hs-basic-usage" class="peer sr-only" value="active"
                             {{ (isset($user['status']) && $user['status'] == 'active') || !isset($user['status']) ? 'checked' : '' }}>
                         <span
-                            class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-600 dark:bg-neutral-700"></span>
+                            class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-600"></span>
                         <span
                             class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-sm transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
                     </label>
