@@ -20,7 +20,7 @@ class UserController extends Controller
         $permissions = Permission::get();
         if ($id != null) {
 
-            $user = Userdetail::where('id', $id)->with('user_department', 'user_permission_userdetail', 'user_code')->first();
+            $user = Userdetail::where('id', $id)->with('user_department', 'user_code')->first();
             // dd($user->user_department->department->id);
             return view('user-management-system.add', compact('user', 'departments', 'permissions'));
         }
@@ -86,14 +86,13 @@ class UserController extends Controller
         return redirect()->route('user-management-system.userList')->with('success', 'User saved successfully!');
     }
 
-    public function userdelete(Userdetail $id)
+    public function userDelete($id)
     {
         $user = Userdetail::findOrFail($id);
         $user->image()->delete();
         $user->user_permissions()->delete();
         $user->user_department()->delete();
         $user->user_code()->delete();
-
         return redirect()->route('user-management-system.userList')->with('alert', 'User deleted successfully!');
     }
 }

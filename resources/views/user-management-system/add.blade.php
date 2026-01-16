@@ -227,9 +227,8 @@
                 <span class="block text-gray-700 font-bold mb-4 pr-4">Permissions<span class="text-red-500">
                         *</span></span>
                 <div class="w-3/4 flex flex-wrap gap-1">
-                    @dd($permissions)
                     @foreach($permissions as $permission)
-                    <input type="checkbox" name="permissions[]" value="{{ ($permission->id == $user->user_permissions?->permission_id) ? 'checked' : ''}}"
+                    <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" >
                     <span class="ml-2 text-sm font-medium text-gray-700 ">{{ $permission->permission}}</span>
                     @endforeach

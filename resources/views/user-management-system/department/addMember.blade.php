@@ -4,10 +4,10 @@
 @section('content')
 
 
-    <form method="POST" action="{{ route('user-management-system.team.createMember', $team->id) }}"
+    <form method="POST" action="{{ route('user-management-system.department.createMember', $department->id) }}"
        class="max-w-3xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
         @csrf
-        <legend class="text-center text-2xl font-semibold mb-6 text-gray-800">Add Team Members</legend>
+        <legend class="text-center text-2xl font-semibold mb-6 text-gray-800">Add Department Members</legend>
 
 
         <div class="flex flex-row gap-4 items-start mb-6">

@@ -50,6 +50,11 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         Route::get('/add-dept/{id?}', [TailwindDepartmentController::class, 'addDept'])->name('addDept');
         Route::post('/create-dept/{id?}', [TailwindDepartmentController::class, 'createDept'])->name('createDept');
         Route::get('/department-delete/{id}', [TailwindDepartmentController::class, 'deptDelete'])->name('deptDelete');
+
+        Route::get('/department-member-list/{id}', [TailwindDepartmentController::class, 'memberList'])->name('memberList');
+        Route::get('/add-department-member/{id}', [TailwindDepartmentController::class, 'addMember'])->name('addMember');
+        Route::post('/create-department-member/{id}', [TailwindDepartmentController::class, 'createMember'])->name('createMember');
+        Route::get('/delete-team-member/{id}', [TailwindDepartmentController::class, 'deleteMember'])->name('deleteMember');
     }); 
 
     Route::prefix('team')->name('team.')->group(function(){
@@ -58,8 +63,10 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         Route::post('/create-team', [TailwindTeamController::class, 'createTeam'])->name('createTeam');
         Route::get('/team-delete/{id}', [TailwindTeamController::class, 'teamDelete'])->name('teamDelete');
 
-        Route::get('/add-team-member', [TailwindTeamController::class, 'addMember'])->name('addMember');
-        Route::post('/create-team-member', [TailwindTeamController::class, 'createTeamMember'])->name('createTeamMember');
+        Route::get('/team-member-list/{id}', [TailwindTeamController::class, 'memberList'])->name('memberList');
+        Route::get('/add-team-member/{id}', [TailwindTeamController::class, 'addMember'])->name('addMember');
+        Route::post('/create-team-member/{id}', [TailwindTeamController::class, 'createMember'])->name('createMember');
+        Route::get('/delete-team-member/{id}', [TailwindTeamController::class, 'deleteMember'])->name('deleteMember');
     });
 
     Route::prefix('post')->name('post.')->group(function(){

@@ -45,6 +45,14 @@
                     <td class="px-6 py-4 font-medium text-gray-800">{{ $department['id'] ?: 'null' }}</td>
                     <td class="px-6 py-4 font-medium text-gray-800">{{ $department['department'] }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                        <a href="{{ route('user-management-system.department.memberList', $department['id']) }}"
+                            class="text-sm/6 font-semibold text-white">
+                            <x-button type="submit"><i class="fa-solid fa-eye"></i> View members</x-button>
+                        </a>
+                        <a href="{{ route('user-management-system.department.addMember', $department['id']) }}"
+                            class="text-sm/6 font-semibold text-white">
+                            <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Add Member</x-button>
+                        </a>
                         <a href="{{ route('user-management-system.department.addDept', $department['id']) }}"
                             class="text-sm/6 font-semibold text-white">
                             <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit</x-button>

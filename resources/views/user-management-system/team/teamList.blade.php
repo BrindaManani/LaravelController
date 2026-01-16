@@ -19,6 +19,19 @@
         </script>
     @endif
     <table id="team-list-table" class="mx-auto mt-12 mb-6 border border-gray-200 rounded-lg shadow-xl">
+        <caption class="px-6 py-4 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <div class="text-left">
+                    <h2 class="text-xl font-bold text-gray-800">team</h2>
+                </div>
+
+                <a href="{{ route('user-management-system.team.addTeam') }}" class="whitespace-nowrap">
+                    <x-button>
+                        <i class="fa-solid fa-plus mr-2"></i> Add team
+                    </x-button>
+                </a>
+            </div>
+        </caption>
         <thead>
             <tr>
                 <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase ">Id</th>
@@ -32,9 +45,9 @@
                     <td class="px-6 py-4 font-medium text-gray-800">{{ $team['id'] ?: 'null' }}</td>
                     <td class="px-6 py-4 font-medium text-gray-800">{{ $team['name'] }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                        <a href="{{ route('user-management-system.userDetail', $team['id']) }}"
+                        <a href="{{ route('user-management-system.team.memberList', $team['id']) }}"
                             class="text-sm/6 font-semibold text-white">
-                            <x-button type="submit"><i class="fa-solid fa-eye"></i> View deatil</x-button>
+                            <x-button type="submit"><i class="fa-solid fa-eye"></i> View members</x-button>
                         </a>
                         <a href="{{ route('user-management-system.team.addMember', $team['id']) }}"
                             class="text-sm/6 font-semibold text-white">

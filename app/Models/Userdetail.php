@@ -10,6 +10,7 @@ use App\Models\UserTeam;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Userdetail extends Model
@@ -61,7 +62,7 @@ class Userdetail extends Model
         return $this->hasOne(UserCode::class);
     }
 
-    public function user_permission_userdetail(){
+    public function user_permissions(){
         // dd( $this->belongsToMany(UserPermission::class));
         return $this->belongsToMany(UserPermission::class, 'userdetail_id', 'id');
     }
@@ -74,5 +75,9 @@ class Userdetail extends Model
 
     public function image(): MorphOne{
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function members(): MorphMany{
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
