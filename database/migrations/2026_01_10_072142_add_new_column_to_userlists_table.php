@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('userdetails') && (!Schema::hasColumn('userdetails', 'password', 'phone', 'role', 'status', 'gender', 'dob', 'address'))) {
+        if (Schema::hasTable('userdetails') && (!Schema::hasColumn('userdetails', 'password', 'role', 'status', 'gender', 'dob', 'address'))) {
             Schema::table('userdetails', function (Blueprint $table) {
                 $table->string('password');
-                $table->string('phone');
                 $table->string('role');
                 $table->boolean('status');
                 $table->string('gender');
