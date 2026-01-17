@@ -14,8 +14,18 @@
             <div class="flex-1">
                 <label for="post_name" class="block text-gray-700 font-bold mb-1">Post Name<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="post_name" id="post_name" value="{{ $post->name ?? '' }}" placeholder=""
+                <input type="text" name="post_name" id="post_name" value="{{ $post->name ?? '' }}" placeholder="Enter name of post"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+                @error('post_name')
+                    <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="flex flex-row gap-4 items-start mb-6">
+            <div class="flex-1">
+                <label for="post_description" class="block text-gray-700 font-bold mb-1">Post Description</label>
+                <textarea type="text" name="post_description" id="post_description" placeholder="Enter description of post"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">{{ $post->description ?? '' }}</textarea>
                 @error('post_name')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror

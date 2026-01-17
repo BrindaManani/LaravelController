@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         $user = Auth::user();
-        $details = $user->userDetail;
+
         if ($user && $user->user_detail) {
             $details = $user->user_detail;
             session([

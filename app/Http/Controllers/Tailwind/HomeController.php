@@ -29,7 +29,6 @@ class HomeController extends Controller
                 });
             }
         })->paginate(8);
-        // dd($paginatedUsers->user_department);
         return view('user-management-system.userList', ['users' => $paginatedUsers, 'dept']);
     }
 

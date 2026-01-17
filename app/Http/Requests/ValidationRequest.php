@@ -39,7 +39,7 @@ class ValidationRequest extends FormRequest
         ];
         if ($role == 'admin') {
         $rules['user_code'] = [
-            'required','regex:/^ADM\-\d{3}$/','unique:user_codes,userdetail_id,'. $id, 
+            'required','regex:/^ADM\-\d{3}$/','unique:user_codes,userdetail_id,'. $id,
         ];
         }elseif ($role == 'user') {
             $rules['user_code'] = [

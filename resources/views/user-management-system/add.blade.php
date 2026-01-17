@@ -14,8 +14,8 @@
             <div class="flex-1">
                 <label for="name" class="block text-gray-700 font-bold mb-1">First Name<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="first_name" id="first_name" value="{{ $user['first_name'] ?? '' }}"
-                    placeholder="Brinda"
+                <input type="text" name="first_name" id="first_name"
+                    value="{{ $user['first_name'] ?? old('first_name') }}" placeholder="Brinda"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('first_name')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -24,7 +24,7 @@
             <div class="flex-1">
                 <label for="name" class="block text-gray-700 font-bold mb-1">Last Name<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="last_name" id="last_name" value="{{ $user['last_name'] ?? '' }}"
+                <input type="text" name="last_name" id="last_name" value="{{ $user['last_name'] ?? old('last_name') }}"
                     placeholder="Manani"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('last_name')
@@ -36,7 +36,7 @@
             <div class="flex-1">
                 <label for="phone" class="block text-gray-700 font-bold mb-1">Phone Number<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="phone" id="phone" value="{{ $user['phone'] ?? '' }}"
+                <input type="text" name="phone" id="phone" value="{{ $user['phone'] ?? old('phone') }}"
                     placeholder="987654321"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('phone')
@@ -47,7 +47,7 @@
             <div class="flex-1">
                 <label for="email" class="block text-gray-700 font-bold mb-1">Email<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="email" id="email" value="{{ $user['email'] ?? '' }}"
+                <input type="text" name="email" id="email" value="{{ $user['email'] ?? old('email') }}"
                     placeholder="example@gmail.com"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('email')
@@ -82,26 +82,27 @@
         </div>
         <div class="flex gap-10 mb-6">
             <div class="flex-1">
-                <label for="department" class="block text-gray-700 font-bold mb-1 pr-4">Department<span class="text-red-500">
+                <label for="department" class="block text-gray-700 font-bold mb-1 pr-4">Department<span
+                        class="text-red-500">
                         *</span></label>
                 <select id="department" name="department"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                     <option value="">Select Department</option>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}"
-                            {{ $department->id == ($user->user_department->department->id ?? '') ? 'selected' : ''}}>
+                            {{ $department->id == ($user->user_department->department->id ?? '') ? 'selected' : '' }}>
                             {{ $department->department }}</option>
                     @endforeach
                 </select>
                 @error('department')
-                        <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
-                    @enderror
+                    <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                @enderror
             </div>
             <div class="flex-1">
                 <label for="user_code" class="block text-gray-700 font-bold mb-1">User Code<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="user_code" id="user_code" value="{{ $user->user_code?->code ?? ''}}"
-                    placeholder="ADM-001"
+                <input type="text" name="user_code" id="user_code"
+                    value="{{ $user->user_code?->code ?? old('user_code') }}" placeholder="ADM-001"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('user_code')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -131,8 +132,8 @@
                 </div>
                 <div class="w-3/4 flex items-center gap-3">
                     <label for="hs-basic-usage" class="relative inline-block w-11 h-6 cursor-pointer">
-                        <input type="checkbox" name="statusBtn" id="hs-basic-usage" class="peer sr-only" value="active"
-                            {{ (isset($user['status']) && $user['status'] == 'active') || !isset($user['status']) ? 'checked' : '' }}>
+                        <input type="checkbox" name="statusBtn" id="hs-basic-usage" class="peer sr-only"
+                            value="{{ (isset($user['status']) && $user['status'] == 'active') || !isset($user['status']) ? 'checked' : '' }}">
                         <span
                             class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-600"></span>
                         <span
@@ -169,7 +170,7 @@
                         birth<span class="text-red-500"> *</span></label>
                 </div>
                 <div class=" items-center gap-3">
-                    <input type="date" name="dob" id="dob" value="{{ $user['dob'] ?? '' }}"
+                    <input type="date" name="dob" id="dob" value="{{ $user['dob'] ?? old('dob') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                     @error('dob')
                         <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -182,7 +183,7 @@
                 <label for="address" class="block text-gray-700 font-bold mb-1">Address<span class="text-red-500">
                         *</span></label>
                 <textarea type="text" name="address" id="address" placeholder="Kalavad road..."
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">{{ $user['address'] ?? '' }}</textarea>
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">{{ $user['address'] ?? old('address') }}</textarea>
                 @error('address')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror
@@ -217,7 +218,7 @@
 
             <div class="flex-1">
                 <label for="pincode" class="block text-gray-700 font-bold mb-1 pr-4">Pincode</label>
-                <input type="text" name="pincode" id="pincode" value="{{ $user['pincode'] ?? '' }}"
+                <input type="text" name="pincode" id="pincode" value="{{ $user['pincode'] ?? old('pincode') }}"
                     placeholder="360001"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
             </div>
@@ -227,10 +228,10 @@
                 <span class="block text-gray-700 font-bold mb-4 pr-4">Permissions<span class="text-red-500">
                         *</span></span>
                 <div class="w-3/4 flex flex-wrap gap-1">
-                    @foreach($permissions as $permission)
-                    <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" >
-                    <span class="ml-2 text-sm font-medium text-gray-700 ">{{ $permission->permission}}</span>
+                    @foreach ($permissions as $permission)
+                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
+                        <span class="ml-2 text-sm font-medium text-gray-700 ">{{ $permission->permission }}</span>
                     @endforeach
                     @error('permissions')
                         <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -239,7 +240,7 @@
             </div>
             <div class="flex-1">
                 <label for="avatar" class="block text-gray-700 font-bold mb-1 pr-4">Profile</label>
-                <input type="file" name="avatar" id="profile[avatar]"
+                <input type="file" name="avatar" id="avatar" value="{{ $user->image?->url ?? old('avatar') }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('profile.avatar')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>

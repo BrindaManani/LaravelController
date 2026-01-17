@@ -18,7 +18,7 @@
             }, 2000);
         </script>
     @endif
-    <table id="user-list-table" class="mx-auto mt-12 mb-6 border border-gray-200 rounded-lg shadow-xl overflow-hidden">
+    <table id="user-list-table" class="mx-auto mt-12 mb-6 bg-white border border-gray-200 rounded-lg shadow-xl overflow-hidden">
 
         <caption class="px-6 py-4 border-b border-gray-200">
             <div class="flex justify-between items-center group">

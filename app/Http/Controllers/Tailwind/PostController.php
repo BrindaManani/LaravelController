@@ -14,6 +14,13 @@ class PostController extends Controller
         $posts = Post::with('image')->paginate(6);
         return view('user-management-system.post.postList', compact('posts'));
     }
+
+    public function postView($id)
+    {
+        $post = Post::with('image')->findOrFail($id);
+        return view('user-management-system.post.viewPost', compact('post'));
+    }
+
     public function addPost($id = null)
     {
         if ($id != null) {
@@ -27,11 +34,15 @@ class PostController extends Controller
     {
         $request->validate([
             "post_name" => 'required|max:20',
+            "post_description" => 'max:255',
         ]);
 
         $post = Post::updateOrCreate(
             ['id' => $id],
-            ['name' => $request->post_name],
+            [
+                'name' => $request->post_name,
+                'description' => $request->post_description,
+            ],
         );
         if ($request->hasFile('post_img')) {
             $post_img = $request->file('post_img')->store('posts', 'public');

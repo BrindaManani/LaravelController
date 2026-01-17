@@ -18,7 +18,7 @@
             }, 2000);
         </script>
     @endif
-    <table id="dept-list-table" class="mx-auto mt-12 mb-6 border border-gray-200 rounded-lg shadow-xl">
+    <table id="post-list-table" class="mx-auto mt-12 mb-6 bg-white border border-gray-200 rounded-lg shadow-xl">
         <caption class="px-6 py-4 border-b border-gray-200">
             <div class="flex justify-between items-center">
                 <div class="text-left">
@@ -40,10 +40,7 @@
                 <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase ">Id</th>
                 <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Post Name</th>
                 <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Image</th>
-
-                @if (session('can_write'))
-                    <th scope="col"class="px-6 py-3 font-medium text-gray-500 uppercase">Action</th>
-                @endif
+                <th scope="col"class="px-6 py-3 font-medium text-gray-500 uppercase">Action</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
@@ -59,8 +56,13 @@
                         </div>
                     </td>
 
-                    @if (session('can_write'))
-                        <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+
+                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                        <a href="{{ route('user-management-system.post.postView', $post['id']) }}"
+                            class="text-sm/6 font-semibold text-white">
+                            <x-button type="submit"><i class="fa-solid fa-eye"></i> View Post</x-button>
+                        </a>
+                        @if (session('can_write'))
                             <a href="{{ route('user-management-system.post.addPost', $post['id']) }}"
                                 class="text-sm/6 font-semibold text-white">
                                 <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit</x-button>
@@ -99,8 +101,8 @@
                                     </div>
                                 </div>
                             @endif
-                        </td>
-                    @endif
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>

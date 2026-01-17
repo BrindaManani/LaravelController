@@ -60,8 +60,8 @@ class Userdetail extends Model
         return 'id';
     }
 
-    public function user(): HasOne {
-        return $this->hasOne(User::class, 'email', 'email');
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class, 'email', 'email');
     }
 
     public function user_code(): HasOne {
@@ -71,8 +71,8 @@ class Userdetail extends Model
     public function user_permissions(){
         return $this->belongsToMany(UserPermission::class, 'userdetail_id', 'id');
     }
-    public function user_department():BelongsTo{
-        return $this->belongsTo(UserDepartment::class, 'userdetail_id', 'id');
+    public function user_department():HasOne{
+        return $this->hasOne(UserDepartment::class, 'userdetail_id', 'id');
     }
     public function user_team() : belongsTo{
         return $this->belongsTo(UserTeam::class, 'userdetail_id', 'id');

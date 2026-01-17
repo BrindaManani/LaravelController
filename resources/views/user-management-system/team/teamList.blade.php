@@ -18,7 +18,7 @@
             }, 2000);
         </script>
     @endif
-    <table id="team-list-table" class="mx-auto mt-12 mb-6 border border-gray-200 rounded-lg shadow-xl">
+    <table id="team-list-table" class="mx-auto mt-12 mb-6 bg-white border border-gray-200 rounded-lg shadow-xl">
         <caption class="px-6 py-4 border-b border-gray-200">
             <div class="flex justify-between items-center">
                 <div class="text-left">
@@ -26,9 +26,9 @@
                 </div>
 
                 @if (session('can_write'))
-                    <a href="{{ route('user-management-system.team.addTeam') }}" class="whitespace-nowrap">
+                    <a href="{{ route('user-management-system.team.addMember') }}" class="whitespace-nowrap">
                         <x-button>
-                            <i class="fa-solid fa-plus mr-2"></i> Add team
+                            <i class="fa-solid fa-plus mr-2"></i> Add Member
                         </x-button>
                     </a>
                 @endif
@@ -52,11 +52,6 @@
                             <x-button type="submit"><i class="fa-solid fa-eye"></i> View members</x-button>
                         </a>
 
-                        @if (session('can_write'))
-                            <a href="{{ route('user-management-system.team.addMember', $team['id']) }}"
-                                class="text-sm/6 font-semibold text-white">
-                                <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Add Member</x-button>
-                            </a>
                             @if (session('can_delete'))
                                 <button type="submit" id="popup-model"
                                     class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white"
@@ -91,7 +86,6 @@
                                     </div>
                                 </div>
                             @endif
-                        @endif
                     </td>
                 </tr>
             @endforeach

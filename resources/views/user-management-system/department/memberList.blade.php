@@ -3,8 +3,22 @@
 @section('page_title', 'Member-List')
 @section('content')
 
-    <table id="dept-list-table" class="mx-auto mt-12 mb-6 border border-gray-200 rounded-lg shadow-xl">
+    <table id="member-list-table" class="mx-auto mt-12 mb-6 bg-white border border-gray-200 rounded-lg shadow-xl">
+        <caption class="px-6 py-4 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                <div class="text-left">
+                    <h2 class="text-xl font-bold text-gray-800">member list</h2>
+                </div>
 
+                @if (session('can_write'))
+                    <a href="{{ route('user-management-system.department.addMember', $department['id']) }}" class="whitespace-nowrap">
+                        <x-button>
+                            <i class="fa-solid fa-plus mr-2"></i> Add Member
+                        </x-button>
+                    </a>
+                @endif
+            </div>
+        </caption>
         <thead>
             <tr>
                 <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase ">Id</th>

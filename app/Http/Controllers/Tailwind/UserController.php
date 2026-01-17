@@ -20,7 +20,7 @@ class UserController extends Controller
         $permissions = Permission::get();
         if ($id != null) {
 
-            $user = Userdetail::where('id', $id)->with('user_department', 'user_code')->first();
+            $user = Userdetail::where('id', $id)->with('user_department', 'user_code', 'image')->first();
             // dd($user->user_department->department->id);
             return view('user-management-system.add', compact('user', 'departments', 'permissions'));
         }
@@ -38,7 +38,7 @@ class UserController extends Controller
             'password' => $request->password,
             'phone' => $request->phone,
             'role' => $request->radioBtn,
-            'status' => $request->statusBtn ?? 'active',
+            'status' => $request->statusBtn ?? 'inactive',
             'gender' => $request->gender,
             'dob' => $request->dob,
             'address' => $request->address,
@@ -64,18 +64,17 @@ class UserController extends Controller
         }
 
 
-        $user_dept = UserDepartment::updateOrCreate(
+        $user->user_department()->updateOrCreate(
             ['userdetail_id' => $user->id],
             ['department_id' => $request->department],
         );
 
-        $user_code = UserCode::updateOrCreate(
+        $user->user_code()->updateOrCreate(
             ['userdetail_id' => $user->id],
             ['code' => $request->user_code],
         );
 
         UserPermission::where('userdetail_id', $user->id)->delete();
-        $permissions = (array) $request->permission;
         foreach ($request->permissions as $permission) {
             UserPermission::create([
                 'userdetail_id' => $user->id,

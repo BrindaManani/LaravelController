@@ -9,6 +9,7 @@ class Post extends Model
 {
     protected $fillable = [
         'name',
+        'description',
     ];
 
     public function image(): MorphOne{

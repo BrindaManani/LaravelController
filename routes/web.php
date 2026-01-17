@@ -89,6 +89,8 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         Route::get('/add-post/{id?}', [TailwindPostController::class, 'addPost'])->name('addPost');
         Route::post('/create-post/{id?}', [TailwindPostController::class, 'createPost'])->name('createPost');
         Route::get('/delete-post/{id}', [TailwindPostController::class, 'deletePost'])->name('deletePost');
+
+        Route::get('/post-view/{id}', [TailwindPostController::class, 'postView'])->name('postView');
     });
 });
 
