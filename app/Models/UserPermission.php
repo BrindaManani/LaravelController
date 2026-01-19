@@ -13,4 +13,6 @@ class UserPermission extends Model
         'permission_id',
     ];
 
+    
+
 }

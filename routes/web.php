@@ -52,6 +52,7 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
     Route::post('/create-user/{id?}', [TailwindUserontroller::class, 'createUser'])->name('createUser');
     Route::get('/user-delete/{id}', [TailwindUserontroller::class, 'userDelete'])->name('userDelete');
 
+    Route::middleware('auth')->group(function () {
     Route::prefix('permission')->name('permission.')->group(function(){
         Route::get('/permission-list', [TailwindPermissionController::class, 'permissionList'])->name('permissionList');
         Route::get('/add-permission/{id?}', [TailwindPermissionController::class, 'addPermission'])->name('addPermission');
@@ -76,8 +77,8 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         Route::post('/create-team', [TailwindTeamController::class, 'createTeam'])->name('createTeam');
         Route::get('/team-delete/{id}', [TailwindTeamController::class, 'teamDelete'])->name('teamDelete');
 
-        Route::get('/add-team-member', [TailwindTeamController::class, 'addMember'])->name('addMember');
-        Route::post('/create-team-member', [TailwindTeamController::class, 'createTeamMember'])->name('createTeamMember');
+        // Route::get('/add-team-member', [TailwindTeamController::class, 'addMember'])->name('addMember');
+        // Route::post('/create-team-member', [TailwindTeamController::class, 'createTeamMember'])->name('createTeamMember');
         Route::get('/team-member-list/{id}', [TailwindTeamController::class, 'memberList'])->name('memberList');
         Route::get('/add-team-member/{id}', [TailwindTeamController::class, 'addMember'])->name('addMember');
         Route::post('/create-team-member/{id}', [TailwindTeamController::class, 'createMember'])->name('createMember');
@@ -91,6 +92,7 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         Route::get('/delete-post/{id}', [TailwindPostController::class, 'deletePost'])->name('deletePost');
 
         Route::get('/post-view/{id}', [TailwindPostController::class, 'postView'])->name('postView');
+    });
     });
 });
 

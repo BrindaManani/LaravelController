@@ -26,9 +26,9 @@
                 </div>
 
                 @if (session('can_write'))
-                    <a href="{{ route('user-management-system.team.addMember') }}" class="whitespace-nowrap">
+                    <a href="{{ route('user-management-system.team.addTeam') }}" class="whitespace-nowrap">
                         <x-button>
-                            <i class="fa-solid fa-plus mr-2"></i> Add Member
+                            <i class="fa-solid fa-plus mr-2"></i> Add team
                         </x-button>
                     </a>
                 @endif

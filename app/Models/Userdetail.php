@@ -68,8 +68,8 @@ class Userdetail extends Model
         return $this->hasOne(UserCode::class);
     }
 
-    public function user_permissions(){
-        return $this->belongsToMany(UserPermission::class, 'userdetail_id', 'id');
+    public function permissions(){
+        return $this->belongsToMany(Permission::class, 'user_permissions','userdetail_id', 'permission_id')->withPivot(['userdetail_id', 'permission_id']);;
     }
     public function user_department():HasOne{
         return $this->hasOne(UserDepartment::class, 'userdetail_id', 'id');
@@ -80,9 +80,9 @@ class Userdetail extends Model
 
     public function image(): MorphOne{
         return $this->morphOne(Image::class, 'imageable');
-    }
+    }   
 
     public function members(): MorphMany{
-        return $this->morphMany(Image::class, 'imageable');
+        return $this->morphMany(Member::class, 'memberable');
     }
 }

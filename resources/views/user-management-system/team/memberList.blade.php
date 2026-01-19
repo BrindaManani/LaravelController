@@ -10,7 +10,7 @@
                     <h2 class="text-xl font-bold text-gray-800">Member list</h2>
                 </div>
                 @if (session('can_write'))
-                    <a href="{{ route('user-management-system.department.addDept') }}" class="whitespace-nowrap">
+                    <a href="{{ route('user-management-system.team.addMember', ['id' => $team['id']]) }}" class="whitespace-nowrap">
                         <x-button>
                             <i class="fa-solid fa-plus mr-2"></i> Add Member
                         </x-button>
