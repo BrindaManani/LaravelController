@@ -11,7 +11,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @yield('js_content')
 
 <body>
 
@@ -25,6 +24,8 @@
             @yield('content')
         </div>
     </x-app-layout>
+
+    @yield('js_content')
 </body>
 
 </html>

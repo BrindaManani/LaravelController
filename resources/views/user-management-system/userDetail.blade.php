@@ -5,10 +5,10 @@
 
 <div class="flex justify-center mx-auto p-4 mt-8">
     <div class="max-w-2xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
-        <div class="flex justify-center mb-6 h-14">
+        <div class="flex justify-center mb-8 h-14">
             <img src="{{ $user->image ? asset('storage/' . $user->image->url) : asset('assets/img/profile.png') }}" 
                 alt="Profile Picture"
-                class="w-12 h-12 rounded-full border-2 border-gray-300 object-cover">
+                class="w-20 h-20 rounded-full border-2 border-gray-300 object-cover">
         </div>
 
     <div class="flex flex-wrap -mx-3 my-6 ml-5">

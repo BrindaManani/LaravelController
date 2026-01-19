@@ -229,7 +229,7 @@
                         *</span></span>
                 <div class="w-3/4 flex flex-wrap gap-1">
                     @foreach ($permissions as $permission)
-                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
+                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" data-permission-name="{{ $permission->permission }}"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
                         <span class="ml-2 text-sm font-medium text-gray-700 ">{{ $permission->permission }}</span>
                     @endforeach

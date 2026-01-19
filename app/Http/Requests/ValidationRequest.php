@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\dateRule;
+use Illuminate\Validation\Rule;
 
 class ValidationRequest extends FormRequest
 {
@@ -39,19 +40,19 @@ class ValidationRequest extends FormRequest
         ];
         if ($role == 'admin') {
         $rules['user_code'] = [
-            'required','regex:/^ADM\-\d{3}$/','unique:user_codes,userdetail_id,'. $id,
+            'required','regex:/^ADM\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),
         ];
         }elseif ($role == 'user') {
             $rules['user_code'] = [
-            'required','regex:/^USR\-\d{3}$/','unique:user_codes,userdetail_id,'. $id,  
+            'required','regex:/^USR\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
         ];
         }elseif ($role == 'manager') {
             $rules['user_code'] = [
-            'required','regex:/^MNG\-\d{3}$/','unique:user_codes,userdetail_id,'. $id,  
+            'required','regex:/^MNG\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
         ];
         }elseif ($role == 'support') {
             $rules['user_code'] = [
-            'required','regex:/^SPT\-\d{3}$/','unique:user_codes,userdetail_id,'. $id,  
+            'required','regex:/^SPT\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
         ];
         }
         return $rules;
