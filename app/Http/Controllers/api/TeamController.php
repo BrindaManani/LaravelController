@@ -5,76 +5,122 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\Team;
+use App\Models\Userdetail;
+use Exception;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
-    public function teamList(){
-        $team = Team::all();
+    public function teamList()
+    {
+        $team = Team::get();
         return response()->json($team);
     }
-    public function teamDetail($id){
-        $team = Team::where('id', $id)->get();
-        return response()->json($team);
+    public function teamDetail($id)
+    {
+        try {
+            $team = Team::findOrFail($id);
+            return response()->json($team);
+        } catch (Exception $e) {
+            return response()->json([
+                'Error' => 'Data not found'
+            ], 404);
+        }
     }
 
-    public function createTeam(Request $request){
-    //    dd($request->name);
+    public function createTeam(Request $request)
+    {
         $request->validate([
             'name' => 'required|max:20',
         ]);
-        $team = Team::create([
-            'name' => $request->name,
-        ]);
-        return response()->json([
-            'message' => 'Team added successfully!!',
-            $team,
-        ]);
+        try {
+            $team = Team::create([
+                'name' => $request->name,
+            ]);
+            return response()->json([
+                'message' => 'Team added successfully!!',
+                $team,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'Error' => 'Something went wrong !!'
+            ], 500);
+        }
     }
 
     public function teamDelete($id)
     {
-        $team = Team::findOrFail($id);
-        $team->members()->delete();
-        $team->delete();
-        return response()->json([
-            'message' => 'Team deleted successfully!!'
-        ], 200);
+        try {
+            $team = Team::findOrFail($id);
+            $team->members()->delete();
+            $team->delete();
+            return response()->json([
+                'message' => 'Team deleted successfully!!'
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'Error' => 'Data not found'
+            ], 404);
+        }
     }
 
-    public function memberList($id){
-        $team = Team::findOrfail($id);
-        $members = Member::where('memberable_id', $id)->get();
-        return response()->json([
-            $team,
-            $members,
-        ]);
+    public function memberList($id)
+    {
+        try {
+            $team = Team::findOrfail($id);
+            $members = Member::where('memberable_id', $id)->get();
+            return response()->json([
+                $team,
+                $members,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'Error' => 'Data not found'
+            ], 404);
+        }
     }
     public function addMember(Request $request, $id)
     {
-        $team = Team::findOrFail($id);
-        $member = Member::create([
-            'member_name' => $request->name,
-            'memberable_type' => Team::class,
-            'memberable_id' => $id,
+        $request->validate([
+            'name' => 'required|max:20',
         ]);
-        // $allUsers = Member::where('memberable_id', $id)->pluck('member_name')->toArray();
-        // $users = Userdetail::select('id', 'first_name', 'last_name')
-        // ->whereRaw("CONCAT(first_name, ' ', last_name) NOT IN ('" . implode("','", $allUsers) . "')")
-        // ->get();
-        return response()->json([
-            'message' => 'Member added successfully!!',
-            $team,
-            $member,
-        ]);
+        try {
+            $team = Team::findOrFail($id);
+            $exists = Member::where('member_name', $request->name)->where('memberable_id', $id)->get();
+            if ($exists) {
+                return response()->json([
+                    'Error' => 'Member already exists !!'
+                ]);
+            }
+            $member = Member::create([
+                'member_name' => $request->name,
+                'memberable_type' => Team::class,
+                'memberable_id' => $id,
+            ]);
+            return response()->json([
+                'message' => 'Member added successfully!!',
+                $team,
+                $member,
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'Error' => 'Something went wrong !!'
+            ], 500);
+        }
     }
 
     public function deleteMember($id)
     {
-        $member = Member::findOrFail($id);
-        $member->delete();
-        return response()->json([
-            'message' => 'Member deleted successfully!!',
-        ]);
+        try {
+            $member = Member::findOrFail($id);
+            $member->delete();
+            return response()->json([
+                'message' => 'Member deleted successfully!!',
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'Error' => 'Data not found'
+            ], 404);
+        }
     }
 }

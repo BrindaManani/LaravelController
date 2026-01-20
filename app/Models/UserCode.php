@@ -12,7 +12,7 @@ class UserCode extends Model
         'code',
     ];
 
-    public function user_detail(): BelongsTo {
-        return $this->belongsTo(Userdetail::class);
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class, 'id', 'userdetail_id');
     }
 }

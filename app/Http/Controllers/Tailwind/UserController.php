@@ -9,7 +9,7 @@ use App\Models\Department;
 use App\Models\Permission;
 use App\Models\UserPermission;
 use App\Models\UserDepartment;
-use App\Models\Userdetail;
+use App\Models\User;
 use App\Models\UserCode;
 
 class UserController extends Controller
@@ -20,8 +20,8 @@ class UserController extends Controller
         $permissions = Permission::get();
         if ($id != null) {
 
-            $user = Userdetail::where('id', $id)->with('user_department', 'user_code', 'image')->first();
-            // dd($user->user_department->department->id);
+            $user = User::where('id', $id)->with('user_department', 'user_code', 'image')->first();
+            // dd($user->name);
             return view('user-management-system.add', compact('user', 'departments', 'permissions'));
         }
 
@@ -32,10 +32,8 @@ class UserController extends Controller
     {
         $validateData = $request->validated();
         $data = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
             'phone' => $request->phone,
             'role' => $request->radioBtn,
             'status' => $request->statusBtn ?? 'inactive',
@@ -51,7 +49,7 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         }
 
-        $user = Userdetail::updateOrCreate(
+        $user = User::updateOrCreate(
             ['id' => $id],
             $data
         );
@@ -87,7 +85,7 @@ class UserController extends Controller
 
     public function userDelete($id)
     {
-        $user = Userdetail::findOrFail($id);
+        $user = User::findOrFail($id);
         $user->image()->delete();
         $user->user_permissions()->delete();
         $user->user_department()->delete();

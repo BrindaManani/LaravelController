@@ -65,7 +65,7 @@
             @foreach ($users as $user)
                 <tr>
                     <td class="px-6 py-4 font-medium text-gray-800">{{ $user['id'] ?: 'null' }}</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">{{ $user['first_name'] }} {{ $user['last_name'] }}
+                    <td class="px-6 py-4 font-medium text-gray-800">{{ $user['name'] }}
                     </td>
                     <td class="px-6 py-4 font-medium text-gray-800">{{ $user->user_code?->code ?: 'Not given' }}</td>
                     <td class="px-6 py-4 text-gray-800">

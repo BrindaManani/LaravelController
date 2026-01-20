@@ -26,35 +26,35 @@ class ValidationRequest extends FormRequest
         $id = $this->route('id') ?? $this->id; 
         $role = $this->input('radioBtn');
         $rules = [
-            'first_name' => 'required|regex:/^[a-zA-Z\s]/',
-            'last_name' => 'required|regex:/^[a-zA-Z\s]/',
+            'name' => 'required|regex:/^[a-zA-Z\s]/',
+            // 'last_name' => 'required|regex:/^[a-zA-Z\s]/',
             'email' => 'required|email|unique:userdetails,email,'.$id,
-            'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/',
-            'confirm_password' => 'required|same:password',
+            // 'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/',
+            // 'confirm_password' => 'required|same:password',
             'phone' => 'required|numeric|regex:/^[0-9+]{10,13}$/',
-            'address' => 'required',
+            // 'address' => 'required',
             'dob' => ['date', new dateRule],
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp',
-            'permissions' => 'required',
-            'department' => 'required',
+            // 'permissions' => 'required',
+            // 'department' => 'required',
         ];
-        if ($role == 'admin') {
-        $rules['user_code'] = [
-            'required','regex:/^ADM\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),
-        ];
-        }elseif ($role == 'user') {
-            $rules['user_code'] = [
-            'required','regex:/^USR\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
-        ];
-        }elseif ($role == 'manager') {
-            $rules['user_code'] = [
-            'required','regex:/^MNG\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
-        ];
-        }elseif ($role == 'support') {
-            $rules['user_code'] = [
-            'required','regex:/^SPT\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
-        ];
-        }
+        // if ($role == 'admin') {
+        // $rules['user_code'] = [
+        //     'required','regex:/^ADM\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),
+        // ];
+        // }elseif ($role == 'user') {
+        //     $rules['user_code'] = [
+        //     'required','regex:/^USR\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
+        // ];
+        // }elseif ($role == 'manager') {
+        //     $rules['user_code'] = [
+        //     'required','regex:/^MNG\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
+        // ];
+        // }elseif ($role == 'support') {
+        //     $rules['user_code'] = [
+        //     'required','regex:/^SPT\-\d{3}$/',Rule::unique('user_codes', 'code')->ignore($id, 'userdetail_id'),  
+        // ];
+        // }
         return $rules;
 
     }

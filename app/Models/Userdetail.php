@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Userdetail extends Model
 {
@@ -33,7 +34,7 @@ class Userdetail extends Model
     If the field is missing: Laravel's $attributes property will automatically fill it.
    */
 
-  
+
     protected $fillable = [
         'id',
         'first_name',
@@ -60,29 +61,38 @@ class Userdetail extends Model
         return 'id';
     }
 
-    public function user(): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class, 'email', 'email');
     }
 
-    public function user_code(): HasOne {
-        return $this->hasOne(UserCode::class);
+    public function user_code(): HasOne
+    {
+        return $this->hasOne(UserCode::class, 'userdetail_id', 'id');
     }
 
-    public function permissions(){
-        return $this->belongsToMany(Permission::class, 'user_permissions','userdetail_id', 'permission_id')->withPivot(['userdetail_id', 'permission_id']);;
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class, 'user_permissions', 'userdetail_id', 'permission_id')->withPivot(['userdetail_id', 'permission_id']);
     }
-    public function user_department():HasOne{
+
+    public function user_department(): HasOne
+    {
         return $this->hasOne(UserDepartment::class, 'userdetail_id', 'id');
     }
-    public function user_team() : belongsTo{
+
+    public function user_team(): belongsTo
+    {
         return $this->belongsTo(UserTeam::class, 'userdetail_id', 'id');
     }
 
-    public function image(): MorphOne{
+    public function image(): MorphOne
+    {
         return $this->morphOne(Image::class, 'imageable');
-    }   
+    }
 
-    public function members(): MorphMany{
+    public function members(): MorphMany
+    {
         return $this->morphMany(Member::class, 'memberable');
     }
 }

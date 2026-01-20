@@ -12,22 +12,12 @@
 
         <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
-                <label for="name" class="block text-gray-700 font-bold mb-1">First Name<span class="text-red-500">
+                <label for="name" class="block text-gray-700 font-bold mb-1">Full Name<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="first_name" id="first_name"
-                    value="{{ $user['first_name'] ?? old('first_name') }}" placeholder="Brinda"
+                <input type="text" name="name" id="name"
+                    value="{{ $user['name'] ?? old('name') }}" placeholder="Brinda Manani"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
-                @error('first_name')
-                    <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
-                @enderror
-            </div>
-            <div class="flex-1">
-                <label for="name" class="block text-gray-700 font-bold mb-1">Last Name<span class="text-red-500">
-                        *</span></label>
-                <input type="text" name="last_name" id="last_name" value="{{ $user['last_name'] ?? old('last_name') }}"
-                    placeholder="Manani"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
-                @error('last_name')
+                @error('name')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror
             </div>
@@ -56,7 +46,7 @@
             </div>
 
         </div>
-        <div class="flex flex-row gap-4 items-start mb-6">
+        {{-- <div class="flex flex-row gap-4 items-start mb-6">
             <div class="flex-1">
                 <label for="phone" class="block text-gray-700 font-bold mb-1">Password<span class="text-red-500">
                         *</span>
@@ -79,7 +69,7 @@
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                 @enderror
             </div>
-        </div>
+        </div> --}}
         <div class="flex gap-10 mb-6">
             <div class="flex-1">
                 <label for="department" class="block text-gray-700 font-bold mb-1 pr-4">Department<span

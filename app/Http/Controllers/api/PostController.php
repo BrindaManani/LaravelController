@@ -38,55 +38,53 @@ class PostController extends Controller
 
     public function addPost(Request $request, $id = null)
     {
-        
-    // dd("hello");
-    //     $request->validate([
-    //         "post_name" => 'required|max:20',
-    //         "post_description" => 'max:255',
-    //     ]);
 
-    //     dd($request);
-
-        $post = Post::updateOrCreate(
-            ['id' => $id],
-            [
-                'name' => $request->post_name,
-                'description' => $request->post_description,
-            ],
-        );
-        if ($request->hasFile('post_img')) {
-            $post_img = $request->file('post_img')->store('posts', 'public');
-            $post->image()->updateOrCreate(
-                ['imageable_id' => $id],
+        $request->validate([
+            "post_name" => 'required|max:20',
+            "post_description" => 'max:255',
+        ]);
+        try {
+            $post = Post::updateOrCreate(
+                ['id' => $id],
                 [
-                    'url' => $post_img,
-                    'imageable_type' => Post::class
+                    'name' => $request->post_name,
+                    'description' => $request->post_description,
                 ],
             );
+            if ($request->hasFile('post_img')) {
+                $post_img = $request->file('post_img')->store('posts', 'public');
+                $post->image()->updateOrCreate(
+                    ['imageable_id' => $id],
+                    [
+                        'url' => $post_img,
+                        'imageable_type' => Post::class
+                    ],
+                );
+            }
+            return response()->json([
+                'message' => 'Member added successfully!!',
+                $post,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'Error' => 'Something went wrong !!'
+            ], 500);
         }
-        if (!$post) {
-            // return response()->json([
-            //     'Error' => 'Data not found'
-            // ], 404);
-        }
-        return response()->json([
-            'message' => 'Member added successfully!!',
-            $post,
-        ]);
     }
 
     public function deletePost($id)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
-        $post->image()->delete();
-        if (!$post) {
+        try {
+            $post = Post::findOrFail($id);
+            $post->delete();
+            $post->image()->delete();
+            return response()->json([
+                'message' => 'Post deleted successfully!!',
+            ]);
+        } catch (Exception $e) {
             return response()->json([
                 'Error' => 'Data not found'
             ], 404);
         }
-        return response()->json([
-            'message' => 'Post deleted successfully!!',
-        ]);
     }
 }

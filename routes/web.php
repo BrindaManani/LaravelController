@@ -44,57 +44,58 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
     Route::get('/login-form', [TailwindAuthontroller::class, 'loginForm'])->name('loginForm');
     Route::post('/login', [TailwindAuthontroller::class, 'login'])->name('login');
 
-    Route::get('/', [TailwindHomeController::class, 'index'])->name('index');
-    Route::get('/user-list', [TailwindHomeController::class, 'userList'])->name('userList');
-    Route::get('/user-detail/{id}', [TailwindHomeController::class, 'userDetail'])->name('userDetail');
 
-    Route::get('/add-user/{id?}', [TailwindUserontroller::class, 'addUser'])->name('addUser');
-    Route::post('/create-user/{id?}', [TailwindUserontroller::class, 'createUser'])->name('createUser');
-    Route::get('/user-delete/{id}', [TailwindUserontroller::class, 'userDelete'])->name('userDelete');
 
     Route::middleware('auth')->group(function () {
-    Route::prefix('permission')->name('permission.')->group(function(){
-        Route::get('/permission-list', [TailwindPermissionController::class, 'permissionList'])->name('permissionList');
-        Route::get('/add-permission/{id?}', [TailwindPermissionController::class, 'addPermission'])->name('addPermission');
-        Route::post('/create-permission/{id?}', [TailwindPermissionController::class, 'createPermission'])->name('createPermission');
-        Route::get('/delete-permission/{id}', [TailwindPermissionController::class, 'deletePermission'])->name('deletePermission');
-    });
-    Route::prefix('department')->name('department.')->group(function(){
-        Route::get('/department-list', [TailwindDepartmentController::class, 'deptList'])->name('deptList');
-        Route::get('/add-dept/{id?}', [TailwindDepartmentController::class, 'addDept'])->name('addDept');
-        Route::post('/create-dept/{id?}', [TailwindDepartmentController::class, 'createDept'])->name('createDept');
-        Route::get('/department-delete/{id}', [TailwindDepartmentController::class, 'deptDelete'])->name('deptDelete');
+        Route::get('/', [TailwindHomeController::class, 'index'])->name('index');
+        Route::get('/user-list', [TailwindHomeController::class, 'userList'])->name('userList');
+        Route::get('/user-detail/{id}', [TailwindHomeController::class, 'userDetail'])->name('userDetail');
 
-        Route::get('/department-member-list/{id}', [TailwindDepartmentController::class, 'memberList'])->name('memberList');
-        Route::get('/add-department-member/{id}', [TailwindDepartmentController::class, 'addMember'])->name('addMember');
-        Route::post('/create-department-member/{id}', [TailwindDepartmentController::class, 'createMember'])->name('createMember');
-        Route::get('/delete-team-member/{id}', [TailwindDepartmentController::class, 'deleteMember'])->name('deleteMember');
-    }); 
+        Route::get('/add-user/{id?}', [TailwindUserontroller::class, 'addUser'])->name('addUser');
+        Route::post('/create-user/{id?}', [TailwindUserontroller::class, 'createUser'])->name('createUser');
+        Route::get('/user-delete/{id}', [TailwindUserontroller::class, 'userDelete'])->name('userDelete');
+        Route::prefix('permission')->name('permission.')->group(function () {
+            Route::get('/permission-list', [TailwindPermissionController::class, 'permissionList'])->name('permissionList');
+            Route::get('/add-permission/{id?}', [TailwindPermissionController::class, 'addPermission'])->name('addPermission');
+            Route::post('/create-permission/{id?}', [TailwindPermissionController::class, 'createPermission'])->name('createPermission');
+            Route::get('/delete-permission/{id}', [TailwindPermissionController::class, 'deletePermission'])->name('deletePermission');
+        });
+        Route::prefix('department')->name('department.')->group(function () {
+            Route::get('/department-list', [TailwindDepartmentController::class, 'deptList'])->name('deptList');
+            Route::get('/add-dept/{id?}', [TailwindDepartmentController::class, 'addDept'])->name('addDept');
+            Route::post('/create-dept/{id?}', [TailwindDepartmentController::class, 'createDept'])->name('createDept');
+            Route::get('/department-delete/{id}', [TailwindDepartmentController::class, 'deptDelete'])->name('deptDelete');
 
-    Route::prefix('team')->name('team.')->group(function(){
-        Route::get('/team-list', [TailwindTeamController::class, 'teamList'])->name('teamList');
-        Route::get('/add-team', [TailwindTeamController::class, 'addTeam'])->name('addTeam');
-        Route::post('/create-team', [TailwindTeamController::class, 'createTeam'])->name('createTeam');
-        Route::get('/team-delete/{id}', [TailwindTeamController::class, 'teamDelete'])->name('teamDelete');
+            Route::get('/department-member-list/{id}', [TailwindDepartmentController::class, 'memberList'])->name('memberList');
+            Route::get('/add-department-member/{id}', [TailwindDepartmentController::class, 'addMember'])->name('addMember');
+            Route::post('/create-department-member/{id}', [TailwindDepartmentController::class, 'createMember'])->name('createMember');
+            Route::get('/delete-team-member/{id}', [TailwindDepartmentController::class, 'deleteMember'])->name('deleteMember');
+        });
 
-        // Route::get('/add-team-member', [TailwindTeamController::class, 'addMember'])->name('addMember');
-        // Route::post('/create-team-member', [TailwindTeamController::class, 'createTeamMember'])->name('createTeamMember');
-        Route::get('/team-member-list/{id}', [TailwindTeamController::class, 'memberList'])->name('memberList');
-        Route::get('/add-team-member/{id}', [TailwindTeamController::class, 'addMember'])->name('addMember');
-        Route::post('/create-team-member/{id}', [TailwindTeamController::class, 'createMember'])->name('createMember');
-        Route::get('/delete-team-member/{id}', [TailwindTeamController::class, 'deleteMember'])->name('deleteMember');
-    });
+        Route::prefix('team')->name('team.')->group(function () {
+            Route::get('/team-list', [TailwindTeamController::class, 'teamList'])->name('teamList');
+            Route::get('/add-team', [TailwindTeamController::class, 'addTeam'])->name('addTeam');
+            Route::post('/create-team', [TailwindTeamController::class, 'createTeam'])->name('createTeam');
+            Route::get('/team-delete/{id}', [TailwindTeamController::class, 'teamDelete'])->name('teamDelete');
 
-    Route::prefix('post')->name('post.')->group(function(){
-        Route::get('/post-list', [TailwindPostController::class, 'postList'])->name('postList');
-        Route::get('/add-post/{id?}', [TailwindPostController::class, 'addPost'])->name('addPost');
-        Route::post('/create-post/{id?}', [TailwindPostController::class, 'createPost'])->name('createPost');
-        Route::get('/delete-post/{id}', [TailwindPostController::class, 'deletePost'])->name('deletePost');
+            // Route::get('/add-team-member', [TailwindTeamController::class, 'addMember'])->name('addMember');
+            // Route::post('/create-team-member', [TailwindTeamController::class, 'createTeamMember'])->name('createTeamMember');
+            Route::get('/team-member-list/{id}', [TailwindTeamController::class, 'memberList'])->name('memberList');
+            Route::get('/add-team-member/{id}', [TailwindTeamController::class, 'addMember'])->name('addMember');
+            Route::post('/create-team-member/{id}', [TailwindTeamController::class, 'createMember'])->name('createMember');
+            Route::get('/delete-team-member/{id}', [TailwindTeamController::class, 'deleteMember'])->name('deleteMember');
+        });
 
-        Route::get('/post-view/{id}', [TailwindPostController::class, 'postView'])->name('postView');
-    });
+        Route::prefix('post')->name('post.')->group(function () {
+            Route::get('/post-list', [TailwindPostController::class, 'postList'])->name('postList');
+            Route::get('/add-post/{id?}', [TailwindPostController::class, 'addPost'])->name('addPost');
+            Route::post('/create-post/{id?}', [TailwindPostController::class, 'createPost'])->name('createPost');
+            Route::get('/delete-post/{id}', [TailwindPostController::class, 'deletePost'])->name('deletePost');
+
+            Route::get('/post-view/{id}', [TailwindPostController::class, 'postView'])->name('postView');
+        });
     });
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
