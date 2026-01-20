@@ -1,13 +1,16 @@
 @section('slidebar')
     <div class="fixed w-48 left-0 h-full border">
-        <div class="flex ml-2">
+        <div class="flex flex-col mt-4">
             {{-- <i class="fa-regular fa-house"></i> --}}
-            <ul>
+            <ul class="space-y-4 px-2">
                 <li class="mb-5">Dashboard</li>
                 <li>SETTINGS
-                    <ul class="w-full mt-5">
-                        <li href="#" class="flex justify-center w-48 hover:bg-red-200 hover:text-red-700">Settings</li>
-                    </ul>
+                    <ul class="mt-2 space-y-2 pl-4">
+                    <li>
+                        <a href="#" class="block px-2 py-1 text-gray-500 hover:bg-red-200 hover:border-red-500 rounded">
+                            Settings
+                        </a>
+                    </li>
                 </li>
             </ul>
         </div>

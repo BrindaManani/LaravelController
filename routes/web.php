@@ -26,7 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/task', [HomeController::class, 'task'])->name('task');
+Route::get('/task', function () {
+return view("tailwind-task.dashboard");
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/detail/{id}', [HomeController::class, 'detail'])->name('detail');
