@@ -24,4 +24,7 @@ class HomeController extends Controller
         return view("detail", compact('user'));
 
     }
+    public function task(){
+        return view("tailwind-task.dashboard");
+    }
 }

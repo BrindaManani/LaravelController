@@ -1,0 +1,5 @@
+@extends('tailwind-task.layout.app')
+@extends('tailwind-task.includes.header')
+@extends('tailwind-task.includes.slidebar')
+@section('content')
+@endsection()
