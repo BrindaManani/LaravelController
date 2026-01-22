@@ -6,7 +6,7 @@
             </div>
             <div class="flex">
                 <button
-                    class="px-4 py-2 font-semibold text-gray-500 rounded-md bg-white border hover:bg-red-500 hover:text-white">
+                    class="px-4 py-2 font-semibold text-gray-500 rounded-md bg-white border hover:bg-rose-500 hover:text-white">
                     <i class="fa-solid fa-paintbrush mr-2"></i>Theme
                 </button>
                 <img src="{{ asset('assets/profile1.png') }}" alt="Profile Picture"

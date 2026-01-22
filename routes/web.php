@@ -13,6 +13,7 @@ use App\Http\Controllers\Tailwind\PermissionController as TailwindPermissionCont
 use App\Http\Controllers\Tailwind\DepartmentController as TailwindDepartmentController;
 use App\Http\Controllers\Tailwind\TeamController as TailwindTeamController;
 use App\Http\Controllers\Tailwind\PostController as TailwindPostController;
+use App\Http\Controllers\TemplateController;
 use App\Http\Middleware\DataMiddleware;
 
 
@@ -24,10 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::get('/task', function () {
-return view("tailwind-task.dashboard");
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -99,6 +96,12 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         });
     });
 });
+
+// Route::prefix('template-task')->name('template-task.')->group(function () {
+    Route::get('/dashboard', [TemplateController::class, 'dashboard'])->name('dashboard');
+     Route::get('/general-settings', [TemplateController::class, 'general_settings'])->name('general-settings');
+     Route::get('/lemon-squzy-settings', [TemplateController::class, 'lemon_squzy_settings'])->name('lemon-squzy-settings');
+// });
 
 
 require __DIR__ . '/auth.php';
