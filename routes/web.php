@@ -102,7 +102,7 @@ Route::get('/dashboard', [SettingController::class, 'dashboard'])->name('dashboa
 Route::prefix('settings')->group(function () {
     Route::get('/general-settings', [SettingController::class, 'show'])->name('general-settings');
     Route::post('/general-settings-update', [SettingController::class, 'update'])->name('general-settings-update');
-    // Route::get('/lemon-squzy-settings', [SettingController::class, 'lemon_squzy_settings'])->name('lemon-squzy-settings');
+    Route::get('/re-captcha-settings', [SettingController::class, 're_captcha_settings'])->name('re-captcha-settings');
 });
 // });
 

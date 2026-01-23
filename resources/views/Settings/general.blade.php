@@ -2,7 +2,23 @@
 @extends('Settings.includes.header')
 @section('content')
     <div class="flex-1 bg-white border-2 boder-gray-800 rounded-xl p-3 h-fit mr-8">
-        <x-body-card></x-body-card>
+        @if (session('success') || session('alert'))
+            <x-alert class="text-center bg-green-200 text-xl text-green-700 border rounded-xl">
+                {{ session('success') }}
+            </x-alert>
+            <x-alert class="text-center bg-red-200 text-xl text-red-700">
+                {{ session('alert') }}
+            </x-alert>
+            <script>
+                setTimeout(() => {
+                    const msg = document.getElementById('success-message');
+                    if (msg) {
+                        msg.remove();
+                    }
+                }, 2000);
+            </script>
+        @endif
+        <x-body-card>General Settings</x-body-card>
         <form method="post" action="{{ route('general-settings-update') }}" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-row gap-6 items-start my-6">

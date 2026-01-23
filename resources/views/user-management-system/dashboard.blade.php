@@ -1,5 +1,5 @@
-@extends('user-management-system.layout.app')
-{{-- @extends('user-management-system.include.header') --}}
+@extends('Settings.layout.app')
+@extends('Settings.includes.header')
 @section('page_title', 'Home')
 @section('content')
 
@@ -8,8 +8,8 @@
   <div class="grid grid-cols-4 gap-6">
 
     <div class="group flex flex-col h-full border border-gray-200 rounded-lg shadow-xl">
-      <div class="h-60 flex flex-col justify-center items-center bg-cyan-600 rounded-t-xl">
-        <h2 class="text-6xl text-white text-bold">{{ $count }}</h2>
+      <div class="h-60 flex flex-col justify-center items-center bg-rose-200 rounded-t-xl">
+        <h2 class="text-6xl text-rose-500 text-bold">{{ $count }}</h2>
       </div>
       <div class="p-4 md:p-6">
         <h3 class="text-xl font-semibold">
@@ -22,8 +22,8 @@
     </div>
 
     <div class="group flex flex-col h-full border border-gray-200 rounded-lg shadow-xl">
-      <div class="h-60 flex flex-col justify-center items-center bg-cyan-600 rounded-t-xl">
-        <h2 class="text-6xl text-white text-bold">{{ $activeUsersCount }}</h2>
+      <div class="h-60 flex flex-col justify-center items-center bg-rose-200 rounded-t-xl">
+        <h2 class="text-6xl text-rose-500 text-bold">{{ $activeUsersCount }}</h2>
       </div>
       <div class="p-4 md:p-6">
         <h3 class="text-xl font-semibold">
@@ -36,8 +36,8 @@
     </div>
 
     <div class="group flex flex-col h-full border border-gray-200 rounded-lg shadow-xl">
-      <div class="h-60 flex flex-col justify-center items-center bg-cyan-600 rounded-t-xl">
-        <h2 class="text-6xl text-white text-bold">{{ $inactiveUsersCount }}</h2>
+      <div class="h-60 flex flex-col justify-center items-center bg-rose-200 rounded-t-xl">
+        <h2 class="text-6xl text-rose-500 text-bold">{{ $inactiveUsersCount }}</h2>
       </div>
       <div class="p-4 md:p-6">
         <h3 class="text-xl font-semibold">
@@ -50,8 +50,8 @@
     </div>
 
     <div class="group flex flex-col h-full border border-gray-200 rounded-lg shadow-xl">
-      <div class="h-60 flex flex-col justify-center items-center bg-cyan-600 rounded-t-xl">
-        <h2 class="text-6xl text-white text-bold">{{ $blockUsersCount }}</h2>
+      <div class="h-60 flex flex-col justify-center items-center bg-rose-200 rounded-t-xl">
+        <h2 class="text-6xl text-rose-500 text-bold">{{ $blockUsersCount }}</h2>
       </div>
       <div class="p-4 md:p-6">
         <h3 class="text-xl font-semibold">

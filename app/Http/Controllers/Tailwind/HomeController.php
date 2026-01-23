@@ -6,22 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Userdetail;
 use App\Models\User;
 use App\Models\UserDepartment;
+use App\Settings\GeneralSettings;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(GeneralSettings $settings)
     {
         $count = Userdetail::count();
         $activeUsersCount = Userdetail::where('status', 'active')->count();
         $inactiveUsersCount = Userdetail::where('status', 'inactive')->count();
         $blockUsersCount = Userdetail::where('status', 'block')->count();
 
-        return view('user-management-system.dashboard', compact('count', 'activeUsersCount', 'inactiveUsersCount', 'blockUsersCount'));
+        return view('user-management-system.dashboard', compact('count', 'activeUsersCount', 'inactiveUsersCount', 'blockUsersCount', 'settings'));
     }
 
-    public function userList(Request $request)
+    public function userList(Request $request, GeneralSettings $settings)
     {
         $paginatedUsers = User::with('user_department.department', 'user_code')->when($request->has('search'), function ($query) use ($request) {
             $search = $request->get('search');
@@ -31,7 +32,7 @@ class HomeController extends Controller
                 });
             }
         })->paginate(8);
-        return view('user-management-system.userList', ['users' => $paginatedUsers, 'dept']);
+        return view('user-management-system.userList', ['users' => $paginatedUsers, 'dept', ], compact('settings'));
     }
 
     public function userDetail($id)

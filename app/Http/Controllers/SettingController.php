@@ -77,4 +77,9 @@ class SettingController extends Controller
             return back()->with('error', 'Error ' . $e->getMessage());
         }
     }
+
+    public function re_captcha_settings(GeneralSettings $settings){
+
+        return view('Settings.re-captcha', compact('settings'));
+    }
 }
