@@ -20,7 +20,10 @@
         @endif
         <x-body-card>
             <div class="flex justify-between">
-                <div class="flex"><x-slot name="title">Bot Protection</x-slot><p class="text-gray-500 mb-4">Implement advanced bot prevention and user verification mechanisms to protect your application from automated attacks and spams.</p></div>
+                <div class="flex"><x-slot name="title">Bot Protection</x-slot>
+                    <p class="text-gray-500 mb-4">Implement advanced bot prevention and user verification mechanisms to
+                        protect your application from automated attacks and spams.</p>
+                </div>
                 <div class="flex justify-end">
                     <label for="hs-basic-usage" class="relative inline-block w-11 h-6 cursor-pointer" id="toggle">
                         <input type="checkbox" name="statusBtn" id="hs-basic-usage" class="peer sr-only">
@@ -57,7 +60,8 @@
                     @enderror
                 </div>
             </div>
-            <div class="bg-yellow-50 text-red-700 px-3 py-2 border border-yello-300 rounded text-sm mb-3 mt-3">
+            <div class="px-3 py-2 border border-yello-300 rounded text-sm mb-3 mt-3"
+                style="color: {{ $textColor }}; border: 1px solid {{ $textColor }}; opacity:0.8">
                 <i class="fa-solid fa-triangle-exclamation"></i> Important Configuration Notice<p>Make sure to select
                     reCAPTCHA v3 when setting up your credentials. Using
                     incorrect settings may cause authentication system interruptions.</p>

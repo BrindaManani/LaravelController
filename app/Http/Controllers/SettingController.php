@@ -190,4 +190,8 @@ class SettingController extends Controller
             return back()->with('error', 'Error ' . $e->getMessage());
         }
     }
+
+    public function create_user(GeneralSettings $settings){
+        return view('roll-permissions.create-user', compact('settings'));
+    }
 }

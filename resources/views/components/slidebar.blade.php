@@ -27,6 +27,12 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('create-user') }}"
+                    class="block px-2 py-1 text-gray-500 rounded" style="<?= request()->is('create-user*') ? 'color: ' .$textColor .';': '' ?>">
+                    Roll Permissions
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('general-settings') }}"
                     class="block px-2 py-1 text-gray-500 rounded" style="<?= request()->is('settings*') ? 'color: ' .$textColor .';': '' ?>">
                     Settings

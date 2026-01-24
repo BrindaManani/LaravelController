@@ -108,8 +108,10 @@ Route::prefix('settings')->group(function () {
     Route::post('/email-settings-update', [SettingController::class, 'email_update'])->name('email-settings-update');
     Route::get('/announcement-settings', [SettingController::class, 'announcement_settings'])->name('announcement-settings');
     Route::post('/announcement-settings-update', [SettingController::class, 'announcement_update'])->name('announcement-settings-update');
+
 });
 // });
+Route::get('/create-user', [SettingController::class, 'create_user'])->name('create-user');
 
 
 require __DIR__ . '/auth.php';

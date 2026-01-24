@@ -22,7 +22,8 @@
             <p class="text-gray-500 mb-4">Manage SMTP settings, email templates, and outgoing communication preference to
                 ensure reliable and professional email communications.</p>
         </x-body-card>
-        <div class="bg-blue-50 text-blue-500 px-3 py-2 border border-blue-300 rounded text-sm mb-3 mt-3">
+        <div class="bg-gray-50 text-blue-500 px-3 py-2 rounded text-sm mb-3 mt-3"
+            style="color: {{ $textColor }}; border: 1px solid {{ $textColor }}; opacity:0.8">
             <i class="fa-solid fa-triangle-exclamation"></i> Configuration Guide<p>Please configure your email settings
                 accuratly. This application will rely on your specified email server to handle email delivery. Errors
                 encountered during email operations are typically due to incorrect settings. Ensure all credentials, such as
@@ -124,7 +125,8 @@
                     @enderror
                 </div>
                 <div><x-button
-                        class="text-white border rounded-xl hover:bg-rose-700 shadow-xs font-medium text-sm px-4 py-1.5 " style="background-color: {{ $textColor }}">Test
+                        class="text-white border rounded-xl hover:bg-rose-700 shadow-xs font-medium text-sm px-4 py-1.5 "
+                        style="background-color: {{ $textColor }}">Test
 
                     </x-button></div>
             </div>
