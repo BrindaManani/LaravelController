@@ -103,6 +103,11 @@ Route::prefix('settings')->group(function () {
     Route::get('/general-settings', [SettingController::class, 'show'])->name('general-settings');
     Route::post('/general-settings-update', [SettingController::class, 'update'])->name('general-settings-update');
     Route::get('/re-captcha-settings', [SettingController::class, 're_captcha_settings'])->name('re-captcha-settings');
+    Route::post('/re-captcha-settings-update', [SettingController::class, 're_captcha_update'])->name('re-captcha-settings-update');
+    Route::get('/email-settings', [SettingController::class, 'email_settings'])->name('email-settings');
+    Route::post('/email-settings-update', [SettingController::class, 'email_update'])->name('email-settings-update');
+    Route::get('/announcement-settings', [SettingController::class, 'announcement_settings'])->name('announcement-settings');
+    Route::post('/announcement-settings-update', [SettingController::class, 'announcement_update'])->name('announcement-settings-update');
 });
 // });
 

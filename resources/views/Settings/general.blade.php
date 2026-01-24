@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex-1 bg-white border-2 boder-gray-800 rounded-xl p-3 h-fit mr-8">
         @if (session('success') || session('alert'))
-            <x-alert class="text-center bg-green-200 text-xl text-green-700 border rounded-xl">
+            <x-alert class="bg-green-50 text-green-700 px-3 py-2 border border-green-300 rounded text-sm mb-3 mt-3">
                 {{ session('success') }}
             </x-alert>
             <x-alert class="text-center bg-red-200 text-xl text-red-700">
@@ -18,7 +18,7 @@
                 }, 2000);
             </script>
         @endif
-        <x-body-card>General Settings</x-body-card>
+        <x-body-card><x-slot name="title">General Protection</x-slot><p class="text-gray-500 mb-4">Implement advanced bot prevention and user verification mechanisms to protect your application from automated attacks and spams.</p></x-body-card>
         <form method="post" action="{{ route('general-settings-update') }}" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-row gap-6 items-start my-6">
@@ -38,7 +38,6 @@
                         Description</label>
                     <input type="text" name="site_description" id="site_description"
                         value="{{ $settings->site_description ?? old('site_description') }}"
-                        value="{{ $user['site_description'] ?? old('site_description') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
                     @error('site_description')
                         <div class="text-red-500 text-xs mt-1">{{ $message }}</div>

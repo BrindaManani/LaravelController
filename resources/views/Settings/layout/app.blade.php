@@ -21,15 +21,17 @@
     <div>
         <x-slidebar></x-slidebar>
     </div>
-    <div class="ml-64 mt-8 mr-8">
-        @if(request()->is('settings*') )
-        <x-navbar></x-navbar>
-        @endif
-        <div class="pt-4 flex flex-row gap-4 items-start">
-            @if(request()->is('settings*') )
-            <x-menu></x-menu>
+    <div class="ml-60" style="background-color: {{ $bgColor }}">
+        <div class="ml-8 mt-8 mr-8 h-screen">
+            @if (request()->is('settings*'))
+                <x-navbar></x-navbar>
             @endif
-            @yield('content')
+            <div class="pt-4 flex flex-row gap-4 items-start">
+                @if (request()->is('settings*'))
+                    <x-menu></x-menu>
+                @endif
+                @yield('content')
+            </div>
         </div>
     </div>
 

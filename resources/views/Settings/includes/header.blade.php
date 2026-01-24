@@ -1,12 +1,12 @@
 @section('header')
-    <header class="border-2 boder-gray-800 ">
+    <header class="border-2 boder-gray-800 bg-white">
         <nav class="flex max-w-auto items-center justify-between p-5">
             <div class="flex items-center gap-3">
                 @if ($settings->site_logo)
                     <img src="{{ asset('storage/' . $settings->site_logo) }}" alt="{{ $settings->site_name }} Logo"
                         class="h-10 w-auto object-contain">
                 @endif
-                <h2 class="text-2xl font-semibold text-red-500">{{ $settings->site_name }}</h2>
+                <h2 class="text-2xl font-semibold" style="color: {{ $textColor }}">{{ $settings->site_name }}</h2>
             </div>
             <div class="flex">
                 <button
