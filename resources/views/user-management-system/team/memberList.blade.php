@@ -1,4 +1,4 @@
-@extends('user-management-system.layout.app')
+@extends('Settings.layout.app')
 {{-- @extends('user-management-system.include.header') --}}
 @section('page_title', 'Member-List')
 @section('content')
@@ -10,7 +10,8 @@
                     <h2 class="text-xl font-bold text-gray-800">Member list</h2>
                 </div>
                 @if (session('can_write'))
-                    <a href="{{ route('user-management-system.team.addMember', ['id' => $team['id']]) }}" class="whitespace-nowrap">
+                    <a href="{{ route('user-management-system.team.addMember', ['id' => $team['id']]) }}"
+                        class="whitespace-nowrap">
                         <x-button>
                             <i class="fa-solid fa-plus mr-2"></i> Add Member
                         </x-button>

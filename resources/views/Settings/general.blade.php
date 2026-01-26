@@ -1,5 +1,4 @@
 @extends('Settings.layout.app')
-@extends('Settings.includes.header')
 @section('content')
     <div class="flex-1 bg-white border-2 boder-gray-800 rounded-xl p-3 h-fit mr-8">
         @if (session('success') || session('alert'))
@@ -18,7 +17,10 @@
                 }, 2000);
             </script>
         @endif
-        <x-body-card><x-slot name="title">General Protection</x-slot><p class="text-gray-500 mb-4">Implement advanced bot prevention and user verification mechanisms to protect your application from automated attacks and spams.</p></x-body-card>
+        <x-body-card><x-slot name="title">General Protection</x-slot>
+            <p class="text-gray-500 mb-4">Implement advanced bot prevention and user verification mechanisms to protect your
+                application from automated attacks and spams.</p>
+        </x-body-card>
         <form method="post" action="{{ route('general-settings-update') }}" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-row gap-6 items-start my-6">

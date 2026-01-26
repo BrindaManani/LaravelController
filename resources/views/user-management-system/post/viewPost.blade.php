@@ -1,4 +1,4 @@
-@extends('user-management-system.layout.app')
+@extends('Settings.layout.app')
 @section('page_title', 'Post')
 @section('content')
     <div class="flex mx-auto mt-20 items-center justify-center">

@@ -25,20 +25,15 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
         $user = Auth::user();
-
-        if ($user && $user->user_detail) {
-            $details = $user->user_detail;
-            session([
-                'user_role' => $details->role,
-                'full_name' => $details->first_name . ' ' . $details->last_name,
-                'can_write' => in_array($details->role, ['admin', 'manager']),
-                'can_delete' => in_array($details->role, ['admin']),
-                'can_read'  => true,
-            ]);
-        }
+        session([
+            'user_role' => $user->role,
+            'full_name' => $user->first_name . ' ' . $user->last_name,
+            'can_write' => in_array($user->role, ['admin', 'manager']),
+            'can_delete' => in_array($user->role, ['admin']),
+            'can_read'  => true,
+        ]);
         return redirect()->intended(route('user-management-system.index', absolute: false));
     }
 

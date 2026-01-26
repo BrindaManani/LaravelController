@@ -61,7 +61,7 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
             Route::get('/delete-permission/{id}', [TailwindPermissionController::class, 'deletePermission'])->name('deletePermission');
         });
         Route::prefix('department')->name('department.')->group(function () {
-            Route::get('/department-list', [TailwindDepartmentController::class, 'deptList'])->name('deptList');
+            Route::get('/department-list/{id?}', [TailwindDepartmentController::class, 'deptList'])->name('deptList');
             Route::get('/add-dept/{id?}', [TailwindDepartmentController::class, 'addDept'])->name('addDept');
             Route::post('/create-dept/{id?}', [TailwindDepartmentController::class, 'createDept'])->name('createDept');
             Route::get('/department-delete/{id}', [TailwindDepartmentController::class, 'deptDelete'])->name('deptDelete');
@@ -73,7 +73,7 @@ Route::prefix('user-management-system')->name('user-management-system.')->group(
         });
 
         Route::prefix('team')->name('team.')->group(function () {
-            Route::get('/team-list', [TailwindTeamController::class, 'teamList'])->name('teamList');
+            Route::get('/team-list/{id?}', [TailwindTeamController::class, 'teamList'])->name('teamList');
             Route::get('/add-team', [TailwindTeamController::class, 'addTeam'])->name('addTeam');
             Route::post('/create-team', [TailwindTeamController::class, 'createTeam'])->name('createTeam');
             Route::get('/team-delete/{id}', [TailwindTeamController::class, 'teamDelete'])->name('teamDelete');
@@ -108,10 +108,10 @@ Route::prefix('settings')->group(function () {
     Route::post('/email-settings-update', [SettingController::class, 'email_update'])->name('email-settings-update');
     Route::get('/announcement-settings', [SettingController::class, 'announcement_settings'])->name('announcement-settings');
     Route::post('/announcement-settings-update', [SettingController::class, 'announcement_update'])->name('announcement-settings-update');
-
 });
 // });
 Route::get('/create-user', [SettingController::class, 'create_user'])->name('create-user');
+Route::get('/role', [SettingController::class, 'role'])->name('role');
 
 
 require __DIR__ . '/auth.php';

@@ -10,10 +10,11 @@ use App\Models\Member;
 
 class TeamController extends Controller
 {
-    public function teamList()
+    public function teamList($id = 1)
     {
         $teams = Team::paginate(8);
-        return view('user-management-system.team.teamList', compact('teams'));
+        $members = Member::where('memberable_type', 'App\Models\Team')->where('memberable_id', $id)->get();
+        return view('user-management-system.team.teamList', compact('teams', 'members'));
     }
 
     public function addTeam()
@@ -39,8 +40,9 @@ class TeamController extends Controller
         $team->delete();
         return redirect()->route('user-management-system.team.teamList')->with('alert', 'Team deleted successfully!');
     }
-    
-    public function memberList($id){
+
+    public function memberList($id)
+    {
         $team = Team::findOrfail($id);
         $members = Member::where('memberable_id', $id)->get();
         return view('user-management-system.team.memberList', compact('members', 'team'));
@@ -51,12 +53,13 @@ class TeamController extends Controller
         $team = Team::findOrFail($id);
         $allUsers = Member::where('memberable_id', $id)->pluck('member_name')->toArray();
         $users = Userdetail::select('id', 'first_name', 'last_name')
-        ->whereRaw("CONCAT(first_name, ' ', last_name) NOT IN ('" . implode("','", $allUsers) . "')")
-        ->get();
+            ->whereRaw("CONCAT(first_name, ' ', last_name) NOT IN ('" . implode("','", $allUsers) . "')")
+            ->get();
         return view('user-management-system.team.addMember', compact('users', 'team'));
     }
 
-    public function createMember(Request $request, $id) {
+    public function createMember(Request $request, $id)
+    {
 
         $team = Team::findOrFail($id);
         $userdetail = Userdetail::findOrFail($request->member, ['first_name', 'last_name']);

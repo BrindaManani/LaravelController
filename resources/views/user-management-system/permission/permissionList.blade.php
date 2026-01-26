@@ -1,4 +1,4 @@
-@extends('user-management-system.layout.app')
+@extends('Settings.layout.app')
 {{-- @extends('user-management-system.include.header') --}}
 @section('page_title', 'Home')
 @section('content')

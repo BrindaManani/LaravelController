@@ -32,12 +32,12 @@ class HomeController extends Controller
                 });
             }
         })->paginate(8);
-        return view('user-management-system.userList', ['users' => $paginatedUsers, 'dept', ], compact('settings'));
+        return view('user-management-system.userList', ['users' => $paginatedUsers, 'dept',], compact('settings'));
     }
 
     public function userDetail($id)
     {
-        $user = Userdetail::where('id', $id)->with('user_department', 'user_code')->first();
+        $user = User::where('id', $id)->with('user_department', 'user_code')->first();
         return view('user-management-system.userDetail', compact('user'));
     }
 }

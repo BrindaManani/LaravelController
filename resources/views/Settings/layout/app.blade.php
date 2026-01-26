@@ -13,26 +13,48 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 
-<body>
+<body class="min-h-screen">
 
-    <div class="header sticky top-0 z-20">
-        @yield('header')
-    </div>
-    <div>
-        <x-slidebar></x-slidebar>
-    </div>
-    <div class="ml-60" style="background-color: {{ $bgColor }}">
-        <div class="ml-8 mt-8 mr-8 h-screen">
-                <x-navbar></x-navbar>
-            <div class="pt-4 flex flex-row gap-4 items-start">
+    <x-header />
+    <x-slidebar />
+    <div class="min-h-screen bg-gray-100 transition-all duration-200
+               lg:ml-60"
+        style="background-color: {{ $bgColor }}">
+
+        <!-- PAGE CONTENT -->
+        <div class="p-4 lg:p-8">
+
+            <x-navbar />
+
+            <div class="pt-4 flex flex-col lg:flex-row gap-4 items-start">
+
                 @if (request()->is('settings*'))
-                    <x-menu></x-menu>
+                    <x-menu />
                 @endif
-                @yield('content')
+
+                <!-- PAGE BODY -->
+                <div class="w-full">
+                    @yield('content')
+                </div>
+
             </div>
         </div>
     </div>
+    <script>
+        const toggleBtn = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
 
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        });
+    </script>
     @yield('js_content')
 </body>
 

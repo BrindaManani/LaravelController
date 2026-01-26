@@ -13,11 +13,13 @@ class Button extends Component
      */
     public $type;
     public $class;
+    public $bgColor;
+    public $msgColor;
     public function __construct($type = 'button', $class = '')
     {
         //
         $this->type = $type;
-        $this->class = $class ?: 'shadow bg-cyan-500 text-white font-bold py-2 px-4 rounded' ;
+        $this->class = $class ?: 'rounded-md border px-3 py-2 text-sm font-semibold';
     }
 
     /**

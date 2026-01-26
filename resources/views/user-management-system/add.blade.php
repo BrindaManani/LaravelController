@@ -1,4 +1,4 @@
-@extends('user-management-system.layout.app')
+@extends('Settings.layout.app')
 {{-- @extends('user-management-system.include.header') --}}
 @section('page_title', 'Home')
 @section('content')
@@ -14,8 +14,8 @@
             <div class="flex-1">
                 <label for="name" class="block text-gray-700 font-bold mb-1">Full Name<span class="text-red-500">
                         *</span></label>
-                <input type="text" name="name" id="name"
-                    value="{{ $user['name'] ?? old('name') }}" placeholder="Brinda Manani"
+                <input type="text" name="name" id="name" value="{{ $user['name'] ?? old('name') }}"
+                    placeholder="Brinda Manani"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
                 @error('name')
                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -219,7 +219,8 @@
                         *</span></span>
                 <div class="w-3/4 flex flex-wrap gap-1">
                     @foreach ($permissions as $permission)
-                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" data-permission-name="{{ $permission->permission }}"
+                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
+                            data-permission-name="{{ $permission->permission }}"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
                         <span class="ml-2 text-sm font-medium text-gray-700 ">{{ $permission->permission }}</span>
                     @endforeach
@@ -239,7 +240,7 @@
         </div>
 
         <div class="flex justify-center">
-            <x-button type="submit">{{ isset($user) ? 'Update User' : 'Add User' }}</x-button>
+            <x-button type="submit">Submit</x-button>
         </div>
     </form>
 @endsection

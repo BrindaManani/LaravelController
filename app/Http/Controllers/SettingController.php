@@ -6,7 +6,9 @@ use App\Http\Requests\AnnouncemetSettingsRequest;
 use App\Http\Requests\EmailSettingsRequest;
 use App\Http\Requests\GeneralSettingsRequest;
 use App\Http\Requests\RecaptchaSettingsRequest;
+use App\Models\Department;
 use App\Models\Setting;
+use App\Models\User;
 use App\Settings\AnnouncementSettings;
 use App\Settings\EmailSettings;
 use App\Settings\GeneralSettings;
@@ -191,7 +193,13 @@ class SettingController extends Controller
         }
     }
 
-    public function create_user(GeneralSettings $settings){
-        return view('roll-permissions.create-user', compact('settings'));
+    public function create_user(GeneralSettings $settings)
+    {
+        $departments = Department::get();
+        return view('roll-permissions.create-user', compact('settings', 'departments'));
+    }
+    public function role(GeneralSettings $settings)
+    {
+        return view('roll-permissions.role', compact('settings'));
     }
 }

@@ -1,11 +1,11 @@
-@extends('user-management-system.layout.app')
+@extends('Settings.layout.app')
 {{-- @extends('user-management-system.include.header') --}}
 @section('page_title', 'Home')
 @section('content')
 
 
     <form method="POST" action="{{ route('user-management-system.department.createMember', $department->id) }}"
-       class="max-w-3xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
+        class="max-w-3xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">
         @csrf
         <legend class="text-center text-2xl font-semibold mb-6 text-gray-800">Add Department Members</legend>
 

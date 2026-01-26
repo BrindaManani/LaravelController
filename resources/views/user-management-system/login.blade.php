@@ -1,4 +1,4 @@
-@extends('user-management-system.layout.app')
+@extends('Settings.layout.app')
 @section('content')
     <form method="post" action="{{ route('user-management-system.login') }}"
         class="mt-50 max-w-xl mx-auto border border-gray-200 rounded-lg p-6 bg-white mt-8 shadow-xl">

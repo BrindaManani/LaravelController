@@ -1,5 +1,4 @@
-@extends('user-management-system.layout.app')
-{{-- @extends('user-management-system.include.header') --}}
+@extends('Settings.layout.app')
 @section('page_title', 'Home')
 @section('content')
     @if (session('success') || session('alert'))
@@ -18,106 +17,68 @@
             }, 2000);
         </script>
     @endif
-    <table id="post-list-table" class="mx-auto mt-12 mb-6 bg-white border border-gray-200 rounded-lg shadow-xl">
-        <caption class="px-6 py-4 border-b border-gray-200">
-            <div class="flex justify-between items-center">
-                <div class="text-left">
-                    <h2 class="text-xl font-bold text-gray-800">Post</h2>
-                </div>
 
-                @if (session('can_write'))
-                    <a href="{{ route('user-management-system.post.addPost', [$post['id'] ?? '']) }}"
-                        class="whitespace-nowrap">
-                        <x-button>
-                            <i class="fa-solid fa-plus mr-2"></i> Add Post
-                        </x-button>
-                    </a>
-                @endif
-            </div>
-        </caption>
-        <thead>
-            <tr>
-                <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase ">Id</th>
-                <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Post Name</th>
-                <th scope="col" class="px-6 py-3 font-medium text-gray-500 uppercase">Image</th>
-                <th scope="col"class="px-6 py-3 font-medium text-gray-500 uppercase">Action</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200">
-            @foreach ($posts as $post)
-                <tr>
-                    <td class="px-6 py-4 font-medium text-gray-800">{{ $post['id'] ?: 'null' }}</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">{{ $post['name'] }}</td>
-                    <td class="px-6 py-4 font-medium text-gray-800">
-                        <div class="flex items-center gap-4">
-                            <img class="w-10 h-10 rounded-full object-cover"
-                                src="{{ $post->image ? asset('storage/' . $post->image->url) : asset('assets/img/profile.png') }}"
-                                alt="User image">
-                        </div>
-                    </td>
+    <div class="max-w-7xl mx-auto bg-white border-2 border-gray-200 rounded-xl p-4 h-auto">
+        <x-body-card>
+            <x-slot name="title">
+                <div class="flex justify-between items-center">
+                    <span>Post</span>
 
-
-                    <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                        <a href="{{ route('user-management-system.post.postView', $post['id']) }}"
-                            class="text-sm/6 font-semibold text-white">
-                            <x-button type="submit"><i class="fa-solid fa-eye"></i> View Post</x-button>
+                    @if (session('can_write'))
+                        <a href="{{ route('user-management-system.post.addPost', [$post['id'] ?? '']) }}">
+                            <x-button class="text-medium">
+                                <i class="fa-solid fa-plus mr-2"></i>
+                            </x-button>
                         </a>
+                    @endif
+                </div>
+            </x-slot>
+        </x-body-card>
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-3">
+            @foreach ($posts as $post)
+                <div class="bg-white border-2 border-gray-200 rounded-xl flex flex-col p-4 h-full">
+                    <div class="flex justify-center mb-4">
+                        <img src="{{ $post->image ? asset('storage/' . $post->image->url) : asset('assets/img/profile.png') }}"
+                            class="w-24 h-24 rounded-xl object-cover border" alt="Post image">
+                    </div>
+
+                    <div class="text-center flex-1">
+                        <h3 class="text-lg font-semibold text-gray-800">
+                            {{ $post->name }}
+                        </h3>
+                        <p class="text-sm text-gray-500 mt-1">
+                            {{ $post->description ?? '' }}
+                        </p>
+                    </div>
+
+                    <div class="flex justify-center flex-wrap gap-2 mt-auto">
                         @if (session('can_write'))
-                            <a href="{{ route('user-management-system.post.addPost', $post['id']) }}"
-                                class="text-sm/6 font-semibold text-white">
-                                <x-button type="submit"><i class="fa-solid fa-pen-to-square"></i> Edit</x-button>
+                            <a href="{{ route('user-management-system.post.addPost', $post['id']) }}">
+                                <x-button>
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </x-button>
                             </a>
+
                             @if (session('can_delete'))
-                                <button type="submit" id="popup-model"
-                                    class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white"
-                                    onclick="document.getElementById('deleteModal-{{ $post['id'] }}').classList.remove('hidden')"><i
-                                        class="fa-solid fa-xmark"></i> Delete
+                                <button class="rounded-md border px-3 py-2 text-sm font-semibold text-red-500"
+                                    onclick="document.getElementById('deleteModal-{{ $post['id'] }}').classList.remove('hidden')">
+                                    <i class="fa-solid fa-xmark"></i>
                                 </button>
-
-                                <div id="deleteModal-{{ $post['id'] }}"
-                                    class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50">
-
-                                    <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6 text-left">
-                                        <h3 class="text-lg font-semibold text-gray-900">
-                                            Delete post
-                                        </h3>
-
-                                        <p class="mt-2 text-sm text-gray-600">
-                                            Are you sure you want to delete this data?
-                                        </p>
-
-                                        <div class="mt-6 flex justify-end gap-3">
-                                            <button type="button"
-                                                class="shadow  bg-cyan-500 text-white font-bold py-2 px-4 rounded"
-                                                onclick="document.getElementById('deleteModal-{{ $post['id'] }}').classList.add('hidden')">Cancel
-                                            </button>
-
-                                            <a
-                                                href="{{ route('user-management-system.post.deletePost', ['id' => $post['id']]) }}">
-                                                <button type="button"
-                                                    class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white">delete</button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
                             @endif
                         @endif
-                    </td>
-                </tr>
+                    </div>
+                </div>
             @endforeach
-        </tbody>
-    </table>
+        </div>
+
+        <div class="flex justify-center mt-8">
+            {{ $posts->links('pagination::tailwind') }}
+        </div>
+    </div>
+
     <div class="flex justify-center">
         {{ $posts->links('pagination::tailwind') }}
     </div>
-@endsection
-@section('js_content')
-    <script>
-        window.addEventListener('load', (event) => {
-            function popupBox() {
-                console.log("dc");
-                document.getElementById("dept-list-table").innerHTML = "<x-popupbox />";
-            }
-        })
-    </script>
 @endsection

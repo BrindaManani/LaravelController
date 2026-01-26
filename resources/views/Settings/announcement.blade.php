@@ -1,7 +1,7 @@
 @extends('Settings.layout.app')
 @extends('Settings.includes.header')
 @section('content')
-    <div class="flex-1 bg-white border-2 boder-gray-800 rounded-xl p-3 h-fit mr-8">
+    <div class="flex-1 bg-white border-2 boder-gray-800 rounded-xl p-3 h-fit">
         @if (session('success') || session('alert'))
             <x-alert class="bg-green-50 text-green-700 px-3 py-2 border border-green-300 rounded text-sm mb-3 mt-3">
                 {{ session('success') }}
@@ -38,7 +38,8 @@
                 <div class="flex-1">
                     <label for="link_text" class="block text-gray-700 text-sm font-semibold mb-1 ">Link Text
                     </label>
-                    <input type="text" name="link_text" id="link_text" value="{{ $announcement->link ?? old('link-text') }}"
+                    <input type="text" name="link_text" id="link_text"
+                        value="{{ $announcement->link ?? old('link-text') }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
                     @error('link_text')
                         <div class="text-red-500 text-xs mt-1">{{ $message }}</div>

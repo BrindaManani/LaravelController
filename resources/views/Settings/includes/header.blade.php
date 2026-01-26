@@ -1,6 +1,11 @@
 @section('header')
     <header class="border-2 boder-gray-800 bg-white">
         <nav class="flex max-w-auto items-center justify-between p-5">
+            <button
+    id="sidebarToggle"
+    class="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow">
+    <i class="fa-solid fa-bars text-xl"></i>
+</button>
             <div class="flex items-center gap-3">
                 @if ($settings->site_logo)
                     <img src="{{ asset('storage/' . $settings->site_logo) }}" alt="{{ $settings->site_name }} Logo"

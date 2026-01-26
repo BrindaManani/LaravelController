@@ -1,8 +1,7 @@
 @extends('Settings.layout.app')
-@extends('Settings.includes.header')
 @section('content')
-    <div class="grid grid-cols-2 w-full">
-        <div class="flex-1 bg-white border-2 boder-gray-800 rounded-xl p-3 h-fit mr-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+        <div class="bg-white border-2 border-gray-200 rounded-xl p-4 h-auto">
             @if (session('success') || session('alert'))
                 <x-alert class="bg-green-50 text-green-700 px-3 py-2 border border-green-300 rounded text-sm mb-3 mt-3">
                     {{ session('success') }}
@@ -22,34 +21,50 @@
             <div>
                 <x-body-card><x-slot name="title">Personal Information</x-slot>
                 </x-body-card>
-                <form method="post" action="{{ route('general-settings-update') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('user-management-system.team.createTeam') }}"
+                    enctype="multipart/form-data">
                     @csrf
-                    <div class="flex flex-row gap-6 items-start my-6">
-                        <div class="flex-1">
-                            <label for="first_name" class="block text-gray-700 text-sm font-semibold mb-1 ">First Name<span
+                    <div class="flex items-center gap-3 mt-3">
+                        <div class="w-16 h-16 rounded-full border-2 border-gray-300 shadow overflow-hidden bg-gray-100">
+                            <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }} Logo"
+                                class="h-10 w-auto object-contain">
+                        </div>
+
+                        <div>
+                            <label for="avatarInput"
+                                class="flex items-center gap-1 px-2 py-1 text-xs border border-gray-300 rounded-md cursor-pointer
+                   text-gray-600 hover:bg-gray-100">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5-5 5 5M12 5v12" />
+                                </svg>
+                                Upload
+                            </label>
+
+                            <input type="file" id="avatarInput" name="avatar" accept="image/*" class="hidden"
+                                onchange="previewImage(event)">
+                        </div>
+                    </div>
+
+
+
+                    <div class="flex flex-col md:flex-row gap-4 my-6">
+                        <div class="w-full">
+                            <label for="name" class="block text-gray-700 text-sm font-semibold mb-1 ">Full Name<span
                                     class="text-red-500">
                                     *</span></label>
-                            <input type="text" name="first_name" id="first_name" placeholder="Enter first name"
-                                value="{{ $settings->first_name ?? old('first_name') }}"
+                            <input type="text" name="name" id="name" placeholder="Enter first name"
+                                value="{{ $settings->name ?? old('name') }}"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
-                            @error('first_name')
-                                <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="flex-1">
-                            <label for="last_name" class="block text-gray-700 text-sm font-semibold mb-1 ">Last
-                                Description<span class="text-red-500"> *</span></label>
-                            <input type="text" name="last_name" id="last_name" placeholder="Enter last name"
-                                value="{{ $settings->last_name ?? old('last_name') }}"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
-                            @error('last_name')
+                            @error('name')
                                 <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                     <div class="flex flex-row justify-around gap-6 my-6">
                         <div class="flex flex-row gap-6 w-full">
-                            <div class="flex-1">
+                            <div class="w-full">
                                 <label for="email" class="block text-gray-700 text-sm font-semibold mb-1 ">Email<span
                                         class="text-red-500"> *</span>
                                 </label>
@@ -60,7 +75,7 @@
                                     <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="flex-1">
+                            <div class="w-full">
                                 <label for="phone" class="block text-gray-700 text-sm font-semibold mb-1 ">Phone<span
                                         class="text-red-500"> *</span>
                                 </label>
@@ -73,8 +88,40 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-row gap-6 items-start my-6">
-                        <div class="flex-1">
+                    <div class="flex flex-row justify-around gap-6 my-6">
+                        <div class="flex flex-row gap-6 w-full">
+                            <div class="w-full">
+                                <label for="email"
+                                    class="block text-gray-700 text-sm font-semibold mb-1 ">Department<span
+                                        class="text-red-500"> *</span>
+                                </label>
+                                <select name="default_language" id="default_language"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
+                                    @foreach ($departments as $department)
+                                        <option value="{{ $department->id }}"
+                                            {{ $department->id == ($user->user_department->department->id ?? '') ? 'selected' : '' }}>
+                                            {{ $department->department }}</option>
+                                    @endforeach
+                                </select>
+                                @error('email')
+                                    <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label for="phone" class="block text-gray-700 text-sm font-semibold mb-1 ">User
+                                    Code<span class="text-red-500"> *</span>
+                                </label>
+                                <input type="text" name="phone" id="phone" placeholder="ADM-001"
+                                    value="{{ $settings->phone ?? old('phone') }}"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
+                                @error('phone')
+                                    <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-4 my-6">
+                        <div class="w-full">
                             <label for="default_language" class="block text-gray-700 text-sm font-semibold mb-1 ">Select
                                 Language</label>
                             <select name="default_language" id="default_language"
@@ -98,9 +145,7 @@
                                 <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-                    <div class="flex flex-row gap-6 items-start my-6">
-                        <div class="flex-1">
+                        <div class="w-full">
                             <label for="default_language" class="block text-gray-700 text-sm font-semibold mb-1 ">Select
                                 Country</label>
                             <select name="select_country" id="select_country"
@@ -123,14 +168,14 @@
                         </div>
                     </div>
                     <div class="flex flex-row gap-6 items-start my-6 border-b">
-                        <div class="flex-1">
+                        <div class="w-full">
                             <label for="address" class="block text-gray-700 font-bold mb-1">Address</label>
                             <textarea type="text" name="address" id="address" placeholder=""
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"></textarea>
                         </div>
                     </div>
-                    <div class="flex flex-row gap-6 items-start my-6">
-                        <div class="flex-1">
+                    <div class="flex flex-col md:flex-row gap-4 my-6">
+                        <div class="w-full">
                             <label for="password" class="block text-gray-700 text-sm font-semibold mb-1 ">Password<span
                                     class="text-red-500"> *</span>
                             </label>
@@ -141,8 +186,8 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="flex flex-row gap-6 items-start my-6">
-                        <div class="flex-1">
+                    <div class="flex flex-col md:flex-row gap-4 my-6">
+                        <div class="w-full">
                             <label for="confirm_password" class="block text-gray-700 text-sm font-semibold mb-1 ">Confirm
                                 Password<span class="text-red-500"> *</span>
                             </label>
@@ -154,16 +199,16 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="flex flex-row gap-6 items-start my-6">
-                        <div class="flex-1">
+                    <div class="flex flex-col md:flex-row gap-4 my-6">
+                        <div class="w-full">
                             <div class="flex justify-between">
-                                <div class="flex-1">Send Welcome Mail<p>Send walcome email to new users after regitration.
+                                <div class="w-full">Send Welcome Mail<p>Send walcome email to new users after
+                                        regitration.
                                 </div>
                                 <div class="flex">
-                                    <label for="hs-basic-usage" class="relative inline-block w-11 h-6 cursor-pointer"
+                                    <label for="mail-toggle" class="relative inline-block w-11 h-6 cursor-pointer"
                                         id="toggle">
-                                        <input type="checkbox" name="statusBtn" id="hs-basic-usage"
-                                            class="peer sr-only">
+                                        <input type="checkbox" name="mail-toggle" id="mail-toggle" class="peer sr-only">
                                         <span
                                             class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-500"></span>
                                         <span
@@ -173,9 +218,10 @@
                             </div>
 
                         </div>
-                        <div class="flex-1">
+                        <div class="w-full">
                             <div class="flex justify-between">
-                                <div class="flex-1">Is varified User<p>Mark email as verified or send verification email
+                                <div class="w-full">Is varified User<p>Mark email as verified or send verification
+                                        email
                                 </div>
                                 <div class="flex">
                                     <label for="hs-basic-usage" class="relative inline-block w-11 h-6 cursor-pointer"
@@ -196,20 +242,21 @@
                 </form>
             </div>
         </div>
-        <div class="flex-1 bg-white border-2 boder-gray-800 rounded-xl p-3 h-fit mr-8">
+        <div class="bg-white border-2 border-gray-200 rounded-xl p-4 h-auto">
             <x-body-card><x-slot name="title">Roles & Permissions</x-slot>
             </x-body-card>
-            <form method="post" action="{{ route('general-settings-update') }}" enctype="multipart/form-data">
-                @csrf
-                <div class="flex flex-row gap-6 items-start my-6">
-                    <div class="flex-1">
-                        <div class="flex justify-between">
-                            <div class="flex-1">Send Welcome Mail<p>Send walcome email to new users after regitration.
-                            </div>
-                            <div class="flex">
-                                <label for="hs-basic-usage" class="relative inline-block w-11 h-6 cursor-pointer"
+            <div class="flex flex-col md:flex-row gap-4 my-6">
+                <div class="w-full">
+                    <div class="flex justify-between">
+                        <div class="w-full">Administartor Access<p>Administrator access have unrestricted access to all
+                                features and functions.
+                        </div>
+                        <div class="flex">
+                            <div class="flex justify-end">
+                                <label for="permission-toggle" class="relative inline-block w-11 h-6 cursor-pointer"
                                     id="toggle">
-                                    <input type="checkbox" name="statusBtn" id="hs-basic-usage" class="peer sr-only">
+                                    <input type="checkbox" name="permission-toggle" id="permission-toggle"
+                                        class="peer sr-only">
                                     <span
                                         class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-500"></span>
                                     <span
@@ -217,30 +264,33 @@
                                 </label>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
-                <div class="flex flex-row gap-6 items-start my-6">
-                    <div class="flex-1">
+            </div>
+
+            <form method="post" action="{{ route('general-settings-update') }}" enctype="multipart/form-data"
+                id="permissionForm">
+                @csrf
+                <div class="flex flex-col md:flex-row gap-4 my-6">
+                    <div class="w-full">
                         <label for="default_language" class="block text-gray-700 text-sm font-semibold mb-1 ">Role<span
                                 class="text-red-500">
                                 *</span>
                         </label>
                         <select name="default_language" id="default_language"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
-                            <option value="English-Uk"
-                                {{ $settings->default_language == 'English-UK' ? 'selected' : '' }}>
-                                English-UK
+                            <option value="user">
+                                User
                             </option>
-                            <option value="Spanish" {{ $settings->default_language == 'Spanish' ? 'selected' : '' }}>
-                                Spanish
+                            <option value="admin">
+                                Admin
                             </option>
-                            <option value="English-USA"
-                                {{ $settings->default_language == 'Englsih-USA' ? 'selected' : '' }}>
-                                English-USA
+                            <option value="manager">
+                                Manager
                             </option>
-                            <option value="French" {{ $settings->default_language == 'French' ? 'selected' : '' }}>
-                                French
+                            <option value="support">
+                                Support
                             </option>
                         </select>
                         @error('language')
@@ -255,4 +305,13 @@
             </form>
         </div>
     </div>
+    <x-card-footer></x-card-footer>
+    <script>
+        const toggle = document.getElementById('permission-toggle');
+        const form = document.getElementById('permissionForm');
+
+        toggle.addEventListener('change', () => {
+            form.classList.toggle('hidden', toggle.checked);
+        });
+    </script>
 @endsection()
