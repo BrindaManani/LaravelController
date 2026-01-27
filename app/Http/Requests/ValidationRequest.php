@@ -27,7 +27,7 @@ class ValidationRequest extends FormRequest
         $role = $this->input('radioBtn');
         $rules = [
             'name' => 'required|regex:/^[a-zA-Z\s]/',
-            'last_name' => 'required|regex:/^[a-zA-Z\s]/',
+            // 'last_name' => 'required|regex:/^[a-zA-Z\s]/',
             'email' => 'required|email|unique:userdetails,email,'.$id,
             'password' => 'required|string|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/',
             'confirm_password' => 'required|same:password',

@@ -1,29 +1,29 @@
 @extends('Settings.layout.app')
 @section('content')
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-        <div class="bg-white border-2 border-gray-200 rounded-xl p-4 h-auto">
-            @if (session('success') || session('alert'))
-                <x-alert class="bg-green-50 text-green-700 px-3 py-2 border border-green-300 rounded text-sm mb-3 mt-3">
-                    {{ session('success') }}
-                </x-alert>
-                <x-alert class="text-center bg-red-200 text-xl text-red-700">
-                    {{ session('alert') }}
-                </x-alert>
-                <script>
-                    setTimeout(() => {
-                        const msg = document.getElementById('success-message');
-                        if (msg) {
-                            msg.remove();
-                        }
-                    }, 2000);
-                </script>
-            @endif
-            <div>
-                <x-body-card><x-slot name="title">Personal Information</x-slot>
-                </x-body-card>
-                <form method="post" action="{{ route('user-management-system.team.createTeam') }}"
-                    enctype="multipart/form-data">
-                    @csrf
+    <form method="post" action="{{ route('create-user') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+            <div class="bg-white border-2 border-gray-200 rounded-xl p-4 h-auto">
+                @if (session('success') || session('alert'))
+                    <x-alert class="bg-green-50 text-green-700 px-3 py-2 border border-green-300 rounded text-sm mb-3 mt-3">
+                        {{ session('success') }}
+                    </x-alert>
+                    <x-alert class="text-center bg-red-200 text-xl text-red-700">
+                        {{ session('alert') }}
+                    </x-alert>
+                    <script>
+                        setTimeout(() => {
+                            const msg = document.getElementById('success-message');
+                            if (msg) {
+                                msg.remove();
+                            }
+                        }, 2000);
+                    </script>
+                @endif
+                <div>
+                    <x-body-card><x-slot name="title">Personal Information</x-slot>
+                    </x-body-card>
+
                     <div class="flex items-center gap-3 mt-3">
                         <div class="w-16 h-16 rounded-full border-2 border-gray-300 shadow overflow-hidden bg-gray-100">
                             <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }} Logo"
@@ -31,7 +31,7 @@
                         </div>
 
                         <div>
-                            <label for="avatarInput"
+                            <label for="avatar"
                                 class="flex items-center gap-1 px-2 py-1 text-xs border border-gray-300 rounded-md cursor-pointer
                    text-gray-600 hover:bg-gray-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
@@ -42,7 +42,7 @@
                                 Upload
                             </label>
 
-                            <input type="file" id="avatarInput" name="avatar" accept="image/*" class="hidden"
+                            <input type="file" id="avatar" name="avatar" accept="image/*" class="hidden"
                                 onchange="previewImage(event)">
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                                 Password<span class="text-red-500"> *</span>
                             </label>
                             <input type="password" name="confirm_password" id="confirm_password"
-                                placeholder="Entyer your confirm_password"
+                                placeholder="Entyer  confirm_password"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
                             @error('confirm_password')
                                 <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
@@ -239,79 +239,73 @@
                         </div>
                     </div>
 
-                </form>
-            </div>
-        </div>
-        <div class="bg-white border-2 border-gray-200 rounded-xl p-4 h-auto">
-            <x-body-card><x-slot name="title">Roles & Permissions</x-slot>
-            </x-body-card>
-            <div class="flex flex-col md:flex-row gap-4 my-6">
-                <div class="w-full">
-                    <div class="flex justify-between">
-                        <div class="w-full">Administartor Access<p>Administrator access have unrestricted access to all
-                                features and functions.
-                        </div>
-                        <div class="flex">
-                            <div class="flex justify-end">
-                                <label for="permission-toggle" class="relative inline-block w-11 h-6 cursor-pointer"
-                                    id="toggle">
-                                    <input type="checkbox" name="permission-toggle" id="permission-toggle"
-                                        class="peer sr-only">
-                                    <span
-                                        class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-500"></span>
-                                    <span
-                                        class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-sm transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-
-            <form method="post" action="{{ route('general-settings-update') }}" enctype="multipart/form-data"
-                id="permissionForm">
-                @csrf
+            <div class="bg-white border-2 border-gray-200 rounded-xl p-4 h-auto">
+                <x-body-card><x-slot name="title">Roles & Permissions</x-slot>
+                </x-body-card>
                 <div class="flex flex-col md:flex-row gap-4 my-6">
                     <div class="w-full">
-                        <label for="default_language" class="block text-gray-700 text-sm font-semibold mb-1 ">Role<span
-                                class="text-red-500">
-                                *</span>
-                        </label>
-                        <select name="default_language" id="default_language"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
-                            <option value="user">
-                                User
-                            </option>
-                            <option value="admin">
-                                Admin
-                            </option>
-                            <option value="manager">
-                                Manager
-                            </option>
-                            <option value="support">
-                                Support
-                            </option>
-                        </select>
-                        @error('language')
-                            <div class="text-red-500 text-xs mt-1">{{ $message }}</div>
-                        @enderror
+                        <div class="flex justify-between">
+                            <div class="w-full">Administartor Access<p>Administrator access have unrestricted access to all
+                                    features and functions.
+                            </div>
+                            <div class="flex">
+                                <div class="flex justify-end">
+                                    <label for="permission-toggle" class="relative inline-block w-11 h-6 cursor-pointer"
+                                        id="toggle">
+                                        <input type="checkbox" name="permission-toggle" id="permission-toggle"
+                                            class="peer sr-only">
+                                        <span
+                                            class="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-blue-500"></span>
+                                        <span
+                                            class="absolute top-1/2 start-0.5 -translate-y-1/2 size-5 bg-white rounded-full shadow-sm transition-transform duration-200 ease-in-out peer-checked:translate-x-full"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="">
-                    <x-permission-table></x-permission-table>
+                <div id="permissionForm">
+                    <div class="flex flex-col md:flex-row gap-4 my-6">
+                        <div class="w-full">
+                            <label for="role" class="block text-gray-700 text-sm font-semibold mb-1 ">Role<span
+                                    class="text-red-500">
+                                    *</span>
+                            </label>
+                            <select name="role" id="role"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5">
+                                @foreach ($roles as $role)
+                                    <option value={{ $role->id }}>
+                                        {{ $role->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="">
+                        <x-permission-table></x-permission-table>
+                    </div>
                 </div>
-
-            </form>
+                <div class="px-3 py-2 border border-yello-300 rounded text-sm mb-3 mt-3 hidden" id="message"
+                    style="color: {{ $textColor }}; border: 1px solid {{ $textColor }}; opacity:0.8">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Important Configuration Notice<p>Make sure to select
+                        reCAPTCHA v3 when setting up your credentials. Using
+                        incorrect settings may cause authentication system interruptions.</p>
+                </div>
+            </div>
         </div>
-    </div>
-    <x-card-footer></x-card-footer>
+        <x-card-footer></x-card-footer>
+    </form>
     <script>
         const toggle = document.getElementById('permission-toggle');
         const form = document.getElementById('permissionForm');
+        const message = document.getElementById('message');
 
         toggle.addEventListener('change', () => {
             form.classList.toggle('hidden', toggle.checked);
+            message.classList.toggle('hidden', !toggle.checked);
         });
     </script>
 @endsection()

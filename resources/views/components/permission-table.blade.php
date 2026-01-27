@@ -1,5 +1,3 @@
-<div>
-
 
     <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-xl border border-gray-300">
         <table class="w-full text-sm text-left rtl:text-right text-body">
@@ -20,28 +18,24 @@
                     </th>
                     <td class="px-6 py-4 flex justify-around">
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="user-view" name="permissions[user][view]" type="checkbox" value="user.view"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">View</label>
+                            <label for="user-view" class="select-none ms-2 text-sm font-medium text-heading">View</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="user-create" name="permissions[user][create]" type="checkbox" value="user.create"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Create</label>
+                            <label for="user-create" class="select-none ms-2 text-sm font-medium text-heading">Create</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="user-edit" name="permissions[user][edit]" type="checkbox" value="user.edit"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Edit</label>
+                            <label for="user-edit" class="select-none ms-2 text-sm font-medium text-heading">Edit</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="user-delete" name="permissions[user][delete]" type="checkbox" value="user.delete"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Delete</label>
+                            <label for="user-delete" class="select-none ms-2 text-sm font-medium text-heading">Delete</label>
                         </div>
                     </td>
                 </tr>
@@ -51,28 +45,24 @@
                     </th>
                     <td class="px-6 py-4 flex justify-around">
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="department-view" name="permissions[department][view]" type="checkbox" value="department.view"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">View</label>
+                            <label for="department-view" class="select-none ms-2 text-sm font-medium text-heading">View</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="department-create" name="permissions[department][create]" type="checkbox" value="department.create"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Create</label>
+                            <label for="department-create" class="select-none ms-2 text-sm font-medium text-heading">Create</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="department-edit" name="permissions[department][edit]" type="checkbox" value="department.edit"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Edit</label>
+                            <label for="department-edit" class="select-none ms-2 text-sm font-medium text-heading">Edit</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="department-delete" name="permissions[department][delete]" type="checkbox" value="department.delete"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Delete</label>
+                            <label for="department-delete" class="select-none ms-2 text-sm font-medium text-heading">Delete</label>
                         </div>
                     </td>
                 </tr>
@@ -82,28 +72,24 @@
                     </th>
                     <td class="px-6 py-4 flex justify-around">
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="team-view" name="permissions[team][view]" type="checkbox" value="team.view"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">View</label>
+                            <label for="team-view" class="select-none ms-2 text-sm font-medium text-heading">View</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="team-create" name="permissions[team][create]" type="checkbox" value="team.create"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Create</label>
+                            <label for="team-create" class="select-none ms-2 text-sm font-medium text-heading">Create</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="team-edit" name="permissions[team][edit]" type="checkbox" value="team.edit"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Edit</label>
+                            <label for="team-edit" class="select-none ms-2 text-sm font-medium text-heading">Edit</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="team-delete" name="permissions[team][delete]" type="checkbox" value="team.delete"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Delete</label>
+                            <label for="team-delete" class="select-none ms-2 text-sm font-medium text-heading">Delete</label>
                         </div>
                     </td>
                 </tr>
@@ -113,16 +99,24 @@
                     </th>
                     <td class="px-6 py-4 flex justify-around">
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="post-view" name="permissions[post][view]" type="checkbox" value="post.view"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">View</label>
+                            <label for="post-view" class="select-none ms-2 text-sm font-medium text-heading">View</label>
                         </div>
                         <div class="flex items-center mb-4">
-                            <input id="default-checkbox" type="checkbox" value=""
+                            <input id="post-create" name="permissions[post][create]" type="checkbox" value="post.create"
                                 class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
-                            <label for="default-checkbox"
-                                class="select-none ms-2 text-sm font-medium text-heading">Edit</label>
+                            <label for="post-create" class="select-none ms-2 text-sm font-medium text-heading">Create</label>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <input id="post-edit" name="permissions[post][edit]" type="checkbox" value="post.edit"
+                                class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
+                            <label for="post-edit" class="select-none ms-2 text-sm font-medium text-heading">Edit</label>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <input id="post-delete" name="permissions[post][delete]" type="checkbox" value="post.delete"
+                                class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft">
+                            <label for="post-delete" class="select-none ms-2 text-sm font-medium text-heading">Delete</label>
                         </div>
                     </td>
                 </tr>
@@ -130,4 +124,3 @@
         </table>
     </div>
 
-</div>

@@ -40,12 +40,12 @@
             <li>
                 <a href="{{ route('role') }}" class="block px-2 py-1 text-gray-500 rounded-xl"
                     style="<?= request()->is('role*') ? 'color: ' . $textColor . ';background-color: rgba(' . $textColorRgb . ', 0.2);' : '' ?>">
-                    Roll
+                    Role
                 </a>
             </li>
             <li>
-                <a href="{{ route('create-user') }}" class="block px-2 py-1 text-gray-500 rounded-xl"
-                    style="<?= request()->is('create-user*') ? 'color: ' . $textColor . ';background-color: rgba(' . $textColorRgb . ', 0.2);' : '' ?>">
+                <a href="{{ route('add-user') }}" class="block px-2 py-1 text-gray-500 rounded-xl"
+                    style="<?= request()->is('add-user*') ? 'color: ' . $textColor . ';background-color: rgba(' . $textColorRgb . ', 0.2);' : '' ?>">
                     Permissions
                 </a>
             </li>

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Tailwind\HomeController as TailwindHomeController;
@@ -110,8 +111,11 @@ Route::prefix('settings')->group(function () {
     Route::post('/announcement-settings-update', [SettingController::class, 'announcement_update'])->name('announcement-settings-update');
 });
 // });
-Route::get('/create-user', [SettingController::class, 'create_user'])->name('create-user');
-Route::get('/role', [SettingController::class, 'role'])->name('role');
-
+Route::get('/add-user', [RoleController::class, 'add_user'])->name('add-user');
+Route::post('/create-user', [RoleController::class, 'create_user'])->name('create-user');
+Route::get('/role', [RoleController::class, 'role'])->name('role');
+Route::get('/add-role/{id?}', [RoleController::class, 'add_role'])->name('add-role');
+Route::post('/create-role/{id?}', [RoleController::class, 'create_role'])->name('create-role');
+Route::get('/delete-role/{id?}', [RoleController::class, 'delete_role'])->name('delete-role');
 
 require __DIR__ . '/auth.php';

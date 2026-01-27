@@ -13,11 +13,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -30,7 +31,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'role',
+        'role_id',
         'status',
         'gender',
         'dob',
@@ -42,6 +43,8 @@ class User extends Authenticatable
         'permission',
         'avatar',
         'department',
+        'is_admin',
+        
     ];
 
     /**

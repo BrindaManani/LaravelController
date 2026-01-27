@@ -193,13 +193,5 @@ class SettingController extends Controller
         }
     }
 
-    public function create_user(GeneralSettings $settings)
-    {
-        $departments = Department::get();
-        return view('roll-permissions.create-user', compact('settings', 'departments'));
-    }
-    public function role(GeneralSettings $settings)
-    {
-        return view('roll-permissions.role', compact('settings'));
-    }
+    
 }
